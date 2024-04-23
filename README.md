@@ -1,2 +1,2 @@
 # Blog
-Tistory Skin 제작
+나만의 블로그 제작
