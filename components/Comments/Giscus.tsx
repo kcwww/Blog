@@ -1,11 +1,14 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTheme } from 'next-themes';
 
 const Giscus = () => {
+  const [isMounted, setIsMounted] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const { resolvedTheme } = useTheme();
+
+  useEffect(() => setIsMounted(true), []);
 
   // https://github.com/giscus/giscus/tree/main/styles/themes
   const theme = resolvedTheme === 'dark' ? 'dark' : 'light';
@@ -50,6 +53,8 @@ const Giscus = () => {
       'https://giscus.app'
     );
   }, [theme]);
+
+  if (!isMounted) return null;
 
   return <section ref={ref} />;
 };
