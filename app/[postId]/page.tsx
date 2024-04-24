@@ -12,6 +12,7 @@ export const generateMetadata = async (
 ) => {
   const id = params.postId;
   const previousTitle = (await parent).title || '';
+  console.log(previousTitle);
 
   return {
     title: `Post ${id} | ${previousTitle}`,
