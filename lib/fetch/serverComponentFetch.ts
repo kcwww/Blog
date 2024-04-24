@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation';
 
-import { BACKEND_ORIGIN } from '@/constants/url';
+import { ORIGIN } from '@/constants/url';
 
 const serverComponentFetch = async (url: string, init?: RequestInit) => {
   const defaultInit: RequestInit = {
@@ -13,7 +13,7 @@ const serverComponentFetch = async (url: string, init?: RequestInit) => {
   const finalInit = init ? { ...defaultInit, ...init } : defaultInit;
 
   try {
-    const res = await fetch(BACKEND_ORIGIN + url, finalInit);
+    const res = await fetch(ORIGIN + url, finalInit);
     const data = await res.json();
     return data;
   } catch (error) {
