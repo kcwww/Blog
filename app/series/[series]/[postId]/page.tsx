@@ -11,8 +11,7 @@ export const generateMetadata = async (
   parent: ResolvingMetadata
 ) => {
   const id = params.postId;
-  const previousTitle = (await parent).title || '';
-  console.log(previousTitle);
+  const previousTitle = (await parent).title?.absolute;
 
   return {
     title: `Post ${id} | ${previousTitle}`,
@@ -20,7 +19,7 @@ export const generateMetadata = async (
     alternate: {
       canonical: `${ORIGIN}/${id}`,
     },
-  };
+  } as Metadata;
 };
 
 const PostPage = ({ params }: { params: { postId: string } }) => {
