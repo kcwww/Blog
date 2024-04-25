@@ -6,7 +6,6 @@ import { BLOGDB, loginUser } from '@/lib/Firebase';
 
 const POST = async (req: NextRequest) => {
   const session = await getServerSession();
-  console.log('session', session);
 
   if (!session) {
     return NextResponse.json(

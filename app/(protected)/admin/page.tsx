@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 
 import { BACKEND_ROUTES, ROUTES } from '@/constants/routes';
+import PostForm from '@/components/Form/PostForm';
 
 const AdminPage = () => {
   const { data: session, status } = useSession();
@@ -27,10 +28,9 @@ const AdminPage = () => {
   }, [status]);
 
   return (
-    <div className="">
-      <h1>Admin Page</h1>
-      <p>Admin content</p>
-    </div>
+    <>
+      <PostForm />
+    </>
   );
 };
 
