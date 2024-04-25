@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils';
 import ThemeProvider from '@/components/provider/ThemeProvider';
 import Header from '@/components/Header';
 import ScrollToTopButton from '@/components/ui/ScrollToTopButton';
+import Footer from '@/components/Footer';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -31,6 +32,7 @@ export default function RootLayout({
           <Header />
           {children}
           <ScrollToTopButton />
+          <Footer />
         </ThemeProvider>
       </body>
     </html>
