@@ -6,4 +6,8 @@ const ROUTES = {
   PORTFOLIO: '/portfolio',
 } as const;
 
-export { ROUTES };
+const BACKEND_ROUTES = {
+  LOGIN: '/api/auth/signin',
+} as const;
+
+export { ROUTES, BACKEND_ROUTES };
