@@ -5,14 +5,15 @@ import './globals.css';
 import { cn } from '@/lib/utils';
 import ThemeProvider from '@/components/provider/ThemeProvider';
 import Header from '@/components/Header';
+import MainSection from '@/components/Main/MainSection';
 import ScrollToTopButton from '@/components/ui/ScrollToTopButton';
 import Footer from '@/components/Footer';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: '찬우얌의 블로그',
-  description: 'Frontend Developer 찬우얌의 블로그입니다.',
+  title: '망그러진 블로그',
+  description: 'Frontend Developer 찬우얌 블로그입니다.',
 };
 
 const RootLayout = ({
@@ -31,7 +32,7 @@ const RootLayout = ({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <main className="w-full p-8">
             <Header />
-            {children}
+            <MainSection>{children}</MainSection>
             <ScrollToTopButton />
             <Footer />
           </main>

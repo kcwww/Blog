@@ -7,7 +7,7 @@ import ToggleThemeButton from '@/components/Header/ToggleThemeButton';
 
 const Header = () => {
   return (
-    <header className="w-full flex gap-2">
+    <header className="w-full flex gap-2 mb-4">
       <Navbar />
       <div className="ml-auto flex flex-col sm:flex-row w-fit sm:min-w-[21rem] gap-4 items-center bg-gray-400 dark:bg-gray-700 p-2 rounded-lg sm:px-4">
         <div className="flex items-center gap-2">

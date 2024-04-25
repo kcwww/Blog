@@ -1,10 +1,7 @@
+import MainSection from '@/app/(landing)/_components/MainSection';
+
 const ArchivesPage = () => {
-  return (
-    <div>
-      <h1>Archives</h1>
-      <p>Archives page content</p>
-    </div>
-  );
+  return <MainSection />;
 };
 
 export default ArchivesPage;

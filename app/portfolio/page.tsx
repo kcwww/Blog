@@ -1,9 +1,7 @@
+import MainSection from '@/app/(landing)/_components/MainSection';
+
 const PortfolioPage = () => {
-  return (
-    <div>
-      <h1>Portfolio</h1>
-    </div>
-  );
+  return <MainSection />;
 };
 
 export default PortfolioPage;
