@@ -5,6 +5,7 @@ import './globals.css';
 import { cn } from '@/lib/utils';
 import ThemeProvider from '@/components/provider/ThemeProvider';
 import Header from '@/components/Header';
+import ScrollToTopButton from '@/components/ui/ScrollToTopButton';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -29,6 +30,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Header />
           {children}
+          <ScrollToTopButton />
         </ThemeProvider>
       </body>
     </html>
