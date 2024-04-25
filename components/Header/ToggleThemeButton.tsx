@@ -16,7 +16,7 @@ const ToggleThemeButton = () => {
 
   return (
     <Button
-      className="bg-transparent dark:hover:bg-gray-800 hover:bg-gray-200 p-0 w-9 h-9"
+      className="bg-transparent dark:hover:bg-gray-800 hover:bg-gray-200 p-0 w-8 h-8"
       onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
     >
       {theme === 'dark' ? <Moon color="#ffd700" /> : <Sun color="#ffd700" />}

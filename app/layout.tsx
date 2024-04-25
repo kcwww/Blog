@@ -29,7 +29,7 @@ const RootLayout = ({
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <main className="w-full py-8">
+          <main className="w-full p-8">
             <Header />
             {children}
             <ScrollToTopButton />
