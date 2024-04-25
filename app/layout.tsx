@@ -38,7 +38,7 @@ const RootLayout = ({
               <MainSection>{children}</MainSection>
               <ScrollToTopButton />
               <Footer />
-              <Toaster />
+              <Toaster richColors />
             </main>
           </AuthProvider>
         </ThemeProvider>
