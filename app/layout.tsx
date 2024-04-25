@@ -29,10 +29,12 @@ const RootLayout = ({
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <Header />
-          {children}
-          <ScrollToTopButton />
-          <Footer />
+          <main className="w-full py-8">
+            <Header />
+            {children}
+            <ScrollToTopButton />
+            <Footer />
+          </main>
         </ThemeProvider>
       </body>
     </html>
