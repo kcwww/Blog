@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import { cn } from '@/lib/utils';
 import ThemeProvider from '@/components/provider/ThemeProvider';
+import AuthProvider from '@/components/provider/AuthProvider';
 import Header from '@/components/Header';
 import MainSection from '@/components/Main/MainSection';
 import ScrollToTopButton from '@/components/ui/ScrollToTopButton';
@@ -30,12 +31,14 @@ const RootLayout = ({
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <main className="w-full p-8">
-            <Header />
-            <MainSection>{children}</MainSection>
-            <ScrollToTopButton />
-            <Footer />
-          </main>
+          <AuthProvider>
+            <main className="w-full p-8">
+              <Header />
+              <MainSection>{children}</MainSection>
+              <ScrollToTopButton />
+              <Footer />
+            </main>
+          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>
