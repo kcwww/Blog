@@ -23,7 +23,7 @@ export default function RootLayout({
       <body
         className={cn(
           inter.className,
-          'dark:bg-gray-900 bg-gray-300 transition-colors duration-300 ease-out'
+          'dark:bg-gray-900 bg-gray-300 transition-colors duration-300 ease-out lg:mx-[14rem]'
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
