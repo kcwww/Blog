@@ -6,6 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { toast } from 'sonner';
+import { marked } from 'marked';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -62,6 +63,21 @@ const PostForm = () => {
     } catch (e) {
       toast.error('포스팅 실패 !');
     }
+  };
+
+  const previewMarkdown = () => {
+    const content = form.getValues('content');
+    const htmlContent = marked(content);
+    const windowFeatures = 'left=100,top=100,width=960,height=960';
+    const newWindow = window.open('', '_blank', windowFeatures);
+    if (!newWindow) {
+      return;
+    }
+    newWindow.document.open();
+    newWindow.document.write(
+      `<html><head><title>Markdown Preview</title></head><body>${htmlContent}</body></html>`
+    );
+    newWindow.document.close();
   };
 
   return (
@@ -140,7 +156,12 @@ const PostForm = () => {
           )}
         />
 
-        <Button type="submit">Submit</Button>
+        <div className="flex gap-2 w-1/2">
+          <Button onClick={() => previewMarkdown()} type="button">
+            Preview
+          </Button>
+          <Button type="submit">Submit</Button>
+        </div>
       </form>
     </Form>
   );
