@@ -15,17 +15,17 @@ export const metadata: Metadata = {
   description: 'Frontend Developer 찬우얌의 블로그입니다.',
 };
 
-export default function RootLayout({
+const RootLayout = ({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) {
+}>) => {
   return (
     <html lang="ko">
       <body
         className={cn(
           inter.className,
-          'dark:bg-gray-900 bg-gray-300 transition-colors duration-300 ease-out lg:mx-[14rem]'
+          'dark:bg-gray-900 bg-gray-300 transition-colors duration-300 ease-out lg:mx-[12rem]'
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
@@ -37,4 +37,6 @@ export default function RootLayout({
       </body>
     </html>
   );
-}
+};
+
+export default RootLayout;

@@ -9,7 +9,7 @@ const Header = () => {
   return (
     <header className="w-full flex gap-2">
       <Navbar />
-      <div className="ml-auto flex w-fit gap-4 items-center bg-gray-400 dark:bg-gray-700 p-2 rounded-lg px-4">
+      <div className="ml-auto flex w-[21rem] gap-4 items-center bg-gray-400 dark:bg-gray-700 p-2 rounded-lg px-4">
         <Link href="mailto:cwkim0321@gmail.com">
           <Mail />
         </Link>
