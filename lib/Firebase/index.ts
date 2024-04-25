@@ -1,5 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
@@ -13,6 +14,21 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-// const analytics = getAnalytics(app); // 나중에 추가
+
+const auth = getAuth(app);
+
+export const loginUser = async (email: string) => {
+  try {
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      email,
+      process.env.ADMIN_PASSWORD || ''
+    );
+
+    return userCredential.user;
+  } catch (error) {
+    throw error;
+  }
+};
 
 export const BLOGDB = getFirestore(app);
