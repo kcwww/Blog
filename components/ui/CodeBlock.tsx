@@ -3,8 +3,8 @@
 import { useState, useEffect } from 'react';
 import { ClipboardCopy, Check } from 'lucide-react';
 import 'highlight.js/styles/atom-one-dark.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { oneDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import { atomOneDark } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -75,7 +75,7 @@ const CodeBlock = ({ language, children, ...props }: CodeBlockProps) => {
         showLineNumbers={true}
         language={language}
         {...props}
-        style={oneDark}
+        style={atomOneDark}
         customStyle={{
           padding: '1.5rem',
           borderRadius: '10px',
