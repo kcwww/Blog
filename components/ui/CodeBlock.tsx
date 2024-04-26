@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-import hljs from 'highlight.js';
 import { ClipboardCopy } from 'lucide-react';
 import 'highlight.js/styles/atom-one-dark.css';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
@@ -43,7 +41,7 @@ const CodeBlock = ({ language, children, ...props }: CodeBlockProps) => {
         }}
         component="pre"
       >
-        {String(children).replace(/\n$/, '')}
+        {children.replace(/\n$/, '')}
       </SyntaxHighlighter>
     </div>
   );
