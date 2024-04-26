@@ -9,6 +9,7 @@ const ROUTES = {
 const BACKEND_ROUTES = {
   LOGIN: '/api/auth/signin',
   POST: '/api/post',
+  RECENT: '/api/recent',
 } as const;
 
 export { ROUTES, BACKEND_ROUTES };
