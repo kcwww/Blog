@@ -1,12 +1,11 @@
 'use client';
 
-'use client';
-
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { toast } from 'sonner';
 import { marked } from 'marked';
+import { useRouter } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -20,7 +19,7 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
 import clientComponentFetch from '@/lib/fetch/clientComponentFetch';
-import { BACKEND_ROUTES } from '@/constants/routes';
+import { BACKEND_ROUTES, ROUTES } from '@/constants/routes';
 import type { PostType } from '@/lib/types/PostType';
 
 const postFormSchema = z.object({
@@ -45,21 +44,29 @@ const PostForm = () => {
     },
   });
 
+  const router = useRouter();
+
   const isLoading = form.formState.isSubmitting;
 
   const onSubmit = async (data: z.infer<typeof postFormSchema>) => {
     const tags = data.tags?.split(',').map((tag) => tag.trim());
+    const date = new Date();
+    date.setHours(date.getHours() + 9);
+    const koreaDate = date.toISOString().slice(0, 19).replace('T', ' ');
     const postData = {
       ...data,
       tags,
+      createdAt: koreaDate,
     } as PostType;
     try {
       const res = await clientComponentFetch(BACKEND_ROUTES.POST, {
         method: 'POST',
         body: JSON.stringify(postData),
       });
-      toast.success('포스팅 성공 !');
       form.reset();
+      toast.success('포스팅 성공 !');
+      router.push(ROUTES.LANDING);
+      router.refresh();
     } catch (e) {
       toast.error('포스팅 실패 !');
     }

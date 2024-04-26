@@ -3,4 +3,5 @@ export type PostType = {
   content: string;
   tags: string[];
   thumbnail: string;
+  createdAt: string;
 };
