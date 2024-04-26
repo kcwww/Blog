@@ -11,6 +11,10 @@ export interface CodeBlockProps {
 }
 
 const CodeBlock = ({ language, children, ...props }: CodeBlockProps) => {
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(children);
+  };
+
   return (
     <div className="relative w-full">
       <div className="absolute top-2 w-full px-4">
@@ -23,13 +27,17 @@ const CodeBlock = ({ language, children, ...props }: CodeBlockProps) => {
 
           <div className="hidden md:block text-gray-100 top-3">{language}</div>
 
-          <Button className="ml-auto md:ml-0 text-gray-100 top-3 w-7 h-7 p-0 bg-transparent">
+          <Button
+            onClick={() => copyToClipboard()}
+            className="ml-auto md:ml-0 text-gray-100 top-3 w-7 h-7 p-0 bg-transparent"
+          >
             <ClipboardCopy size={'1.5rem'} />
           </Button>
         </div>
       </div>
 
       <SyntaxHighlighter
+        showLineNumbers={true}
         language={language}
         {...props}
         style={oneDark}
