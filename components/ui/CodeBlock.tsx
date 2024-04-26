@@ -1,9 +1,13 @@
-import { ClipboardCopy } from 'lucide-react';
+'use client';
+
+import { useState, useEffect } from 'react';
+import { ClipboardCopy, Check } from 'lucide-react';
 import 'highlight.js/styles/atom-one-dark.css';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 
 import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 export interface CodeBlockProps {
   language: string;
@@ -11,9 +15,29 @@ export interface CodeBlockProps {
 }
 
 const CodeBlock = ({ language, children, ...props }: CodeBlockProps) => {
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(children);
+  const [animation, setAnimation] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const handleAnimationEnd = () => {
+    setAnimation(false);
+    setCopied(true);
   };
+
+  const copyToClipboard = () => {
+    setCopied(false);
+    navigator.clipboard.writeText(children);
+    setAnimation(true);
+  };
+
+  useEffect(() => {
+    if (copied) {
+      const timeout = setTimeout(() => {
+        setCopied(false);
+      }, 1000);
+
+      return () => clearTimeout(timeout);
+    }
+  }, [copied]);
 
   return (
     <div className="relative w-full">
@@ -29,9 +53,20 @@ const CodeBlock = ({ language, children, ...props }: CodeBlockProps) => {
 
           <Button
             onClick={() => copyToClipboard()}
-            className="ml-auto md:ml-0 text-gray-100 top-3 w-7 h-7 p-0 bg-transparent"
+            className={cn(
+              'ml-auto md:ml-0 text-gray-100 top-3 w-7 h-7 p-0 bg-transparent',
+              animation && 'spin-animation'
+            )}
+            onAnimationEnd={handleAnimationEnd}
           >
-            <ClipboardCopy size={'1.5rem'} />
+            {copied ? (
+              <Check
+                size={'1.5rem'}
+                className={cn('check-icon', copied && 'fade-out')}
+              />
+            ) : (
+              <ClipboardCopy size={'1.5rem'} />
+            )}
           </Button>
         </div>
       </div>
