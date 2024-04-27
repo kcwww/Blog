@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { ClipboardCopy, Check } from 'lucide-react';
 import 'highlight.js/styles/atom-one-dark.css';
 import SyntaxHighlighter from 'react-syntax-highlighter';
@@ -29,16 +29,6 @@ const CodeBlock = ({ language, children, ...props }: CodeBlockProps) => {
     setAnimation(true);
   };
 
-  useEffect(() => {
-    if (copied) {
-      const timeout = setTimeout(() => {
-        setCopied(false);
-      }, 1000);
-
-      return () => clearTimeout(timeout);
-    }
-  }, [copied]);
-
   return (
     <div className="relative w-full">
       <div className="absolute top-2 w-full px-4">
@@ -60,10 +50,7 @@ const CodeBlock = ({ language, children, ...props }: CodeBlockProps) => {
             onAnimationEnd={handleAnimationEnd}
           >
             {copied ? (
-              <Check
-                size={'1.5rem'}
-                className={cn('check-icon', copied && 'fade-out')}
-              />
+              <Check size={'1.5rem'} />
             ) : (
               <ClipboardCopy size={'1.5rem'} />
             )}
