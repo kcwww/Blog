@@ -1,6 +1,10 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Calendar } from 'lucide-react';
 
+import { cn } from '@/lib/utils';
 import { RecievedPostType } from '@/lib/types/PostType';
 import {
   Card,
@@ -15,8 +19,13 @@ import { AspectRatio } from '@/components/ui/aspect-ratio';
 
 const PostCard = (post: RecievedPostType) => {
   return (
-    // hover effect on card bigger
-    <Card className="flex flex-col gap-2 max-h-[24rem] justify-between hover:scale-105 transition-transform">
+    <Card
+      className={cn(
+        'flex flex-col gap-2 max-h-[24rem] justify-between hover:scale-105 transition-transform',
+        'animate-card-enter'
+      )}
+      style={{ animationDelay: `${post.index * 100}ms` }}
+    >
       {/* 카드 내용 */}
       <CardHeader className="flex flex-col gap-2">
         <CardTitle>{post.title}</CardTitle>

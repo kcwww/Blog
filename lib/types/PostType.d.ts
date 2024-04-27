@@ -13,4 +13,5 @@ export type RecievedPostType = {
   thumbnail: string;
   createdAt: string;
   id: string;
+  index: number;
 };

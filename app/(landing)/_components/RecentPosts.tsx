@@ -35,7 +35,8 @@ const RecentPosts = () => {
       </h1>
       <div className="w-full flex justify-center items-center">
         <div className="grid 2xl:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-4 2xl:gap-12">
-          {data.map((post: RecievedPostType) => {
+          {data.map((post: RecievedPostType, index: number) => {
+            post.index = index;
             return <PostCard key={post.id} {...post} />;
           })}
         </div>
