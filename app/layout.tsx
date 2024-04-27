@@ -17,6 +17,9 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = {
   title: '망그러진 블로그',
   description: 'Frontend Developer 찬우얌 블로그입니다.',
+  icons: {
+    icon: '/kickBear.png',
+  },
 };
 
 const RootLayout = ({
