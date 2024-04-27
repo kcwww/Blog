@@ -1,6 +1,8 @@
 'use client';
 
+import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
+import { Milestone } from 'lucide-react';
 
 import clientComponentFetch from '@/lib/fetch/clientComponentFetch';
 import SkeletonCard from '@/components/Skeleton/SkeletonCard';
@@ -41,6 +43,13 @@ const RecentPosts = () => {
           })}
         </div>
       </div>
+      <Link
+        className="mt-4 flex gap-2 hover:bg-gray-300 dark:hover:bg-gray-800 items-center w-fit rounded-md p-2 transition-colors ease-out opacity-0 animate-fade-in"
+        href="#"
+      >
+        <Milestone size={'1rem'} />
+        view all posts...
+      </Link>
     </div>
   );
 };

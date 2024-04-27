@@ -1,6 +1,5 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Calendar } from 'lucide-react';
 
@@ -26,7 +25,6 @@ const PostCard = (post: RecievedPostType) => {
       )}
       style={{ animationDelay: `${post.index * 100}ms` }}
     >
-      {/* 카드 내용 */}
       <CardHeader className="flex flex-col gap-2">
         <CardTitle>{post.title}</CardTitle>
         <CardDescription className="flex gap-2 text-sm items-center">
