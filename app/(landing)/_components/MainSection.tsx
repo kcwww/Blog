@@ -5,7 +5,9 @@ const MainSection = () => {
   return (
     <>
       <Introduce />
-      <RecentPosts />
+      <div className="w-full flex justify-center items-center">
+        <RecentPosts />
+      </div>
     </>
   );
 };

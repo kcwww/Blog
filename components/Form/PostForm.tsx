@@ -48,7 +48,11 @@ const PostForm = () => {
   const isLoading = form.formState.isSubmitting;
 
   const onSubmit = async (data: z.infer<typeof postFormSchema>) => {
-    const tags = data.tags?.split(',').map((tag) => tag.trim());
+    const tags =
+      data.tags === '' || data.tags === undefined
+        ? null
+        : data.tags.split(',').map((tag) => tag.trim());
+
     const date = new Date();
     date.setHours(date.getHours() + 9);
     const koreaDate = date.toISOString().slice(0, 19).replace('T', ' ');

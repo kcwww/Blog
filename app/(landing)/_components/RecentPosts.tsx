@@ -29,11 +29,11 @@ const RecentPosts = () => {
   if (isError) return <p>데이터를 가져오는데 실패하였습니다. {data}</p>;
 
   return (
-    <>
+    <div className="grid 2xl:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-4 2xl:gap-12">
       {data.map((post: RecievedPostType) => {
         return <PostCard key={post.id} {...post} />;
       })}
-    </>
+    </div>
   );
 };
 
