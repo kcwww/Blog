@@ -12,7 +12,7 @@ const PostContent = ({ markedString }: { markedString: string }) => {
       className="marked-container flex flex-col gap-4 w-full"
       remarkPlugins={[remarkGfm]}
       components={{
-        code({ node, inline, className, children, ...props }) {
+        code({ node, inline, className, children, ...props }: any) {
           const match = /language-(\w+)/.exec(className || '');
 
           return !inline && match ? (
