@@ -75,6 +75,19 @@ const config = {
           from: { transform: 'translateY(-30%)', opacity: '0' },
           to: { transform: 'translateY(0)', opacity: '1' },
         },
+        'fade-in': {
+          from: { opacity: '0' },
+          to: { opacity: '1' },
+        },
+        'fade-out': {
+          from: { opacity: '1' },
+          to: { opacity: '0' },
+        },
+        'text-down-delay': {
+          '0%': { transform: 'translateY(-30%)', opacity: '0' },
+          '50%': { transform: 'translateY(-30%)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
@@ -82,6 +95,9 @@ const config = {
         'card-enter': 'slide-right 0.5s ease-out forwards',
         'spin-once': 'spin 0.5s ease-in-out 1',
         'text-down': 'slide-down 0.5s ease-out forwards',
+        'text-down-delay': 'text-down-delay 0.5s ease-out forwards',
+        'fade-in': 'fade-in 1.5s ease-out forwards',
+        'fade-out': 'fade-out 0.5s ease-out forwards',
       },
     },
   },

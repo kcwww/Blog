@@ -7,7 +7,6 @@ import SkeletonCard from '@/components/Skeleton/SkeletonCard';
 import { BACKEND_ROUTES } from '@/constants/routes';
 import PostCard from '@/components/Post/PostCard';
 import { RecievedPostType } from '@/lib/types/PostType';
-import PostContent from '@/components/Post/PostContent';
 
 const fetchPostsData = async () => {
   try {
@@ -31,7 +30,7 @@ const RecentPosts = () => {
 
   return (
     <div className="w-full">
-      <h1 className="text-2xl flex justify-center 2xl:justify-start mb-8 animate-text-down opacity-0">
+      <h1 className="text-2xl flex justify-center 2xl:justify-start mb-8 opacity-0 animate-fade-in ">
         Featured Posts
       </h1>
       <div className="w-full flex justify-center items-center">
