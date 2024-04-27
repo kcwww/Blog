@@ -13,10 +13,11 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 
-
 const PostCard = (post: RecievedPostType) => {
   return (
-    <Card className="flex flex-col gap-2 max-h-[24rem] justify-between">
+    // hover effect on card bigger
+    <Card className="flex flex-col gap-2 max-h-[24rem] justify-between hover:scale-105 transition-transform">
+      {/* 카드 내용 */}
       <CardHeader className="flex flex-col gap-2">
         <CardTitle>{post.title}</CardTitle>
         <CardDescription className="flex gap-2 text-sm items-center">
@@ -39,7 +40,9 @@ const PostCard = (post: RecievedPostType) => {
       {post.tags ? (
         <CardFooter className="flex gap-2">
           {post.tags.map((tag) => (
-            <Badge key={tag}>{tag}</Badge>
+            <Badge className="cursor-pointer" key={tag}>
+              {tag}
+            </Badge>
           ))}
         </CardFooter>
       ) : (

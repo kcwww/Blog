@@ -1,7 +1,7 @@
 import MainSection from '@/app/(landing)/_components/MainSection';
 
 const ArchivesPage = () => {
-  return <MainSection />;
+  return <>archive</>;
 };
 
 export default ArchivesPage;
