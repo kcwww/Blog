@@ -1,9 +1,11 @@
-import MainSection from '@/app/(landing)/_components/MainSection';
+import Introduce from '@/app/(landing)/_components/Introduce';
+import RecentPosts from '@/app/(landing)/_components/RecentPosts';
 
 const Home = async () => {
   return (
     <>
-      <MainSection />
+      <Introduce />
+      <RecentPosts />
     </>
   );
 };

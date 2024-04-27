@@ -76,6 +76,7 @@ const config = {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         'card-enter': 'slide-right 0.5s ease-out',
+        'spin-once': 'spin 0.5s ease-in-out 1',
       },
     },
   },

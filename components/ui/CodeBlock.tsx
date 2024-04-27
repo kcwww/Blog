@@ -45,7 +45,7 @@ const CodeBlock = ({ language, children, ...props }: CodeBlockProps) => {
             onClick={() => copyToClipboard()}
             className={cn(
               'ml-auto md:ml-0 text-gray-100 top-3 w-7 h-7 p-0 bg-transparent',
-              animation && 'spin-animation'
+              animation && 'animate-spin-once'
             )}
             onAnimationEnd={handleAnimationEnd}
           >

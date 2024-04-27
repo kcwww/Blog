@@ -7,6 +7,7 @@ import SkeletonCard from '@/components/Skeleton/SkeletonCard';
 import { BACKEND_ROUTES } from '@/constants/routes';
 import PostCard from '@/components/Post/PostCard';
 import { RecievedPostType } from '@/lib/types/PostType';
+import PostContent from '@/components/Post/PostContent';
 
 const fetchPostsData = async () => {
   try {
