@@ -31,7 +31,7 @@ const RecentPosts = () => {
 
   return (
     <div className="w-full">
-      <h1 className="text-2xl flex justify-center 2xl:justify-start mb-8">
+      <h1 className="text-2xl flex justify-center 2xl:justify-start mb-8 animate-text-down opacity-0">
         Featured Posts
       </h1>
       <div className="w-full flex justify-center items-center">

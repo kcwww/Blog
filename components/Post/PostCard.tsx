@@ -22,7 +22,7 @@ const PostCard = (post: RecievedPostType) => {
     <Card
       className={cn(
         'flex flex-col gap-2 max-h-[24rem] justify-between hover:scale-105 transition-transform',
-        'animate-card-enter'
+        'animate-card-enter opacity-0'
       )}
       style={{ animationDelay: `${post.index * 100}ms` }}
     >
