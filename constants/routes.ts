@@ -2,7 +2,7 @@ const ROUTES = {
   LANDING: '/',
   SERIES: '/series',
   SNIPPETS: '/snippets',
-  ARCHIVES: '/archives',
+  POSTS: '/posts',
   PORTFOLIO: '/portfolio',
 } as const;
 

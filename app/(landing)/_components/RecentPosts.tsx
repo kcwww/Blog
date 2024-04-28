@@ -27,7 +27,12 @@ const RecentPosts = () => {
     queryFn: fetchPostsData,
   });
 
-  if (isLoading) return <SkeletonCard />;
+  if (isLoading)
+    return (
+      <div className="grid 2xl:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-4 2xl:gap-12">
+        <SkeletonCard />
+      </div>
+    );
   if (isError) return <p>데이터를 가져오는데 실패하였습니다. {data}</p>;
 
   return (
