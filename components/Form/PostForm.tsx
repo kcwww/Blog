@@ -1,6 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { toast } from 'sonner';
@@ -20,8 +21,9 @@ import { Input } from '@/components/ui/input';
 import clientComponentFetch from '@/lib/fetch/clientComponentFetch';
 import { BACKEND_ROUTES, ROUTES } from '@/constants/routes';
 import type { PostType } from '@/lib/types/PostType';
+import dragOver from '@/lib/Image/dragOver';
 
-const postFormSchema = z.object({
+export const postFormSchema = z.object({
   title: z.string().min(1, {
     message: 'title must be at least 2 characters.',
   }),
@@ -33,6 +35,7 @@ const postFormSchema = z.object({
 });
 
 const PostForm = () => {
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const form = useForm<z.infer<typeof postFormSchema>>({
     resolver: zodResolver(postFormSchema),
     defaultValues: {
@@ -122,6 +125,12 @@ const PostForm = () => {
                   placeholder="content"
                   {...field}
                   disabled={isLoading}
+                  onDragOver={(e) => {
+                    e.preventDefault();
+                  }}
+                  onDrop={(e) => {
+                    dragOver(e, form, 'content');
+                  }}
                 />
               </FormControl>
 
