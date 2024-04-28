@@ -21,13 +21,12 @@ const dragOver = (
       const before = form.getValues(name as 'content').slice(0, startPos);
       const after = form.getValues(name as 'content').slice(endPos);
 
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        if (e.target?.result) {
-          form.setValue(name as 'content', before + e.target.result + after);
-        }
-      };
-      reader.readAsDataURL(files[0]);
+      const fileList = Array.from(files);
+      // const reader = new FileReader();
+      fileList.forEach((file) => {
+        console.log(file);
+        // reader.onload = (e) => {};
+      });
     }
   }
 };
