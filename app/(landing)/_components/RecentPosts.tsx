@@ -29,15 +29,18 @@ const RecentPosts = () => {
 
   if (isLoading)
     return (
-      <div className="grid 2xl:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-4 2xl:gap-12">
-        <SkeletonCard />
-      </div>
+      <>
+        <div className="h-[2rem]" />
+        <div className="grid 2xl:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-4 2xl:gap-12 w-full">
+          <SkeletonCard />
+        </div>
+      </>
     );
   if (isError) return <p>데이터를 가져오는데 실패하였습니다. {data}</p>;
 
   return (
     <div className="w-full">
-      <h1 className="text-2xl flex justify-center 2xl:justify-start mb-8 opacity-0 animate-fade-in ">
+      <h1 className="text-2xl flex justify-center md:justify-start mb-8 opacity-0 animate-fade-in ">
         Featured Posts
       </h1>
       <div className="w-full flex justify-center items-center">
