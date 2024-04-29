@@ -46,6 +46,10 @@ const dragOver = async (
       } catch (e) {
         console.error(e);
         toast.error('이미지 업로드에 실패했습니다.');
+        form.setValue(
+          name as 'content',
+          `${before}업로드에 실패하였습니다.${after}`
+        );
       }
     }
   }

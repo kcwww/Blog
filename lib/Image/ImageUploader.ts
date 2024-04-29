@@ -15,6 +15,8 @@ export class ImageUploader implements ImageUploaderType {
     const resizePromise = files.map((file) => {
       if (!file) return null;
 
+      if (file.type === 'image/gif') return Promise.resolve(file);
+
       const reader = new FileReader();
       reader.readAsDataURL(file);
 
@@ -102,7 +104,7 @@ export class ImageUploader implements ImageUploaderType {
       });
 
       const data = await res.json();
-      return data;
+      return data.urls;
     } catch (e) {
       console.error(e);
       throw new Error('이미지 업로드에 실패했습니다.');
