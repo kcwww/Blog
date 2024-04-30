@@ -17,6 +17,7 @@ import {
 } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
+import { ROUTES } from '@/constants/routes';
 
 const PostCard = (post: RecievedPostType) => {
   const [animate, setAnimate] = useState(false);
@@ -62,9 +63,9 @@ const PostCard = (post: RecievedPostType) => {
         {post.tags ? (
           <CardFooter className="flex gap-2">
             {post.tags.map((tag) => (
-              <Badge className="cursor-pointer" key={tag}>
-                {tag}
-              </Badge>
+              <Link key={tag} href={ROUTES.TAG(tag)}>
+                <Badge className="cursor-pointer">{tag}</Badge>
+              </Link>
             ))}
           </CardFooter>
         ) : (

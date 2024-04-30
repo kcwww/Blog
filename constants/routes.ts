@@ -4,6 +4,7 @@ const ROUTES = {
   SNIPPETS: '/snippets',
   POSTS: '/posts',
   PORTFOLIO: '/portfolio',
+  TAG: (tag: string) => `/posts/${tag}`,
 } as const;
 
 const BACKEND_ROUTES = {

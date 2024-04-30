@@ -3,6 +3,10 @@ import { collection, query, orderBy, limit, getDocs } from 'firebase/firestore';
 
 import { BLOGDB } from '@/lib/Firebase';
 
+// recent post get && series snippets check
+
+// type series | snippets | null
+
 const GET = async (req: NextRequest) => {
   try {
     const postsRef = collection(BLOGDB, 'posts');
