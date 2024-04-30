@@ -32,14 +32,14 @@ const RootLayout = ({
       <body
         className={cn(
           inter.className,
-          'dark:bg-gray-900 bg-gray-300 transition-colors duration-300 ease-out lg:mx-[12rem] mx-8'
+          'dark:bg-gray-900 bg-gray-300 transition-colors duration-300 ease-out mx-8 flex justify-center items-center flex-col'
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <AuthProvider>
             <QueryProvider>
               <Header />
-              <main className="w-full">
+              <main className="w-full lg:w-2/3 2xl:w-1/2">
                 <MainSection>{children}</MainSection>
                 <ScrollToTopButton />
                 <Toaster richColors />

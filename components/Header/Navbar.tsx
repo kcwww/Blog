@@ -8,7 +8,7 @@ const Navbar = () => {
   return (
     <>
       <div className="w-full md:block hidden">
-        <nav className="w-full flex gap-2 items-center bg-gray-400 dark:bg-gray-700 p-2 rounded-lg md:min-w-[25rem]">
+        <nav className="w-full flex gap-2 items-center bg-gray-400 dark:bg-gray-700 p-2 rounded-lg ">
           <Link
             href={ROUTES.LANDING}
             className="text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-800 rounded-lg p-2 transition-colors duration-200 ease-out"

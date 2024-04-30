@@ -10,7 +10,6 @@ const Giscus = () => {
 
   useEffect(() => setIsMounted(true), []);
 
-  // https://github.com/giscus/giscus/tree/main/styles/themes
   const theme = resolvedTheme === 'dark' ? 'dark' : 'light';
 
   useEffect(() => {
@@ -54,9 +53,9 @@ const Giscus = () => {
     );
   }, [theme]);
 
-  if (!isMounted) return null;
+  // if (!isMounted) return null;
 
-  return <section ref={ref} />;
+  return <section className="w-full" ref={ref} />;
 };
 
 export default Giscus;

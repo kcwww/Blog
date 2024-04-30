@@ -88,6 +88,11 @@ const config = {
           '50%': { transform: 'translateY(-30%)', opacity: '0' },
           '100%': { transform: 'translateY(0)', opacity: '1' },
         },
+        'fade-in-delay': {
+          '0%': { opacity: '0' },
+          '50%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
@@ -98,6 +103,7 @@ const config = {
         'text-down-delay': 'text-down-delay 0.5s ease-out forwards',
         'fade-in': 'fade-in 1.5s ease-out forwards',
         'fade-out': 'fade-out 0.5s ease-out forwards',
+        'fade-in-delay': 'fade-in-delay 1s ease-out forwards',
       },
     },
   },
