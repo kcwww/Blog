@@ -9,7 +9,7 @@ import CodeBlock from '@/components/ui/CodeBlock';
 const PostContent = ({ markedString }: { markedString: string }) => {
   return (
     <ReactMarkdown
-      className="marked-container flex flex-col gap-4 w-full"
+      className="marked-container flex flex-col gap-4 w-full mb-20"
       remarkPlugins={[remarkGfm]}
       components={{
         code({ node, inline, className, children, ...props }: any) {

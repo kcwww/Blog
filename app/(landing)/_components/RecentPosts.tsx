@@ -31,7 +31,7 @@ const RecentPosts = () => {
     return (
       <>
         <div className="h-[2rem]" />
-        <div className="grid 2xl:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-4 2xl:gap-12 w-full">
+        <div className="grid md:grid-cols-2 grid-cols-1 gap-4 2xl:gap-12 w-full">
           <SkeletonCard />
         </div>
       </>
@@ -44,7 +44,7 @@ const RecentPosts = () => {
         Featured Posts
       </h1>
       <div className="w-full flex justify-center items-center">
-        <div className="grid 2xl:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-4 2xl:gap-12">
+        <div className="grid md:grid-cols-2 grid-cols-1 gap-4 2xl:gap-12">
           {data.map((post: RecievedPostType, index: number) => {
             post.index = index;
             return <PostCard key={post.id} {...post} />;
