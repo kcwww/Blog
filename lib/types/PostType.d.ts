@@ -4,6 +4,10 @@ export type PostType = {
   tags: string[];
   thumbnail: string;
   createdAt: string;
+  post: {
+    name: string;
+    type: string;
+  } | null;
 };
 
 export type RecievedPostType = {
@@ -12,6 +16,10 @@ export type RecievedPostType = {
   tags: string[];
   thumbnail: string;
   createdAt: string;
+  post: {
+    name: string;
+    type: string;
+  } | null;
   id: string;
   index: number;
 };

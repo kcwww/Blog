@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Calendar } from 'lucide-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 import { cn } from '@/lib/utils';
 import { RecievedPostType } from '@/lib/types/PostType';
@@ -21,6 +22,7 @@ import { ROUTES } from '@/constants/routes';
 
 const PostCard = (post: RecievedPostType) => {
   const [animate, setAnimate] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const id = setTimeout(() => {
@@ -31,7 +33,6 @@ const PostCard = (post: RecievedPostType) => {
       clearTimeout(id);
     };
   }, []);
-
   return (
     <Link href={post.id}>
       <Card
@@ -56,6 +57,8 @@ const PostCard = (post: RecievedPostType) => {
                 src={post.thumbnail}
                 alt={post.title}
                 fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                priority
               />
             </AspectRatio>
           </CardContent>
@@ -63,9 +66,16 @@ const PostCard = (post: RecievedPostType) => {
         {post.tags ? (
           <CardFooter className="flex gap-2">
             {post.tags.map((tag) => (
-              <Link key={tag} href={ROUTES.TAG(tag)}>
-                <Badge className="cursor-pointer">{tag}</Badge>
-              </Link>
+              <Badge
+                onClick={(event) => {
+                  event.preventDefault();
+                  router.push(ROUTES.TAG(tag));
+                }}
+                key={tag}
+                className="cursor-pointer"
+              >
+                {tag}
+              </Badge>
             ))}
           </CardFooter>
         ) : (
