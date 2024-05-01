@@ -7,7 +7,9 @@ const Introduce = ({
 }) => {
   return (
     <div className="flex flex-col gap-4">
-      <h1 className="animate-text-down opacity-0 text-2xl">{title}</h1>
+      <h1 className="animate-text-down opacity-0 text-2xl font-bold">
+        {title}
+      </h1>
       {description && (
         <div className="flex flex-col gap-1">
           {description.map((desc, index) => (
