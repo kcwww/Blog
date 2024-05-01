@@ -63,7 +63,7 @@ const PostForm = () => {
       ...data,
       tags,
       createdAt: koreaDate,
-      type: null,
+      post: null,
     } as PostType;
     try {
       const res = await clientComponentFetch(BACKEND_ROUTES.POST, {

@@ -20,9 +20,10 @@ import { Badge } from '@/components/ui/badge';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { ROUTES } from '@/constants/routes';
 
-const PostCard = (post: RecievedPostType) => {
+const PostCard = (data: RecievedPostType) => {
   const [animate, setAnimate] = useState(false);
   const router = useRouter();
+  const post = data.post;
 
   useEffect(() => {
     const id = setTimeout(() => {
@@ -34,28 +35,32 @@ const PostCard = (post: RecievedPostType) => {
     };
   }, []);
   return (
-    <Link href={post.id}>
+    <Link
+      href={
+        post ? ROUTES.RECENT_TO_POST(post.type, post.name, data.id) : data.id
+      }
+    >
       <Card
         className={cn(
           'flex flex-col gap-2 max-h-[24rem] justify-between hover:scale-105 transition-transform h-full',
           !animate && 'animate-card-enter opacity-0'
         )}
-        style={{ animationDelay: `${post.index * 100}ms` }}
+        style={{ animationDelay: `${data.index * 100}ms` }}
       >
         <CardHeader className="flex flex-col gap-2">
-          <CardTitle>{post.title}</CardTitle>
+          <CardTitle>{data.title}</CardTitle>
           <CardDescription className="flex gap-2 text-sm items-center">
             <Calendar size={'1rem'} />
-            {post.createdAt}
+            {data.createdAt}
           </CardDescription>
         </CardHeader>
-        {post.thumbnail && (
+        {data.thumbnail && (
           <CardContent className="px-4 pb-4">
             <AspectRatio ratio={16 / 9}>
               <Image
                 className="rounded-lg"
-                src={post.thumbnail}
-                alt={post.title}
+                src={data.thumbnail}
+                alt={data.title}
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 priority
@@ -63,9 +68,9 @@ const PostCard = (post: RecievedPostType) => {
             </AspectRatio>
           </CardContent>
         )}
-        {post.tags ? (
+        {data.tags ? (
           <CardFooter className="flex gap-2">
-            {post.tags.map((tag) => (
+            {data.tags.map((tag) => (
               <Badge
                 onClick={(event) => {
                   event.preventDefault();

@@ -6,7 +6,7 @@ import { Milestone } from 'lucide-react';
 
 import clientComponentFetch from '@/lib/fetch/clientComponentFetch';
 import SkeletonCard from '@/components/Skeleton/SkeletonCard';
-import { BACKEND_ROUTES } from '@/constants/routes';
+import { BACKEND_ROUTES, ROUTES } from '@/constants/routes';
 import PostCard from '@/components/Post/PostCard';
 import { RecievedPostType } from '@/lib/types/PostType';
 
@@ -53,7 +53,7 @@ const RecentPosts = () => {
       </div>
       <Link
         className="mt-4 flex gap-2 hover:bg-gray-300 dark:hover:bg-gray-800 items-center w-fit rounded-md p-2 transition-colors ease-out opacity-0 animate-fade-in"
-        href="#"
+        href={ROUTES.POSTS}
       >
         <Milestone size={'1rem'} />
         view all posts...

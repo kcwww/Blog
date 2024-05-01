@@ -4,6 +4,8 @@ const ROUTES = {
   SNIPPETS: '/snippets',
   POSTS: '/posts',
   PORTFOLIO: '/portfolio',
+  RECENT_TO_POST: (type: string, name: string, id: string) =>
+    `/${type}/${name}/${id}`,
   TAG: (tag: string) => `/posts/${tag}`,
 } as const;
 
