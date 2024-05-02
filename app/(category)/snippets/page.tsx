@@ -1,5 +1,7 @@
 import Introduce from '@/components/Main/Introduce';
 
+import SnippetsBox from '@/app/(category)/snippets/_components/SnippetsBox';
+
 const SnippetsPage = () => {
   const title = 'All Snippets';
   const description = [
@@ -9,6 +11,7 @@ const SnippetsPage = () => {
   return (
     <>
       <Introduce title={title} description={description} />
+      <SnippetsBox />
     </>
   );
 };
