@@ -1,4 +1,5 @@
 import { Metadata, ResolvingMetadata } from 'next';
+import { notFound } from 'next/navigation';
 
 import { ORIGIN } from '@/constants/url';
 import serverComponentFetch from '@/lib/fetch/serverComponentFetch';
@@ -11,7 +12,7 @@ export const generateMetadata = async (
   {
     params,
   }: {
-    params: { postId: string };
+    params: { postId: string; series: string };
   },
   parent: ResolvingMetadata
 ) => {
@@ -20,6 +21,10 @@ export const generateMetadata = async (
   const previoutParent = await parent;
   const previousTitle = previoutParent.title?.absolute;
   const previoutDescription = previoutParent.description;
+
+  if (data && data.post?.name !== params.series) {
+    return notFound();
+  }
 
   return {
     title: `${data ? data.title : previousTitle}`,

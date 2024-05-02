@@ -1,4 +1,5 @@
 import { Metadata, ResolvingMetadata } from 'next';
+import { notFound } from 'next/navigation';
 
 import { ORIGIN } from '@/constants/url';
 import serverComponentFetch from '@/lib/fetch/serverComponentFetch';
@@ -40,9 +41,17 @@ const getPostData = async (id: string) => {
   }
 };
 
-const PostPage = async ({ params }: { params: { postId: string } }) => {
+const PostPage = async ({
+  params,
+}: {
+  params: { postId: string; snippet: string };
+}) => {
   const id = params.postId;
   const data = await getPostData(id);
+
+  if (data && data.post?.name !== params.snippet) {
+    return notFound();
+  }
 
   return (
     <>
