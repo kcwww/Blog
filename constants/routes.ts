@@ -18,6 +18,8 @@ const BACKEND_ROUTES = {
   SERIES: '/api/series',
   SNIPPETS: '/api/snippets',
   POST_ID: (id: string) => `/api/post/${id}`,
+  SERIES_ID: (id: string) => `/api/series/${id}`,
+  SNIPPETS_ID: (id: string) => `/api/snippets/${id}`,
 } as const;
 
 export { ROUTES, BACKEND_ROUTES };

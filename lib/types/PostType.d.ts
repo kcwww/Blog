@@ -22,13 +22,15 @@ export type PostListType = Pick<
   'createdAt' | 'tags' | 'title'
 > & { id: string };
 
+export type ReceivedPostTypeDetail = {
+  id: string;
+  title: string;
+  description: string;
+  type: string;
+  posts: PostListType[];
+};
+
 export type ReceivedPostType = {
   message: string;
-  type: {
-    id: string;
-    title: string;
-    description: string;
-    type: string;
-    posts: PostListType[];
-  }[];
+  type: ReceivedPostTypeDetail[];
 };
