@@ -1,29 +1,27 @@
 import { NextResponse, NextRequest } from 'next/server';
-import { collection, query, getDocs } from 'firebase/firestore';
+import { collection, query, orderBy, getDocs } from 'firebase/firestore';
 
 import { BLOGDB } from '@/lib/Firebase';
 
 const GET = async (req: NextRequest) => {
   try {
-    const postsRef = collection(BLOGDB, 'series');
-    const q = query(postsRef);
+    const postsRef = collection(BLOGDB, 'snippets');
+    const q = query(postsRef, orderBy('posts', 'desc'));
     const querySnapshot = await getDocs(q);
 
-    const series = querySnapshot.docs.map((doc) => {
+    const snippets = querySnapshot.docs.map((doc) => {
       return { id: doc.id, ...doc.data() };
     });
 
-    series.sort((a, b) => (a.id > b.id ? 1 : -1));
-
     return NextResponse.json({
-      message: 'All Series fetched successfully',
-      series,
+      message: 'All Snippets fetched successfully',
+      snippets,
     });
   } catch (error) {
     console.error(error);
     return NextResponse.json(
       {
-        message: 'Failed to fetch Series',
+        message: 'Failed to fetch Snippets',
         error,
       },
       { status: 500 }
