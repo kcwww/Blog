@@ -11,8 +11,9 @@ import { Badge } from '@/components/ui/badge';
 import { ROUTES } from '@/constants/routes';
 
 import SnippetBadge from '@/app/(category)/snippets/_components/SnippetBadge';
+import SnippetsList from '@/app/(category)/snippets/_components/SnippetsList';
 
-type ReceiveSnippetType = ReceivedPostType & {
+export type ReceiveSnippetType = ReceivedPostType & {
   type: Omit<ReceivedPostTypeDetail, 'description' | 'type'>[];
 };
 
@@ -33,7 +34,7 @@ const fetchSnippets = async (
 const SnippetsBox = () => {
   const searchParams = useSearchParams();
   const selected = searchParams.get('key');
-  const { data, isLoading, isError } = useQuery<ReceiveSnippetType | null>({
+  const { data, isLoading, isError } = useQuery<ReceiveSnippetType>({
     queryKey: ['snippets-tags'],
     queryFn: () => fetchSnippets(selected),
     retry: 1,
@@ -48,6 +49,8 @@ const SnippetsBox = () => {
 
   const flag = snippets?.filter((snippet) => snippet.id === selected) || [];
   if (selected && !flag.length) return notFound();
+
+  snippets?.sort((a, b) => b.posts.length - a.posts.length);
 
   return (
     <div className="w-full flex flex-col gap-4 animate-fade-in-delay opacity-0">
@@ -65,11 +68,13 @@ const SnippetsBox = () => {
           <SnippetBadge
             key={snippet.id}
             name={snippet.id}
+            title={snippet.title}
             count={snippet.posts.length}
             selected={selected}
           />
         ))}
       </div>
+      <SnippetsList param={selected} snippets={snippets || []} />
     </div>
   );
 };

@@ -7,10 +7,12 @@ const SnippetBadge = ({
   name,
   count,
   selected,
+  title,
 }: {
   name: string;
   count: number;
   selected: string | null;
+  title: string;
 }) => {
   return (
     <Link href={ROUTES.SNIPPETS + `?key=${name}`}>
@@ -18,7 +20,7 @@ const SnippetBadge = ({
         variant={selected === name ? 'default' : 'secondary'}
         className="flex gap-2 text-md items-end"
       >
-        {name}
+        {title}
         <p className="text-[0.7rem]">({count})</p>
       </Badge>
     </Link>
