@@ -15,14 +15,14 @@ import { Badge } from '@/components/ui/badge';
 
 type ReceivedSeriesType = ReceivedPostType & {
   message: string;
-  type: ReceivedPostTypeDetail;
+  type: Omit<ReceivedPostTypeDetail, 'description'>;
 };
 
-const seriesDetailData = async (
+const snippetDetailData = async (
   series: string
 ): Promise<ReceivedSeriesType | null> => {
   try {
-    const res = await clientComponentFetch(BACKEND_ROUTES.SERIES_ID(series));
+    const res = await clientComponentFetch(BACKEND_ROUTES.SNIPPETS_ID(series));
     return res;
   } catch (error) {
     console.error(error);
@@ -30,12 +30,12 @@ const seriesDetailData = async (
   }
 };
 
-const SeriesDetail = ({ detail }: { detail: string }) => {
+const SnippetDetail = ({ detail }: { detail: string }) => {
   const [animate, setAnimate] = useState(false);
   const router = useRouter();
   const { data, isLoading, isError } = useQuery({
-    queryKey: ['seriesDetail'],
-    queryFn: () => seriesDetailData(detail),
+    queryKey: ['snippetDetail'],
+    queryFn: () => snippetDetailData(detail),
   });
 
   useEffect(() => {
@@ -57,10 +57,7 @@ const SeriesDetail = ({ detail }: { detail: string }) => {
 
   return (
     <>
-      <Introduce
-        title={dataDetail?.title || ''}
-        description={[dataDetail?.description || '']}
-      />
+      <Introduce title={dataDetail?.title || ''} description={null} />
       <div className="animate-text-down-delay opacity-0 text-sm text-gray-300 dark:text-gray-500">
         총 {dataDetail?.posts.length} 개의 포스팅이 존재합니다.
       </div>
@@ -104,4 +101,4 @@ const SeriesDetail = ({ detail }: { detail: string }) => {
   );
 };
 
-export default SeriesDetail;
+export default SnippetDetail;
