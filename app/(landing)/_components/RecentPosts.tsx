@@ -8,7 +8,7 @@ import clientComponentFetch from '@/lib/fetch/clientComponentFetch';
 import SkeletonCard from '@/components/Skeleton/SkeletonCard';
 import { BACKEND_ROUTES, ROUTES } from '@/constants/routes';
 import PostCard from '@/components/Post/PostCard';
-import { RecievedPostType } from '@/lib/types/PostType';
+import { ReceivedPostDataType } from '@/lib/types/PostType';
 
 const fetchPostsData = async () => {
   try {
@@ -45,7 +45,7 @@ const RecentPosts = () => {
       </h1>
       <div className="w-full flex justify-center items-center">
         <div className="grid md:grid-cols-2 grid-cols-1 gap-4 2xl:gap-12">
-          {data.map((post: RecievedPostType, index: number) => {
+          {data.map((post: ReceivedPostDataType, index: number) => {
             post.index = index;
             return <PostCard key={post.id} {...post} />;
           })}

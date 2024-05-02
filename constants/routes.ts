@@ -14,6 +14,8 @@ const BACKEND_ROUTES = {
   POST: '/api/post',
   RECENT: '/api/recent',
   TAGS: '/api/tags',
+  SERIES: '/api/series',
+  SNIPPETS: '/api/snippets',
   POST_ID: (id: string) => `/api/post/${id}`,
 } as const;
 

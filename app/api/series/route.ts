@@ -5,17 +5,17 @@ import { BLOGDB } from '@/lib/Firebase';
 
 const GET = async (req: NextRequest) => {
   try {
-    const postsRef = collection(BLOGDB, 'tags');
+    const postsRef = collection(BLOGDB, 'series');
     const q = query(postsRef, orderBy('posts', 'desc'));
     const querySnapshot = await getDocs(q);
 
-    const tags = querySnapshot.docs.map((doc) => {
+    const series = querySnapshot.docs.map((doc) => {
       return { id: doc.id, ...doc.data() };
     });
 
     return NextResponse.json({
-      message: 'All Tags fetched successfully',
-      tags,
+      message: 'All Series fetched successfully',
+      series,
     });
   } catch (error) {
     console.error(error);

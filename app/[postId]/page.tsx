@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 import { ORIGIN } from '@/constants/url';
 import serverComponentFetch from '@/lib/fetch/serverComponentFetch';
 import { BACKEND_ROUTES } from '@/constants/routes';
-import { PostType } from '@/lib/types/PostType';
+import { PostDataType } from '@/lib/types/PostType';
 import Introduce from '@/components/Main/Introduce';
 import PostContent from '@/components/Post/PostContent';
 
@@ -34,7 +34,7 @@ export const generateMetadata = async (
 const getPostData = async (id: string) => {
   try {
     const res = await serverComponentFetch(BACKEND_ROUTES.POST_ID(id));
-    return res.data as PostType;
+    return res.data as PostDataType;
   } catch (e) {
     console.log(e);
     return null;

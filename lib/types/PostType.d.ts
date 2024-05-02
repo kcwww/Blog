@@ -1,4 +1,4 @@
-export type PostType = {
+export type PostDataType = {
   title: string;
   content: string;
   tags: string[];
@@ -10,7 +10,7 @@ export type PostType = {
   } | null;
 };
 
-export type RecievedPostType = {
+export type ReceivedPostDataType = {
   title: string;
   content: string;
   tags: string[];
@@ -22,4 +22,9 @@ export type RecievedPostType = {
   } | null;
   id: string;
   index: number;
+};
+
+export type ReceivedPostType = {
+  message: string;
+  type: { id: string; posts: string[] }[];
 };

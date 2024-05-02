@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 import { cn } from '@/lib/utils';
-import { RecievedPostType } from '@/lib/types/PostType';
+import { ReceivedPostDataType } from '@/lib/types/PostType';
 import {
   Card,
   CardContent,
@@ -20,7 +20,7 @@ import { Badge } from '@/components/ui/badge';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { ROUTES } from '@/constants/routes';
 
-const PostCard = (data: RecievedPostType) => {
+const PostCard = (data: ReceivedPostDataType) => {
   const [animate, setAnimate] = useState(false);
   const router = useRouter();
   const post = data.post;

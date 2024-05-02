@@ -20,7 +20,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
 import clientComponentFetch from '@/lib/fetch/clientComponentFetch';
 import { BACKEND_ROUTES, ROUTES } from '@/constants/routes';
-import type { PostType } from '@/lib/types/PostType';
+import type { PostDataType } from '@/lib/types/PostType';
 import dragOver from '@/lib/Image/dragOver';
 
 export const postFormSchema = z.object({
@@ -64,7 +64,7 @@ const PostForm = () => {
       tags,
       createdAt: koreaDate,
       post: null,
-    } as PostType;
+    } as PostDataType;
     try {
       const res = await clientComponentFetch(BACKEND_ROUTES.POST, {
         method: 'POST',
