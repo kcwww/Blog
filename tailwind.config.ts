@@ -71,6 +71,10 @@ const config = {
           from: { transform: 'translateX(100%)', opacity: '0' },
           to: { transform: 'translateX(0)', opacity: '1' },
         },
+        'slide-up': {
+          from: { transform: 'translateY(15%)', opacity: '0' },
+          to: { transform: 'translateY(0)', opacity: '1' },
+        },
         'slide-down': {
           from: { transform: 'translateY(-30%)', opacity: '0' },
           to: { transform: 'translateY(0)', opacity: '1' },
@@ -98,6 +102,7 @@ const config = {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         'card-enter': 'slide-right 0.5s ease-out forwards',
+        'card-up': 'slide-up 0.5s ease-out forwards',
         'spin-once': 'spin 0.5s ease-in-out 1',
         'text-down': 'slide-down 0.5s ease-out forwards',
         'text-down-delay': 'text-down-delay 0.5s ease-out forwards',

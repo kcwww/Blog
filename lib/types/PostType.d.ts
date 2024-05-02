@@ -1,4 +1,5 @@
 import { ReceivedPostDataType } from '@/lib/types/PostType';
+
 export type PostDataType = {
   title: string;
   content: string;
@@ -23,5 +24,11 @@ export type PostListType = Pick<
 
 export type ReceivedPostType = {
   message: string;
-  type: { id: string; title: string; type: string; posts: PostListType[] }[];
+  type: {
+    id: string;
+    title: string;
+    description: string;
+    type: string;
+    posts: PostListType[];
+  }[];
 };

@@ -1,5 +1,7 @@
 import Introduce from '@/components/Main/Introduce';
 
+import SeriesCards from '@/app/(category)/series/_components/SeriesCards';
+
 const SeriesPage = () => {
   const title = 'All Series';
   const description = [
@@ -9,6 +11,7 @@ const SeriesPage = () => {
   return (
     <>
       <Introduce title={title} description={description} />
+      <SeriesCards />
     </>
   );
 };
