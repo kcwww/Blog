@@ -6,7 +6,7 @@ import clientComponentFetch from '@/lib/fetch/clientComponentFetch';
 import { BACKEND_ROUTES } from '@/constants/routes';
 import { ReceiveTagType } from '@/lib/types/TagType';
 
-import TagBadge from './TagBadge';
+import TagBadge from '@/app/(category)/posts/_components/TagBadge';
 
 const fetchTags = async (): Promise<ReceiveTagType | null> => {
   try {
@@ -24,13 +24,13 @@ const Tags = () => {
     queryFn: fetchTags,
   });
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <></>;
   if (isError) return <p>Failed to fetch tags</p>;
 
   const tags = data?.tags;
 
   return (
-    <div className="w-full flex flex-col gap-4">
+    <div className="w-full flex flex-col gap-4 animate-fade-in-delay opacity-0">
       <div className="text-xl font-semibold flex gap-2 items-end">
         Tags <p className="text-sm">({tags?.length})</p>
       </div>

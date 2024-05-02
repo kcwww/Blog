@@ -28,13 +28,13 @@ const PostsBox = ({ type }: { type: string }) => {
     queryFn: () => fetchPostType(type),
   });
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <></>;
   if (isError) return <p>fetch error post {type}</p>;
 
   const postType = data?.type;
 
   return (
-    <div className="w-full flex flex-col gap-4">
+    <div className="w-full flex flex-col gap-4 animate-fade-in-delay opacity-0">
       <div className="text-xl font-semibold flex gap-2 items-end">
         {type[0].toLocaleUpperCase() + type.slice(1)} Posts
         <p className="text-sm">({postType?.length})</p>
