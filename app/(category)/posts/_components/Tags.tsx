@@ -27,7 +27,7 @@ const Tags = () => {
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Failed to fetch tags</p>;
 
-  const tags = data?.tags.sort((a, b) => b.posts.length - a.posts.length);
+  const tags = data?.tags;
 
   return (
     <div className="w-full flex flex-col gap-4">

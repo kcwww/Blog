@@ -15,7 +15,7 @@ const GET = async (req: NextRequest) => {
 
     return NextResponse.json({
       message: 'All Snippets fetched successfully',
-      snippets,
+      type: snippets,
     });
   } catch (error) {
     console.error(error);

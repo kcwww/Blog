@@ -29,11 +29,15 @@ const PostsBox = ({ type }: { type: string }) => {
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>fetch error post {type}</p>;
 
+  const postType = data?.type;
   console.log(data);
 
   return (
     <div>
-      <h1>{type} Posts</h1>
+      <div className="text-xl font-semibold flex gap-2 items-end">
+        {type[0].toLocaleUpperCase() + type.slice(1)} Posts
+        <p className="text-sm">({postType?.length})</p>
+      </div>
     </div>
   );
 };

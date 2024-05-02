@@ -17,7 +17,7 @@ const GET = async (req: NextRequest) => {
 
     return NextResponse.json({
       message: 'All Series fetched successfully',
-      series,
+      type: series,
     });
   } catch (error) {
     console.error(error);
