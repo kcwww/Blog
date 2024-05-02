@@ -19,10 +19,11 @@ const SnippetsList = ({
   const fadeRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    let id: NodeJS.Timeout | null = null;
     if (fadeRef.current) {
       fadeRef.current.classList.add('animate-fade-out');
 
-      const id = setTimeout(() => {
+      id = setTimeout(() => {
         fadeRef.current?.classList.remove('animate-fade-out');
         void fadeRef.current?.offsetWidth;
         fadeRef.current?.classList.add('animate-fade-in-delay');
@@ -42,7 +43,7 @@ const SnippetsList = ({
       setSelected(snippets);
     }
 
-    return () => clearTimeout(id);
+    return () => clearTimeout(id ? id : 0);
   }, [param]);
 
   return (
