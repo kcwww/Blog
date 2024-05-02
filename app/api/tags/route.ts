@@ -5,22 +5,23 @@ import { BLOGDB } from '@/lib/Firebase';
 
 const GET = async (req: NextRequest) => {
   try {
-    const postsRef = collection(BLOGDB, 'posts');
-    const q = query(postsRef, orderBy('createdAt', 'desc'), limit(12));
+    const postsRef = collection(BLOGDB, 'tags');
+    const q = query(postsRef);
     const querySnapshot = await getDocs(q);
-    const posts = querySnapshot.docs.map((doc) => {
+
+    const tags = querySnapshot.docs.map((doc) => {
       return { id: doc.id, ...doc.data() };
     });
 
     return NextResponse.json({
-      message: 'Recent Posts fetched successfully',
-      posts,
+      message: 'All Tags fetched successfully',
+      tags,
     });
   } catch (error) {
     console.error(error);
     return NextResponse.json(
       {
-        message: 'Failed to fetch recent posts',
+        message: 'Failed to fetch tags',
         error,
       },
       { status: 500 }

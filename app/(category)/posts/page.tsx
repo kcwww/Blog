@@ -1,5 +1,8 @@
 import Introduce from '@/components/Main/Introduce';
 
+import Tags from '@/app/(category)/posts/_components/Tags';
+import PostsBox from '@/app/(category)/posts/_components/PostsBox';
+
 const PostsPage = () => {
   const title = 'All Posts';
   const description = [
@@ -9,6 +12,9 @@ const PostsPage = () => {
   return (
     <>
       <Introduce title={title} description={description} />
+      <Tags />
+      <PostsBox type="series" />
+      <PostsBox type="snippets" />
     </>
   );
 };

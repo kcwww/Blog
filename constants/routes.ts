@@ -13,6 +13,7 @@ const BACKEND_ROUTES = {
   LOGIN: '/api/auth/signin',
   POST: '/api/post',
   RECENT: '/api/recent',
+  TAGS: '/api/tags',
   POST_ID: (id: string) => `/api/post/${id}`,
 } as const;
 
