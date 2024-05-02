@@ -36,9 +36,7 @@ const PostCard = (data: ReceivedPostDataType) => {
   }, []);
   return (
     <Link
-      href={
-        post ? ROUTES.RECENT_TO_POST(post.type, post.name, data.id) : data.id
-      }
+      href={post ? ROUTES.TYPE_TO_POST(post.type, post.name, data.id) : data.id}
     >
       <Card
         className={cn(

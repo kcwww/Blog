@@ -1,3 +1,4 @@
+import { ReceivedPostDataType } from '@/lib/types/PostType';
 export type PostDataType = {
   title: string;
   content: string;
@@ -10,21 +11,17 @@ export type PostDataType = {
   } | null;
 };
 
-export type ReceivedPostDataType = {
-  title: string;
-  content: string;
-  tags: string[];
-  thumbnail: string;
-  createdAt: string;
-  post: {
-    name: string;
-    type: string;
-  } | null;
+export type ReceivedPostDataType = PostDataType & {
   id: string;
   index: number;
 };
 
+export type PostListType = Pick<
+  PostDataType,
+  'createdAt' | 'tags' | 'title'
+> & { id: string };
+
 export type ReceivedPostType = {
   message: string;
-  type: { id: string; posts: string[] }[];
+  type: { id: string; title: string; type: string; posts: PostListType[] }[];
 };

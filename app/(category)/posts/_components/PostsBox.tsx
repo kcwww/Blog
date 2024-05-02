@@ -6,6 +6,8 @@ import { ReceivedPostType } from '@/lib/types/PostType';
 import clientComponentFetch from '@/lib/fetch/clientComponentFetch';
 import { BACKEND_ROUTES } from '@/constants/routes';
 
+import PostLists from '@/app/(category)/posts/_components/PostLists';
+
 const fetchPostType = async (
   type: string
 ): Promise<ReceivedPostType | null> => {
@@ -30,14 +32,16 @@ const PostsBox = ({ type }: { type: string }) => {
   if (isError) return <p>fetch error post {type}</p>;
 
   const postType = data?.type;
-  console.log(data);
 
   return (
-    <div>
+    <div className="w-full flex flex-col gap-4">
       <div className="text-xl font-semibold flex gap-2 items-end">
         {type[0].toLocaleUpperCase() + type.slice(1)} Posts
         <p className="text-sm">({postType?.length})</p>
       </div>
+      {postType?.map((post) => (
+        <PostLists key={post.id} {...post} type={type} />
+      ))}
     </div>
   );
 };

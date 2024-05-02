@@ -1,0 +1,39 @@
+import Link from 'next/link';
+
+import type { PostListType } from '@/lib/types/PostType';
+import { ROUTES } from '@/constants/routes';
+
+const PostLists = ({
+  id,
+  title,
+  posts,
+  type,
+}: {
+  id: string;
+  title: string;
+  type: string;
+  posts: PostListType[];
+}) => {
+  return (
+    <div className="flex flex-col gap-3">
+      <Link
+        href={ROUTES.TYPE_TO(type, id)}
+        className="flex font-medium gap-1 items-end"
+      >
+        {title} <p className="text-[0.7rem]">({posts.length})</p>
+      </Link>
+      <div className="px-4">
+        {posts.map((post, index) => (
+          <Link key={index} href={ROUTES.TYPE_TO_POST(type, id, post.id)}>
+            <div className="flex gap-2 items-center">
+              <p className="text-[0.8rem]">{post.createdAt.split(' ')[0]}</p>
+              <p>{post.title}</p>
+            </div>
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default PostLists;
