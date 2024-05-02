@@ -35,8 +35,9 @@ const Navbar = () => {
           </Link>
 
           <Link
-            href={ROUTES.PORTFOLIO}
+            href={'https://bit.ly/3wVaQjS'} // temp
             className="text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-800 rounded-lg p-2 transition-colors duration-200 ease-out"
+            target="_blank" //temp
           >
             Portfolio
           </Link>
