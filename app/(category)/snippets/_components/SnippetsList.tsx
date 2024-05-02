@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 import { cn } from '@/lib/utils';
 import { ReceivedPostTypeDetail } from '@/lib/types/PostType';
@@ -16,23 +16,43 @@ const SnippetsList = ({
   const [selected, setSelected] = useState<
     Omit<ReceivedPostTypeDetail, 'description' | 'type'>[]
   >([]);
+  const fadeRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (fadeRef.current) {
+      fadeRef.current.classList.add('animate-fade-out');
+
+      const id = setTimeout(() => {
+        fadeRef.current?.classList.remove('animate-fade-out');
+        void fadeRef.current?.offsetWidth;
+        fadeRef.current?.classList.add('animate-fade-in-delay');
+      }, 300);
+
+      fadeRef.current.classList.remove('animate-fade-in-delay');
+      void fadeRef.current.offsetWidth;
+      fadeRef.current.classList.add('animate-fade-in-delay');
+    }
+
     if (param) {
       const selectedSnippets = snippets.filter(
         (snippet) => snippet.id === param
       );
       setSelected(selectedSnippets);
-      console.log(selected);
     } else {
       setSelected(snippets);
     }
+
+    return () => clearTimeout(id);
   }, [param]);
 
   return (
     <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-16">
       {selected.map((snippet) => (
-        <div className="hover:scale-105 transition-transform" key={snippet.id}>
+        <div
+          ref={fadeRef}
+          className="hover:scale-105 transition-transform"
+          key={snippet.id}
+        >
           {snippet.posts.map((post, index) => (
             <Link
               key={index}
