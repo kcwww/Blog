@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { notFound, useSearchParams } from 'next/navigation';
-import { useQuery } from '@tanstack/react-query';
+import { useState, useEffect } from 'react';
 
 import clientComponentFetch from '@/lib/fetch/clientComponentFetch';
 import { BACKEND_ROUTES } from '@/constants/routes';
@@ -17,31 +17,28 @@ export type ReceiveSnippetType = ReceivedPostType & {
   type: Omit<ReceivedPostTypeDetail, 'description' | 'type'>[];
 };
 
-const fetchSnippets = async (
-  value: string | null
-): Promise<ReceiveSnippetType> => {
-  const url = value
-    ? `${BACKEND_ROUTES.SNIPPETS}?key=${value}`
-    : BACKEND_ROUTES.SNIPPETS;
-  try {
-    const res = await clientComponentFetch(url);
-    return res;
-  } catch (error) {
-    throw new Error('Failed to fetch snippets');
-  }
-};
-
 const SnippetsBox = () => {
   const searchParams = useSearchParams();
   const selected = searchParams.get('key');
-  const { data, isLoading, isError } = useQuery<ReceiveSnippetType>({
-    queryKey: ['snippets-tags'],
-    queryFn: () => fetchSnippets(selected),
-    retry: 1,
-  });
+  const [data, setData] = useState<ReceiveSnippetType | null>(null);
 
-  if (isLoading) return <></>;
-  if (isError) return notFound();
+  useEffect(() => {
+    const fetchSnippets = async (value: string | null) => {
+      const url = value
+        ? `${BACKEND_ROUTES.SNIPPETS}?key=${value}`
+        : BACKEND_ROUTES.SNIPPETS;
+      try {
+        const res = await clientComponentFetch(url);
+        setData(res);
+      } catch (error) {
+        console.error(error);
+        setData(notFound());
+      }
+    };
+    fetchSnippets(selected);
+  }, [selected]);
+
+  if (!data) return <></>;
 
   const snippets = data?.type;
   const total =

@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
@@ -18,28 +17,13 @@ type ReceivedSeriesType = ReceivedPostType & {
   type: ReceivedPostTypeDetail;
 };
 
-const seriesDetailData = async (
-  series: string
-): Promise<ReceivedSeriesType | null> => {
-  try {
-    const res = await clientComponentFetch(BACKEND_ROUTES.SERIES_ID(series));
-    return res;
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
-};
-
 const SeriesDetail = ({ detail }: { detail: string }) => {
   const [animate, setAnimate] = useState(false);
   const router = useRouter();
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ['seriesDetail'],
-    queryFn: () => seriesDetailData(detail),
-  });
+  const [data, setData] = useState<ReceivedSeriesType | null>(null);
 
   useEffect(() => {
-    if (isLoading) return;
+    if (!data) return;
 
     const id = setTimeout(() => {
       setAnimate(true);
@@ -48,10 +32,24 @@ const SeriesDetail = ({ detail }: { detail: string }) => {
     return () => {
       clearTimeout(id);
     };
-  }, []);
+  }, [data]);
 
-  if (isLoading) return <></>;
-  if (isError) return <p>fetch error series</p>;
+  useEffect(() => {
+    const seriesDetailData = async (series: string) => {
+      try {
+        const res = await clientComponentFetch(
+          BACKEND_ROUTES.SERIES_ID(series)
+        );
+        setData(res);
+      } catch (error) {
+        console.error(error);
+        throw new Error('Failed to fetch series detail data');
+      }
+    };
+    seriesDetailData(detail);
+  }, [detail]);
+
+  if (!data) return <></>;
 
   const dataDetail = data?.type;
 

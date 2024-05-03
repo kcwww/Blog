@@ -1,6 +1,6 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
+import { useState, useEffect } from 'react';
 
 import clientComponentFetch from '@/lib/fetch/clientComponentFetch';
 import { BACKEND_ROUTES } from '@/constants/routes';
@@ -8,24 +8,23 @@ import { ReceiveTagType } from '@/lib/types/TagType';
 
 import TagBadge from '@/app/(category)/posts/_components/TagBadge';
 
-const fetchTags = async (): Promise<ReceiveTagType | null> => {
-  try {
-    const res = await clientComponentFetch(BACKEND_ROUTES.TAGS);
-    return res;
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
-};
-
 const Tags = () => {
-  const { data, isLoading, isError } = useQuery<ReceiveTagType | null>({
-    queryKey: ['tags'],
-    queryFn: fetchTags,
-  });
+  const [data, setData] = useState<ReceiveTagType | null>(null);
 
-  if (isLoading) return <></>;
-  if (isError) return <p>Failed to fetch tags</p>;
+  useEffect(() => {
+    const fetchTags = async () => {
+      try {
+        const res = await clientComponentFetch(BACKEND_ROUTES.TAGS);
+        setData(res);
+      } catch (error) {
+        console.error(error);
+        throw new Error('Failed to fetch tags');
+      }
+    };
+    fetchTags();
+  }, []);
+
+  if (!data) return <></>;
 
   const tags = data?.tags;
 

@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useQuery } from '@tanstack/react-query';
+import { useState, useEffect } from 'react';
 import { Milestone } from 'lucide-react';
 
 import clientComponentFetch from '@/lib/fetch/clientComponentFetch';
@@ -10,26 +10,23 @@ import { BACKEND_ROUTES, ROUTES } from '@/constants/routes';
 import PostCard from '@/components/Post/PostCard';
 import { ReceivedPostDataType } from '@/lib/types/PostType';
 
-const fetchPostsData = async () => {
-  try {
-    const res = await clientComponentFetch(BACKEND_ROUTES.RECENT);
-
-    return res.posts;
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
-};
-
 const RecentPosts = () => {
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ['posts'],
-    queryFn: fetchPostsData,
-    staleTime: 5000,
-    refetchInterval: 5000,
-  });
+  const [data, setData] = useState([]);
 
-  if (isLoading)
+  useEffect(() => {
+    const fetchPostsData = async () => {
+      try {
+        const res = await clientComponentFetch(BACKEND_ROUTES.RECENT);
+        setData(res.posts);
+      } catch (error) {
+        console.error(error);
+        throw new Error('Failed to fetch posts data');
+      }
+    };
+    fetchPostsData();
+  }, []);
+
+  if (data.length === 0) {
     return (
       <>
         <div className="h-[2rem]" />
@@ -38,7 +35,7 @@ const RecentPosts = () => {
         </div>
       </>
     );
-  if (isError) return <p>데이터를 가져오는데 실패하였습니다. {data}</p>;
+  }
 
   return (
     <div className="w-full">

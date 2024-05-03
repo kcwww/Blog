@@ -10,6 +10,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'github.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'chanwooyam-blog.s3.ap-northeast-2.amazonaws.com',
+      },
     ],
   },
 };

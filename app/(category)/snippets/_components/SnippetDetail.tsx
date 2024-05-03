@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
@@ -18,28 +17,13 @@ type ReceivedSeriesType = ReceivedPostType & {
   type: Omit<ReceivedPostTypeDetail, 'description'>;
 };
 
-const snippetDetailData = async (
-  series: string
-): Promise<ReceivedSeriesType | null> => {
-  try {
-    const res = await clientComponentFetch(BACKEND_ROUTES.SNIPPETS_ID(series));
-    return res;
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
-};
-
 const SnippetDetail = ({ detail }: { detail: string }) => {
   const [animate, setAnimate] = useState(false);
   const router = useRouter();
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ['snippetDetail'],
-    queryFn: () => snippetDetailData(detail),
-  });
+  const [data, setData] = useState<ReceivedSeriesType | null>(null);
 
   useEffect(() => {
-    if (isLoading) return;
+    if (!data) return;
 
     const id = setTimeout(() => {
       setAnimate(true);
@@ -48,10 +32,24 @@ const SnippetDetail = ({ detail }: { detail: string }) => {
     return () => {
       clearTimeout(id);
     };
-  }, []);
+  }, [data]);
 
-  if (isLoading) return <></>;
-  if (isError) return <p>fetch error series</p>;
+  useEffect(() => {
+    const snippetDetailData = async (series: string) => {
+      try {
+        const res = await clientComponentFetch(
+          BACKEND_ROUTES.SNIPPETS_ID(series)
+        );
+        setData(res);
+      } catch (error) {
+        console.error(error);
+        throw new Error('Failed to fetch snippet detail data');
+      }
+    };
+    snippetDetailData(detail);
+  }, [detail]);
+
+  if (!data) return <></>;
 
   const dataDetail = data?.type;
 

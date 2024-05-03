@@ -10,7 +10,6 @@ import MainSection from '@/components/Main/MainSection';
 import ScrollToTopButton from '@/components/ui/ScrollToTopButton';
 import Footer from '@/components/Footer';
 import { Toaster } from '@/components/ui/sonner';
-import QueryProvider from '@/components/provider/QueryProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -37,15 +36,13 @@ const RootLayout = ({
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <AuthProvider>
-            <QueryProvider>
-              <Header />
-              <main className="w-full lg:w-2/3 2xl:w-1/2">
-                <MainSection>{children}</MainSection>
-                <ScrollToTopButton />
-                <Toaster richColors />
-              </main>
-              <Footer />
-            </QueryProvider>
+            <Header />
+            <main className="w-full lg:w-2/3 2xl:w-1/2">
+              <MainSection>{children}</MainSection>
+              <ScrollToTopButton />
+              <Toaster richColors />
+            </main>
+            <Footer />
           </AuthProvider>
         </ThemeProvider>
       </body>

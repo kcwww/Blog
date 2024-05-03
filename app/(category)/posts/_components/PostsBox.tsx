@@ -1,6 +1,6 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
+import { useState, useEffect } from 'react';
 
 import { ReceivedPostType } from '@/lib/types/PostType';
 import clientComponentFetch from '@/lib/fetch/clientComponentFetch';
@@ -8,28 +8,25 @@ import { BACKEND_ROUTES } from '@/constants/routes';
 
 import PostLists from '@/app/(category)/posts/_components/PostLists';
 
-const fetchPostType = async (
-  type: string
-): Promise<ReceivedPostType | null> => {
-  const url =
-    type === 'series' ? BACKEND_ROUTES.SERIES : BACKEND_ROUTES.SNIPPETS;
-  try {
-    const res = await clientComponentFetch(url);
-    return res;
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
-};
-
 const PostsBox = ({ type }: { type: string }) => {
-  const { data, isLoading, isError } = useQuery({
-    queryKey: [type],
-    queryFn: () => fetchPostType(type),
-  });
+  const [data, setData] = useState<ReceivedPostType | null>(null);
 
-  if (isLoading) return <></>;
-  if (isError) return <p>fetch error post {type}</p>;
+  useEffect(() => {
+    const fetchPostType = async (type: string) => {
+      const url =
+        type === 'series' ? BACKEND_ROUTES.SERIES : BACKEND_ROUTES.SNIPPETS;
+      try {
+        const res = await clientComponentFetch(url);
+        setData(res);
+      } catch (error) {
+        console.error(error);
+        throw new Error(`Failed to fetch ${type} data`);
+      }
+    };
+    fetchPostType(type);
+  }, [type]);
+
+  if (!data) return <></>;
 
   const postType = data?.type;
 
