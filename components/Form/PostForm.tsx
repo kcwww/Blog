@@ -16,6 +16,13 @@ import {
   FormItem,
   FormMessage,
 } from '@/components/ui/form';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
 import clientComponentFetch from '@/lib/fetch/clientComponentFetch';
@@ -32,10 +39,11 @@ export const postFormSchema = z.object({
   }),
   tags: z.string().optional(),
   thumbnail: z.string().optional(),
+  type: z.string().optional(),
+  typeName: z.string().optional(),
 });
 
 const PostForm = () => {
-  const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const form = useForm<z.infer<typeof postFormSchema>>({
     resolver: zodResolver(postFormSchema),
     defaultValues: {
@@ -43,6 +51,8 @@ const PostForm = () => {
       content: '',
       tags: '',
       thumbnail: '',
+      type: 'none',
+      typeName: '',
     },
   });
 
@@ -63,7 +73,13 @@ const PostForm = () => {
       ...data,
       tags,
       createdAt: koreaDate,
-      post: null,
+      post:
+        data.type === 'none'
+          ? null
+          : {
+              type: data.type,
+              name: data.typeName,
+            },
     } as PostDataType;
     try {
       const res = await clientComponentFetch(BACKEND_ROUTES.POST, {
@@ -168,6 +184,53 @@ const PostForm = () => {
                   placeholder={field.name}
                   {...field}
                   disabled={isLoading}
+                />
+              </FormControl>
+
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="type"
+          render={({ field }) => (
+            <FormItem>
+              <Select
+                onValueChange={(value) => {
+                  field.onChange(value);
+                  form.setValue('typeName', '');
+                }}
+                value={field.value}
+              >
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select type" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value="series">series</SelectItem>
+                  <SelectItem value="snippets">snippets</SelectItem>
+                  <SelectItem value="none">none</SelectItem>
+                </SelectContent>
+              </Select>
+
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="typeName"
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <Input
+                  placeholder={field.name}
+                  {...field}
+                  disabled={isLoading || form.watch('type') === 'none'}
                 />
               </FormControl>
 

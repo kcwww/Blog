@@ -26,6 +26,7 @@ const RecentPosts = () => {
     queryKey: ['posts'],
     queryFn: fetchPostsData,
     staleTime: 5000,
+    refetchInterval: 5000,
   });
 
   if (isLoading)
