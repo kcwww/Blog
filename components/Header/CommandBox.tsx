@@ -23,11 +23,14 @@ import {
   CommandSeparator,
   CommandShortcut,
 } from '@/components/ui/command';
-import { ROUTES } from '@/constants/routes';
+import { BACKEND_ROUTES, ROUTES } from '@/constants/routes';
 import LINK from '@/constants/link';
+import clientComponentFetch from '@/lib/fetch/clientComponentFetch';
 
 const CommandBox = () => {
   const [open, setOpen] = useState(false);
+  const [posts, setPosts] = useState([]);
+  const [input, setInput] = useState('');
 
   const router = useRouter();
 
@@ -45,11 +48,23 @@ const CommandBox = () => {
     };
   }, []);
 
+  const fetchPosts = async () => {
+    try {
+      const res = await clientComponentFetch(BACKEND_ROUTES.POSTS);
+      console.log(res);
+      setPosts(res);
+    } catch (err) {
+      console.error(err);
+      // router.replace(ROUTES.NOT_FOUND);
+    }
+  };
+
   return (
     <>
       <Button
         onClick={() => {
           setOpen(true);
+          fetchPosts();
         }}
         className="text-sm text-muted-foreground flex gap-2 bg-gray-200 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 "
       >
@@ -61,6 +76,9 @@ const CommandBox = () => {
       <CommandDialog open={open} onOpenChange={setOpen}>
         <div className="rounded">
           <CommandInput
+            onValueChange={(str: string) => {
+              setInput(str);
+            }}
             placeholder="Type a command or search..."
             onKeyDown={(e) => {
               if (e.metaKey || e.ctrlKey) {
