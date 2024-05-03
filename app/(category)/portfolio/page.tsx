@@ -1,5 +1,6 @@
 import { redirect } from 'next/navigation';
 
+import LINK from '@/constants/link';
 import Introduce from '@/components/Main/Introduce';
 
 const PortfolioPage = () => {
@@ -9,7 +10,7 @@ const PortfolioPage = () => {
     '프로젝트의 상세 내용과 소스코드를 확인하실 수 있습니다.',
   ];
 
-  redirect('https://bit.ly/3wVaQjS'); //temp
+  redirect(LINK.PORTFOLIO); //temp
 
   return (
     <>

@@ -5,7 +5,7 @@ const Navbar = () => {
   return (
     <>
       <div className="w-full md:block hidden">
-        <Links />
+        <Links view={undefined} />
       </div>
       <div className="md:hidden flex items-center">
         <Sidebar />
