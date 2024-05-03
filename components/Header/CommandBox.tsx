@@ -95,7 +95,7 @@ const CommandBox = () => {
             onValueChange={(str: string) => {
               setInput(str);
             }}
-            placeholder="Type a command or search..."
+            placeholder="명령어 입력후 엔터를 눌러주세요."
             onKeyDown={(e) => {
               if (e.metaKey || e.ctrlKey) {
                 e.preventDefault();
