@@ -25,6 +25,7 @@ const RecentPosts = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ['posts'],
     queryFn: fetchPostsData,
+    staleTime: 5000,
   });
 
   if (isLoading)
