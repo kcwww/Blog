@@ -26,10 +26,11 @@ import {
 import { BACKEND_ROUTES, ROUTES } from '@/constants/routes';
 import LINK from '@/constants/link';
 import clientComponentFetch from '@/lib/fetch/clientComponentFetch';
+import { PostDataType } from '@/lib/types/PostType';
 
 const CommandBox = () => {
   const [open, setOpen] = useState(false);
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<PostDataType[]>([]);
   const [input, setInput] = useState('');
 
   const router = useRouter();
@@ -51,8 +52,7 @@ const CommandBox = () => {
   const fetchPosts = async () => {
     try {
       const res = await clientComponentFetch(BACKEND_ROUTES.POSTS);
-      console.log(res);
-      setPosts(res);
+      setPosts(res.posts);
     } catch (err) {
       console.error(err);
       // router.replace(ROUTES.NOT_FOUND);
@@ -105,7 +105,26 @@ const CommandBox = () => {
             }}
           />
           <CommandList>
-            <CommandEmpty>No results found.</CommandEmpty>
+            {input.length === 0 ? (
+              <CommandEmpty>No results found.</CommandEmpty>
+            ) : (
+              posts
+                .filter((post) =>
+                  post.title.toLowerCase().includes(input.toLowerCase())
+                )
+                .map((post) => (
+                  <CommandItem
+                    key={post.id}
+                    onSelect={() => {
+                      router.push(`${ROUTES.POSTS}/${post.id}`);
+                      setOpen(false);
+                    }}
+                  >
+                    <Newspaper className="mr-2 h-4 w-4" />
+                    <span>{post.title}</span>
+                  </CommandItem>
+                ))
+            )}
             <CommandGroup heading="Suggestions">
               <CommandItem
                 onSelect={() => {
