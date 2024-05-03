@@ -1,15 +1,17 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 import { ReceivedPostType } from '@/lib/types/PostType';
 import clientComponentFetch from '@/lib/fetch/clientComponentFetch';
-import { BACKEND_ROUTES } from '@/constants/routes';
+import { BACKEND_ROUTES, ROUTES } from '@/constants/routes';
 
 import PostLists from '@/app/(category)/posts/_components/PostLists';
 
 const PostsBox = ({ type }: { type: string }) => {
   const [data, setData] = useState<ReceivedPostType | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchPostType = async (type: string) => {
@@ -20,11 +22,11 @@ const PostsBox = ({ type }: { type: string }) => {
         setData(res);
       } catch (error) {
         console.error(error);
-        throw new Error(`Failed to fetch ${type} data`);
+        router.replace(ROUTES.NOT_FOUND);
       }
     };
     fetchPostType(type);
-  }, [type]);
+  }, [type, router]);
 
   if (!data) return <></>;
 

@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 import { cn } from '@/lib/utils';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
@@ -12,6 +13,7 @@ import type { ReceivedPostType } from '@/lib/types/PostType';
 const SeriesCards = () => {
   const [data, setData] = useState<ReceivedPostType | null>(null);
   const [animate, setAnimate] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     if (!data) return;
@@ -32,11 +34,11 @@ const SeriesCards = () => {
         setData(res);
       } catch (error) {
         console.error(error);
-        throw new Error('Failed to fetch series data');
+        router.replace(ROUTES.NOT_FOUND);
       }
     };
     fetchSeries();
-  }, []);
+  }, [router]);
 
   if (!data) return <></>;
 

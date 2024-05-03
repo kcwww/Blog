@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { Milestone } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 import clientComponentFetch from '@/lib/fetch/clientComponentFetch';
 import SkeletonCard from '@/components/Skeleton/SkeletonCard';
@@ -12,6 +13,7 @@ import { ReceivedPostDataType } from '@/lib/types/PostType';
 
 const RecentPosts = () => {
   const [data, setData] = useState([]);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchPostsData = async () => {
@@ -20,11 +22,11 @@ const RecentPosts = () => {
         setData(res.posts);
       } catch (error) {
         console.error(error);
-        throw new Error('Failed to fetch posts data');
+        router.replace(ROUTES.NOT_FOUND);
       }
     };
     fetchPostsData();
-  }, []);
+  }, [router]);
 
   if (data.length === 0) {
     return (

@@ -5,23 +5,23 @@ import { BLOGDB } from '@/lib/Firebase';
 
 export const GET = async (
   req: NextRequest,
-  { params }: { params: { seriesId: string } }
+  { params }: { params: { tagId: string } }
 ) => {
-  const id = params.seriesId;
-  const postRef = doc(BLOGDB, 'series', id);
+  const id = params.tagId;
+  const postRef = doc(BLOGDB, 'tags', id);
 
   try {
     const docSnap = await getDoc(postRef);
 
     if (docSnap.exists()) {
       return NextResponse.json({
-        message: 'Series found',
+        message: 'Tags found',
         type: { id: docSnap.id, ...docSnap.data() },
       });
     } else {
       return NextResponse.json(
         {
-          message: 'No series found with ID: ' + id,
+          message: 'No Snippets found with ID: ' + id,
         },
         { status: 404 }
       );

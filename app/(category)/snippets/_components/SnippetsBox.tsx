@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { notFound, useSearchParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 import clientComponentFetch from '@/lib/fetch/clientComponentFetch';
 import { BACKEND_ROUTES } from '@/constants/routes';
@@ -21,6 +22,7 @@ const SnippetsBox = () => {
   const searchParams = useSearchParams();
   const selected = searchParams.get('key');
   const [data, setData] = useState<ReceiveSnippetType | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchSnippets = async (value: string | null) => {
@@ -32,11 +34,11 @@ const SnippetsBox = () => {
         setData(res);
       } catch (error) {
         console.error(error);
-        setData(notFound());
+        router.replace(ROUTES.NOT_FOUND);
       }
     };
     fetchSnippets(selected);
-  }, [selected]);
+  }, [selected, router]);
 
   if (!data) return <></>;
 

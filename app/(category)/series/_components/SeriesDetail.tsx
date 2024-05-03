@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { notFound, useRouter } from 'next/navigation';
 
 import { cn } from '@/lib/utils';
 import { BACKEND_ROUTES, ROUTES } from '@/constants/routes';
@@ -43,11 +43,11 @@ const SeriesDetail = ({ detail }: { detail: string }) => {
         setData(res);
       } catch (error) {
         console.error(error);
-        throw new Error('Failed to fetch series detail data');
+        router.replace(ROUTES.NOT_FOUND);
       }
     };
     seriesDetailData(detail);
-  }, [detail]);
+  }, [detail, router]);
 
   if (!data) return <></>;
 

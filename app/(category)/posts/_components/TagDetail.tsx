@@ -2,25 +2,20 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { useRouter, notFound } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 import { cn } from '@/lib/utils';
 import { BACKEND_ROUTES, ROUTES } from '@/constants/routes';
 import clientComponentFetch from '@/lib/fetch/clientComponentFetch';
-import { ReceivedPostTypeDetail, ReceivedPostType } from '@/lib/types/PostType';
+import { ReceivedTagType } from '@/lib/types/TagType';
 import Introduce from '@/components/Main/Introduce';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Badge } from '@/components/ui/badge';
 
-type ReceivedSeriesType = ReceivedPostType & {
-  message: string;
-  type: Omit<ReceivedPostTypeDetail, 'description'>;
-};
-
-const SnippetDetail = ({ detail }: { detail: string }) => {
+const TagDetail = ({ detail }: { detail: string }) => {
   const [animate, setAnimate] = useState(false);
   const router = useRouter();
-  const [data, setData] = useState<ReceivedSeriesType | null>(null);
+  const [data, setData] = useState<ReceivedTagType | null>(null);
 
   useEffect(() => {
     if (!data) return;
@@ -35,15 +30,14 @@ const SnippetDetail = ({ detail }: { detail: string }) => {
   }, [data]);
 
   useEffect(() => {
-    const snippetDetailData = async (series: string) => {
+    const snippetDetailData = async (tagId: string) => {
       try {
-        const res = await clientComponentFetch(
-          BACKEND_ROUTES.SNIPPETS_ID(series)
-        );
+        const res = await clientComponentFetch(BACKEND_ROUTES.TAG_ID(tagId));
         setData(res);
+        console.log(res);
       } catch (error) {
         console.error(error);
-        router.replace(ROUTES.NOT_FOUND);
+        // router.replace(ROUTES.NOT_FOUND);
       }
     };
     snippetDetailData(detail);
@@ -55,14 +49,18 @@ const SnippetDetail = ({ detail }: { detail: string }) => {
 
   return (
     <>
-      <Introduce title={dataDetail?.title || ''} description={null} />
+      <Introduce title={dataDetail.id || ''} description={null} />
       <div className="animate-text-down-delay opacity-0 text-sm text-gray-300 dark:text-gray-500">
         총 {dataDetail?.posts.length} 개의 포스팅이 존재합니다.
       </div>
-      {dataDetail?.posts.map((post, index) => (
+      {dataDetail.posts.map((post, index) => (
         <Link
-          key={post.id}
-          href={ROUTES.TYPE_TO_POST('series', dataDetail.id || '', post.id)}
+          key={index}
+          href={ROUTES.TYPE_TO_POST(
+            post.post?.type || '',
+            post.post?.name || '',
+            post.id
+          )}
           className="w-full hover:scale-105 transition-transform"
         >
           <Alert
@@ -99,4 +97,4 @@ const SnippetDetail = ({ detail }: { detail: string }) => {
   );
 };
 
-export default SnippetDetail;
+export default TagDetail;

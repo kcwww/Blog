@@ -19,9 +19,12 @@ export const GET = async (
         type: { id: docSnap.id, ...docSnap.data() },
       });
     } else {
-      return NextResponse.json({
-        message: 'No Snippets found with ID: ' + id,
-      });
+      return NextResponse.json(
+        {
+          message: 'No Snippets found with ID: ' + id,
+        },
+        { status: 404 }
+      );
     }
   } catch (e) {
     return NextResponse.json({

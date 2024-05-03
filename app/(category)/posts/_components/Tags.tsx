@@ -1,15 +1,17 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 import clientComponentFetch from '@/lib/fetch/clientComponentFetch';
-import { BACKEND_ROUTES } from '@/constants/routes';
-import { ReceiveTagType } from '@/lib/types/TagType';
+import { BACKEND_ROUTES, ROUTES } from '@/constants/routes';
+import { ReceivedTagsType } from '@/lib/types/TagType';
 
 import TagBadge from '@/app/(category)/posts/_components/TagBadge';
 
 const Tags = () => {
-  const [data, setData] = useState<ReceiveTagType | null>(null);
+  const [data, setData] = useState<ReceivedTagsType | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchTags = async () => {
@@ -18,11 +20,11 @@ const Tags = () => {
         setData(res);
       } catch (error) {
         console.error(error);
-        throw new Error('Failed to fetch tags');
+        router.replace(ROUTES.NOT_FOUND);
       }
     };
     fetchTags();
-  }, []);
+  }, [router]);
 
   if (!data) return <></>;
 
