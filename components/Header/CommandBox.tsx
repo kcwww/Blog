@@ -119,22 +119,42 @@ const CommandBox = () => {
             </CommandGroup>
             <CommandSeparator />
             <CommandGroup heading="Contact">
-              <CommandItem>
+              <CommandItem
+                onSelect={() => {
+                  window.open(LINK.MAIL);
+                  setOpen(false);
+                }}
+              >
                 <Mail className="mr-2 h-4 w-4" />
                 <span>Mail</span>
                 <CommandShortcut>⌘P</CommandShortcut>
               </CommandItem>
-              <CommandItem>
+              <CommandItem
+                onSelect={() => {
+                  window.open(LINK.GITHUB);
+                  setOpen(false);
+                }}
+              >
                 <Github className="mr-2 h-4 w-4" />
                 <span>Github</span>
                 <CommandShortcut>⌘B</CommandShortcut>
               </CommandItem>
-              <CommandItem>
+              <CommandItem
+                onSelect={() => {
+                  window.open(LINK.INSTAGRAM);
+                  setOpen(false);
+                }}
+              >
                 <Instagram className="mr-2 h-4 w-4" />
                 <span>Instagram</span>
                 <CommandShortcut>⌘F</CommandShortcut>
               </CommandItem>
-              <CommandItem>
+              <CommandItem
+                onSelect={() => {
+                  window.open(LINK.LINKEDIN);
+                  setOpen(false);
+                }}
+              >
                 <Linkedin className="mr-2 h-4 w-4" />
                 <span>Linkedin</span>
                 <CommandShortcut>⌘S</CommandShortcut>
