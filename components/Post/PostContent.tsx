@@ -3,13 +3,14 @@
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import Image from 'next/image';
+import { AspectRatio } from '@radix-ui/react-aspect-ratio';
 
 import CodeBlock from '@/components/ui/CodeBlock';
 
 const PostContent = ({ markedString }: { markedString: string }) => {
   return (
     <ReactMarkdown
-      className="marked-container flex flex-col gap-4 w-full mb-20"
+      className="marked-container flex flex-col w-full mb-20 gap-4"
       remarkPlugins={[remarkGfm]}
       components={{
         code({ node, inline, className, children, ...props }: any) {
@@ -26,15 +27,18 @@ const PostContent = ({ markedString }: { markedString: string }) => {
           );
         },
         img: (image) => (
-          <div className="flex justify-center items-center w-full">
+          <AspectRatio
+            ratio={16 / 9}
+            className="w-full flex justify-center items-center"
+          >
             <Image
-              className="p-4"
+              className="mt-4 rounded-md overflow-hidden"
               src={image.src || ''}
               alt={image.alt || ''}
-              width={300}
-              height={300}
+              width={560}
+              height={360}
             />
-          </div>
+          </AspectRatio>
         ),
       }}
     >

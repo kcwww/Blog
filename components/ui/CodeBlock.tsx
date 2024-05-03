@@ -68,8 +68,13 @@ const CodeBlock = ({ language, children, ...props }: CodeBlockProps) => {
           borderRadius: '10px',
           paddingTop: '3rem',
           width: '100%',
+          overflowX: 'auto',
+          scrollBehavior: 'smooth',
+          scrollbarWidth: 'thin',
+          scrollbarColor: 'rgba(255, 255, 255, 0.2) rgba(255, 255, 255, 0.1)',
         }}
         component="pre"
+        useInlineStyles={true}
       >
         {children.replace(/\n$/, '')}
       </SyntaxHighlighter>
