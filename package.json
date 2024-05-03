@@ -25,7 +25,6 @@
     "@types/react-syntax-highlighter": "^15.5.11",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
-    "cmdk": "^1.0.0",
     "firebase": "^10.11.0",
     "fuse.js": "^7.0.0",
     "highlight.js": "^11.9.0",

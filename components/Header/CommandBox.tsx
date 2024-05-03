@@ -161,6 +161,9 @@ const CommandBox = () => {
             )}
             <CommandGroup heading="Suggestions">
               <CommandItem
+                onClick={() => {
+                  console.log(1);
+                }}
                 onSelect={() => {
                   router.push(ROUTES.POSTS);
                   setOpen(false);
