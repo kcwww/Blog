@@ -110,3 +110,19 @@ body {
 .marked-container p {
   @apply text-base;
 }
+
+.marked-container table {
+  @apply w-full my-4;
+}
+
+.marked-container th {
+  @apply border-black border-solid border p-2;
+}
+
+.marked-container td {
+  @apply border-black border-solid border p-2;
+}
+
+.marked-container blockquote {
+  @apply border-l-4 border-primary pl-4 my-4 bg-gray-500 py-2;
+}
