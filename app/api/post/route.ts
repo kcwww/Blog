@@ -23,50 +23,68 @@ const POST = async (req: NextRequest) => {
   try {
     await loginUser(session.user?.email || '');
     const docRef = await addDoc(collection(BLOGDB, 'posts'), data);
+
     if (data.post !== null) {
       const typeRef = doc(BLOGDB, data.post.type, data.post.name);
       const typeDoc = await getDoc(typeRef);
-      if (data.post !== null) {
-        const typeRef = doc(BLOGDB, data.post.type, data.post.name);
-        const typeDoc = await getDoc(typeRef);
-        if (!typeDoc.exists()) {
-          await setDoc(typeRef, {
+      if (!typeDoc.exists()) {
+        await setDoc(typeRef, {
+          posts: [
+            {
+              createdAt: data.createdAt,
+              id: docRef.id,
+              tags: data.tags,
+              title: data.title,
+            },
+          ],
+        });
+      } else {
+        const newData = typeDoc.data().posts;
+        newData.push({
+          createdAt: data.createdAt,
+          id: docRef.id,
+          tags: data.tags,
+          title: data.title,
+        });
+        await setDoc(typeRef, { posts: newData }, { merge: true });
+      }
+    }
+    if (data.tags !== null) {
+      for (const tag of data.tags) {
+        const tagRef = doc(BLOGDB, 'tags', tag);
+        const tagDoc = await getDoc(tagRef);
+        if (!tagDoc.exists()) {
+          await setDoc(tagRef, {
             posts: [
               {
                 createdAt: data.createdAt,
                 id: docRef.id,
-                tags: data.tags,
                 title: data.title,
+                tags: data.tags,
+                post: {
+                  type: data.post.type,
+                  name: data.post.name,
+                },
               },
             ],
           });
         } else {
-          const newData = typeDoc.data().posts;
+          const newData = tagDoc.data().posts;
           newData.push({
             createdAt: data.createdAt,
             id: docRef.id,
-            tags: data.tags,
             title: data.title,
+            tags: data.tags,
+            post: {
+              type: data.post.type,
+              name: data.post.name,
+            },
           });
-          await setDoc(typeRef, { posts: newData }, { merge: true });
-        }
-      }
-      if (data.tags !== null) {
-        for (const tag of data.tags) {
-          const tagRef = doc(BLOGDB, 'tags', tag);
-          const tagDoc = await getDoc(tagRef);
-          if (!tagDoc.exists()) {
-            await setDoc(tagRef, {
-              posts: [docRef.id, ,],
-            });
-          } else {
-            const newData = tagDoc.data().posts;
-            newData.push(docRef.id);
-            await setDoc(tagRef, { posts: newData }, { merge: true });
-          }
+          await setDoc(tagRef, { posts: newData }, { merge: true });
         }
       }
     }
+
     return NextResponse.json({
       message: 'Post added with ID: ' + docRef.id,
       data: docRef.id,
