@@ -28,9 +28,10 @@ const PostContent = ({ markedString }: { markedString: string }) => {
         img: (image) => (
           <div className="flex justify-center items-center w-full">
             <Image
+              className="p-4"
               src={image.src || ''}
               alt={image.alt || ''}
-              width={500}
+              width={300}
               height={300}
             />
           </div>

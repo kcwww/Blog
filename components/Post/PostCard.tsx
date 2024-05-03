@@ -40,7 +40,7 @@ const PostCard = (data: ReceivedPostDataType) => {
     >
       <Card
         className={cn(
-          'flex flex-col gap-2 max-h-[24rem] justify-between hover:scale-105 transition-transform h-full',
+          'flex flex-col gap-2  justify-between hover:scale-105 transition-transform h-full',
           !animate && 'animate-card-enter opacity-0'
         )}
         style={{ animationDelay: `${data.index * 100}ms` }}
