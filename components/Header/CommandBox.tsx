@@ -10,7 +10,10 @@ import {
   Github,
   Instagram,
   Linkedin,
+  FolderOpenDot,
 } from 'lucide-react';
+import Fuse, { FuseResult } from 'fuse.js';
+import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -26,11 +29,11 @@ import {
 import { BACKEND_ROUTES, ROUTES } from '@/constants/routes';
 import LINK from '@/constants/link';
 import clientComponentFetch from '@/lib/fetch/clientComponentFetch';
-import { PostDataType } from '@/lib/types/PostType';
+import { ReceivedPostDataType } from '@/lib/types/PostType';
 
 const CommandBox = () => {
   const [open, setOpen] = useState(false);
-  const [posts, setPosts] = useState<PostDataType[]>([]);
+  const [posts, setPosts] = useState<Omit<ReceivedPostDataType, 'index'>[]>([]);
   const [input, setInput] = useState('');
 
   const router = useRouter();
@@ -46,6 +49,7 @@ const CommandBox = () => {
     document.addEventListener('keydown', down);
     return () => {
       document.removeEventListener('keydown', down);
+      setInput('');
     };
   }, []);
 
@@ -54,10 +58,16 @@ const CommandBox = () => {
       const res = await clientComponentFetch(BACKEND_ROUTES.POSTS);
       setPosts(res.posts);
     } catch (err) {
-      console.error(err);
-      // router.replace(ROUTES.NOT_FOUND);
+      toast.error(
+        '게시물을 가져오는데 실패하였습니다. 잠시 후 다시 시도해주세요.'
+      );
     }
   };
+
+  const fuse = new Fuse(posts, {
+    keys: ['title'],
+    includeScore: true,
+  });
 
   return (
     <>
@@ -73,7 +83,13 @@ const CommandBox = () => {
           <span className="text-xs">⌘</span>K
         </kbd>
       </Button>
-      <CommandDialog open={open} onOpenChange={setOpen}>
+      <CommandDialog
+        open={open}
+        onOpenChange={() => {
+          setOpen(false);
+          setInput('');
+        }}
+      >
         <div className="rounded">
           <CommandInput
             onValueChange={(str: string) => {
@@ -105,25 +121,43 @@ const CommandBox = () => {
             }}
           />
           <CommandList>
-            {input.length === 0 ? (
-              <CommandEmpty>No results found.</CommandEmpty>
-            ) : (
-              posts
-                .filter((post) =>
-                  post.title.toLowerCase().includes(input.toLowerCase())
-                )
-                .map((post) => (
-                  <CommandItem
-                    key={post.id}
-                    onSelect={() => {
-                      router.push(`${ROUTES.POSTS}/${post.id}`);
-                      setOpen(false);
-                    }}
-                  >
-                    <Newspaper className="mr-2 h-4 w-4" />
-                    <span>{post.title}</span>
-                  </CommandItem>
-                ))
+            <CommandEmpty>
+              {posts.length === 0 ? 'Searching...' : 'No results found.'}
+            </CommandEmpty>
+            {fuse.search(input).length !== 0 && (
+              <CommandGroup heading="Posts">
+                {fuse.search(input).map((result, index) => {
+                  const post = result.item;
+
+                  return (
+                    <CommandItem
+                      key={index}
+                      onSelect={() => {
+                        router.push(
+                          ROUTES.TYPE_TO_POST(
+                            post.post?.type || '',
+                            post.post?.name || '',
+                            post.id
+                          )
+                        );
+                        setOpen(false);
+                      }}
+                      onClick={() => {
+                        router.push(
+                          ROUTES.TYPE_TO_POST(
+                            post.post?.type || '',
+                            post.post?.name || '',
+                            post.id
+                          )
+                        );
+                        setOpen(false);
+                      }}
+                    >
+                      {post.title}
+                    </CommandItem>
+                  );
+                })}
+              </CommandGroup>
             )}
             <CommandGroup heading="Suggestions">
               <CommandItem
@@ -152,6 +186,15 @@ const CommandBox = () => {
               >
                 <Code className="mr-2 h-4 w-4" />
                 <span>All Snippets</span>
+              </CommandItem>
+              <CommandItem
+                onSelect={() => {
+                  window.open(LINK.PORTFOLIO);
+                  setOpen(false);
+                }}
+              >
+                <FolderOpenDot className="mr-2 h-4 w-4" />
+                <span>Portfolio</span>
               </CommandItem>
             </CommandGroup>
             <CommandSeparator />

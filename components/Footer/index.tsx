@@ -5,7 +5,7 @@ import LINK from '@/constants/link';
 
 const Footer = () => {
   return (
-    <footer className="flex flex-col gap-4 items-center justify-center w-full h-12  dark:border-gray-700 text-sm p-8">
+    <footer className="flex flex-col gap-4 items-center justify-center w-full h-full  dark:border-gray-700 text-sm p-8">
       <div className="flex gap-4 items-center">
         <Link
           href={LINK.MAIL}
