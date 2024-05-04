@@ -10,10 +10,10 @@ export type PostDataType = {
     name: string;
     type: string;
   } | null;
+  id: string;
 };
 
 export type ReceivedPostDataType = PostDataType & {
-  id: string;
   index: number;
 };
 

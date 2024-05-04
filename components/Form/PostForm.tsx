@@ -1,7 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { toast } from 'sonner';
@@ -43,7 +43,7 @@ export const postFormSchema = z.object({
   typeName: z.string().optional(),
 });
 
-const PostForm = () => {
+const PostForm = ({ post }: { post: PostDataType | null }) => {
   const form = useForm<z.infer<typeof postFormSchema>>({
     resolver: zodResolver(postFormSchema),
     defaultValues: {
@@ -55,6 +55,18 @@ const PostForm = () => {
       typeName: '',
     },
   });
+
+  useEffect(() => {
+    if (post !== null) {
+      form.reset(post);
+      form.setValue('title', post.title);
+      form.setValue('content', post.content);
+      form.setValue('tags', post.tags.join(','));
+      form.setValue('thumbnail', post.thumbnail);
+      form.setValue('type', post.post?.type ?? 'none');
+      form.setValue('typeName', post.post?.name ?? '');
+    }
+  }, [form, post]);
 
   const router = useRouter();
 
@@ -81,6 +93,8 @@ const PostForm = () => {
               name: data.typeName,
             },
     } as PostDataType;
+    delete postData.type;
+    delete postData.typeName;
     try {
       const res = await clientComponentFetch(BACKEND_ROUTES.POST, {
         method: 'POST',
