@@ -96,13 +96,21 @@ const PostForm = ({ post }: { post: PostDataType | null }) => {
     delete postData.type;
     delete postData.typeName;
     try {
-      const method = post ? 'PUT' : 'POST';
-      const res = await clientComponentFetch(BACKEND_ROUTES.POST_ID(post.id), {
-        method: method,
-        body: JSON.stringify(postData),
-      });
+      if (post === null) {
+        const res = await clientComponentFetch(BACKEND_ROUTES.POST, {
+          method: 'POST',
+          body: JSON.stringify(postData),
+        });
+      } else {
+        const res = await clientComponentFetch(
+          BACKEND_ROUTES.POST_ID(post.id),
+          {
+            method: 'PUT',
+            body: JSON.stringify(postData),
+          }
+        );
+      }
       form.reset();
-      console.log(method, postData, 123123);
       toast.success('포스팅 성공 !');
       router.push(ROUTES.LANDING);
       router.refresh();
