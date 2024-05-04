@@ -3,8 +3,10 @@
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import CodeBlock from '@/components/ui/CodeBlock';
+import { Button } from '@/components/ui/button';
 
 const PostContent = ({ markedString }: { markedString: string }) => {
   return (
@@ -35,6 +37,11 @@ const PostContent = ({ markedString }: { markedString: string }) => {
             objectFit="cover"
             quality={100}
           />
+        ),
+        a: (link) => (
+          <Link href={link.href || '#'} target="_blank">
+            <Button>{link.children}</Button>
+          </Link>
         ),
       }}
     >
