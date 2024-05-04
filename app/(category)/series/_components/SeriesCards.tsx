@@ -20,7 +20,7 @@ const SeriesCards = () => {
 
     const id = setTimeout(() => {
       setAnimate(true);
-    }, 1000);
+    }, 5000);
 
     return () => {
       clearTimeout(id);
