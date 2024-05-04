@@ -6,7 +6,7 @@ const clientComponentFetch = async (url: string, init?: RequestInit) => {
     headers: {
       'Content-Type': 'application/json',
     },
-    next: { revalidate: 60 },
+    cache: 'no-cache',
   };
 
   const finalInit = init ? { ...defaultInit, ...init } : defaultInit;
