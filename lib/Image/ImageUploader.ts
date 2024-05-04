@@ -71,7 +71,7 @@ export class ImageUploader implements ImageUploaderType {
                 resolve(resizedFile);
               },
               'image/jpeg',
-              0.7
+              1
             );
           };
         };
