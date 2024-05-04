@@ -35,7 +35,7 @@ const UpdatePostPage = ({ params }: { params: { postId: string } }) => {
       const res = await clientComponentFetch(
         BACKEND_ROUTES.POST_ID(params.postId)
       );
-      setPost(res);
+      setPost(res.data);
     };
 
     fetchPost();

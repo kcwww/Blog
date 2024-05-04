@@ -58,7 +58,7 @@ const PostForm = ({ post }: { post: PostDataType | null }) => {
 
   useEffect(() => {
     if (post !== null) {
-      form.reset(post);
+      form.reset();
       form.setValue('title', post.title);
       form.setValue('content', post.content);
       form.setValue('tags', post.tags.join(','));
@@ -92,15 +92,17 @@ const PostForm = ({ post }: { post: PostDataType | null }) => {
               type: data.type,
               name: data.typeName,
             },
-    } as PostDataType;
+    };
     delete postData.type;
     delete postData.typeName;
     try {
-      const res = await clientComponentFetch(BACKEND_ROUTES.POST, {
-        method: 'POST',
+      const method = post ? 'PUT' : 'POST';
+      const res = await clientComponentFetch(BACKEND_ROUTES.POST_ID(post.id), {
+        method: method,
         body: JSON.stringify(postData),
       });
       form.reset();
+      console.log(method, postData, 123123);
       toast.success('포스팅 성공 !');
       router.push(ROUTES.LANDING);
       router.refresh();

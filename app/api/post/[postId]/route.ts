@@ -1,7 +1,8 @@
 import { NextResponse, NextRequest } from 'next/server';
-import { doc, getDoc } from 'firebase/firestore';
+import { collection, addDoc, doc, getDoc, setDoc } from 'firebase/firestore';
+import { getServerSession } from 'next-auth/next';
 
-import { BLOGDB } from '@/lib/Firebase';
+import { BLOGDB, loginUser } from '@/lib/Firebase';
 
 export const GET = async (
   req: NextRequest,
@@ -16,7 +17,7 @@ export const GET = async (
     if (docSnap.exists()) {
       return NextResponse.json({
         message: 'Post found',
-        data: docSnap.data(),
+        data: { ...docSnap.data(), id: docSnap.id },
       });
     } else {
       return NextResponse.json({
@@ -28,4 +29,35 @@ export const GET = async (
       message: 'Error retrieving document: ' + e,
     });
   }
+};
+
+export const PUT = async (
+  req: NextRequest,
+  { params }: { params: { postId: string } }
+) => {
+  const session = await getServerSession();
+
+  if (!session) {
+    return NextResponse.json(
+      {
+        error: 'Unauthorized',
+      },
+      {
+        status: 401,
+      }
+    );
+  }
+
+  const data = await req.json();
+  const id = params.postId;
+
+  try {
+    await loginUser(session.user?.email || '');
+    const postRef = doc(BLOGDB, 'posts', id);
+    await setDoc(postRef, data);
+
+    return NextResponse.json({
+      message: 'Post updated',
+    });
+  } catch (e) {}
 };

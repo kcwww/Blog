@@ -9,6 +9,7 @@ const ROUTES = {
   TAG: (tag: string) => `/posts/${tag}`,
   TYPE_TO: (type: string, name: string) => `/${type}/${name}`,
   NOT_FOUND: '/404',
+  UPDATE: (id: string) => `/admin/update/${id}`,
 } as const;
 
 const BACKEND_ROUTES = {

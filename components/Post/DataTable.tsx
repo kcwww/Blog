@@ -14,6 +14,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import { ArrowUpDown, ChevronDown, MoreHorizontal } from 'lucide-react';
+import Link from 'next/link';
 
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -36,6 +37,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { ORIGIN } from '@/constants/url';
+import { ROUTES } from '@/constants/routes';
 
 import type { DataTableType } from '@/app/(protected)/admin/page';
 
@@ -116,7 +118,9 @@ export const columns: ColumnDef<DataTableType>[] = [
                 navigator.clipboard.writeText(
                   ORIGIN +
                     '/' +
-                    (post.type !== '' ? post.type + post.name + '/' : '') +
+                    (post.type !== ''
+                      ? post.type + '/' + post.name + '/'
+                      : '') +
                     post.id
                 )
               }
@@ -124,8 +128,14 @@ export const columns: ColumnDef<DataTableType>[] = [
               Copy Link
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>View Post</DropdownMenuItem>
-            <DropdownMenuItem>Update Post</DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link href={ROUTES.TYPE_TO_POST(post.type, post.name, post.id)}>
+                View Post{' '}
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link href={ROUTES.UPDATE(post.id)}>Update Post</Link>
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );
