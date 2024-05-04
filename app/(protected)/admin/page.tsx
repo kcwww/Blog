@@ -1,10 +1,12 @@
 'use client';
 
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 
+import { Button } from '@/components/ui/button';
 import clientComponentFetch from '@/lib/fetch/clientComponentFetch';
 import { BACKEND_ROUTES, ROUTES } from '@/constants/routes';
 import type { PostDataType } from '@/lib/types/PostType';
@@ -69,6 +71,9 @@ const AdminPage = () => {
   return (
     <>
       <DataTable posts={posts} />
+      <Link href={ROUTES.NEW_POST}>
+        <Button>새 글 작성</Button>
+      </Link>
     </>
   );
 };

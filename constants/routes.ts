@@ -10,6 +10,7 @@ const ROUTES = {
   TYPE_TO: (type: string, name: string) => `/${type}/${name}`,
   NOT_FOUND: '/404',
   UPDATE: (id: string) => `/admin/update/${id}`,
+  NEW_POST: '/admin/new/',
 } as const;
 
 const BACKEND_ROUTES = {
