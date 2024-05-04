@@ -34,3 +34,9 @@ export type ReceivedPostType = {
   message: string;
   type: ReceivedPostTypeDetail[];
 };
+
+export type ReceivedSnippetType = {
+  id: string;
+  title: string;
+  posts: PostListType[];
+};

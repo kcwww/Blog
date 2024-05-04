@@ -7,21 +7,39 @@ import { useRouter } from 'next/navigation';
 
 import clientComponentFetch from '@/lib/fetch/clientComponentFetch';
 import { BACKEND_ROUTES } from '@/constants/routes';
-import { ReceivedPostType, ReceivedPostTypeDetail } from '@/lib/types/PostType';
 import { Badge } from '@/components/ui/badge';
 import { ROUTES } from '@/constants/routes';
+import { ReceivedSnippetType, PostListType } from '@/lib/types/PostType';
 
 import SnippetBadge from '@/app/(category)/snippets/_components/SnippetBadge';
 import SnippetsList from '@/app/(category)/snippets/_components/SnippetsList';
 
-export type ReceiveSnippetType = ReceivedPostType & {
-  type: Omit<ReceivedPostTypeDetail, 'description' | 'type'>[];
+export type ParsingDataType = {
+  id: string;
+  post: PostListType;
+  title: string;
+};
+
+const parsingSnippet = (
+  seleted: string | null,
+  snippets: ReceivedSnippetType[]
+): ParsingDataType[] => {
+  const result = [] as ParsingDataType[];
+  snippets.forEach((item) => {
+    item.posts.forEach((post) => {
+      if (seleted && item.id !== seleted) return;
+      result.push({ id: item.id, post, title: item.title });
+    });
+  });
+
+  return result;
 };
 
 const SnippetsBox = () => {
   const searchParams = useSearchParams();
   const selected = searchParams.get('key');
-  const [data, setData] = useState<ReceiveSnippetType | null>(null);
+  const [snippets, setSnippets] = useState<ParsingDataType[] | null>(null);
+  const [data, setData] = useState<ReceivedSnippetType[] | null>(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -31,7 +49,14 @@ const SnippetsBox = () => {
         : BACKEND_ROUTES.SNIPPETS;
       try {
         const res = await clientComponentFetch(url);
-        setData(res);
+        res.type.sort(
+          (a: ReceivedSnippetType, b: ReceivedSnippetType) =>
+            b.posts.length - a.posts.length
+        );
+        const parsingData = parsingSnippet(value, res.type);
+
+        setData(res.type);
+        setSnippets(parsingData);
       } catch (error) {
         console.error(error);
         router.replace(ROUTES.NOT_FOUND);
@@ -40,16 +65,9 @@ const SnippetsBox = () => {
     fetchSnippets(selected);
   }, [selected, router]);
 
-  if (!data) return <></>;
+  if (!snippets) return <></>;
 
-  const snippets = data?.type;
-  const total =
-    snippets?.reduce((acc, curr) => acc + curr.posts.length, 0) || 0;
-
-  const flag = snippets?.filter((snippet) => snippet.id === selected) || [];
-  if (selected && !flag.length) return notFound();
-
-  snippets?.sort((a, b) => b.posts.length - a.posts.length);
+  const total = snippets.length;
 
   return (
     <div className="w-full flex flex-col gap-4 animate-fade-in-delay opacity-0">
@@ -63,9 +81,9 @@ const SnippetsBox = () => {
             <p className="text-[0.7rem]">({total})</p>
           </Badge>
         </Link>
-        {snippets?.map((snippet) => (
+        {data?.map((snippet, index) => (
           <SnippetBadge
-            key={snippet.id}
+            key={index}
             name={snippet.id}
             title={snippet.title}
             count={snippet.posts.length}
@@ -73,7 +91,7 @@ const SnippetsBox = () => {
           />
         ))}
       </div>
-      <SnippetsList param={selected} snippets={snippets || []} />
+      <SnippetsList snippets={snippets || []} />
     </div>
   );
 };
