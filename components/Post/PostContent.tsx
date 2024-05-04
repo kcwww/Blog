@@ -3,7 +3,6 @@
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import Image from 'next/image';
-import { AspectRatio } from '@radix-ui/react-aspect-ratio';
 
 import CodeBlock from '@/components/ui/CodeBlock';
 
@@ -27,18 +26,15 @@ const PostContent = ({ markedString }: { markedString: string }) => {
           );
         },
         img: (image) => (
-          <AspectRatio
-            ratio={16 / 9}
-            className="w-full flex justify-center items-center"
-          >
-            <Image
-              className="mt-4 rounded-md overflow-hidden"
-              src={image.src || ''}
-              alt={image.alt || ''}
-              width={560}
-              height={360}
-            />
-          </AspectRatio>
+          <Image
+            className="mt-4 rounded-md overflow-hidden ml-auto mr-auto my-4"
+            src={image.src || ''}
+            alt={image.alt || ''}
+            width={560}
+            height={315}
+            objectFit="cover"
+            quality={100}
+          />
         ),
       }}
     >
