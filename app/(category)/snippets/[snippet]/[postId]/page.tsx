@@ -36,7 +36,7 @@ const getPostData = async (id: string) => {
     const res = await serverComponentFetch(BACKEND_ROUTES.POST_ID(id));
     return res.data as PostDataType;
   } catch (e) {
-    console.log(e);
+    console.error(e);
     return null;
   }
 };

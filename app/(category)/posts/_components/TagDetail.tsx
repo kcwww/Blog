@@ -34,7 +34,6 @@ const TagDetail = ({ detail }: { detail: string }) => {
       try {
         const res = await clientComponentFetch(BACKEND_ROUTES.TAG_ID(tagId));
         setData(res);
-        console.log(res);
       } catch (error) {
         console.error(error);
         // router.replace(ROUTES.NOT_FOUND);

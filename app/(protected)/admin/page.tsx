@@ -60,7 +60,6 @@ const AdminPage = () => {
       });
 
       setPosts(posts);
-      console.log(posts);
     };
 
     fetchAllPosts();
