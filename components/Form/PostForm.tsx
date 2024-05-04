@@ -84,7 +84,7 @@ const PostForm = ({ post }: { post: PostDataType | null }) => {
     const postData = {
       ...data,
       tags,
-      createdAt: koreaDate,
+      createdAt: post === null ? koreaDate : post.createdAt,
       post:
         data.type === 'none'
           ? null
