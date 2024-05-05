@@ -84,31 +84,31 @@ body {
 }
 
 .marked-container h1 {
-  @apply text-3xl font-semibold;
+  @apply text-3xl font-semibold my-4;
 }
 
 .marked-container h2 {
-  @apply text-2xl font-semibold;
+  @apply text-2xl font-semibold my-4;
 }
 
 .marked-container h3 {
-  @apply text-xl font-semibold;
+  @apply text-xl font-semibold my-4;
 }
 
 .marked-container h4 {
-  @apply text-lg font-semibold;
+  @apply text-lg font-semibold my-4;
 }
 
 .marked-container h5 {
-  @apply text-base font-semibold;
+  @apply text-base font-semibold my-4;
 }
 
 .marked-container h6 {
-  @apply text-sm font-semibold;
+  @apply text-sm font-semibold my-4;
 }
 
 .marked-container p {
-  @apply text-base;
+  @apply text-base my-1;
 }
 
 .marked-container table {
@@ -125,4 +125,16 @@ body {
 
 .marked-container blockquote {
   @apply border-l-4 border-primary pl-4 my-4 bg-gray-500 py-2;
+}
+
+.marked-container ul {
+  @apply list-disc list-inside pl-4;
+}
+
+.marked-container ol {
+  @apply list-decimal list-inside;
+}
+
+.marked-container li {
+  @apply my-1;
 }
