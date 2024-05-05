@@ -37,7 +37,6 @@ const PostContent = ({ markedString }: { markedString: string }) => {
               alt={image.alt || ''}
               width={560}
               height={315}
-              objectFit="cover"
               quality={100}
             />
           ),

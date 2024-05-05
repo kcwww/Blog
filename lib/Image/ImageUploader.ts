@@ -34,8 +34,8 @@ export class ImageUploader implements ImageUploaderType {
               return;
             }
 
-            const MAX_WIDTH = 1024;
-            const MAX_HEIGHT = 768;
+            const MAX_WIDTH = 1920;
+            const MAX_HEIGHT = 1080;
             let width = img.width;
             let height = img.height;
 

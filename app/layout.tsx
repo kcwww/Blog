@@ -10,6 +10,7 @@ import MainSection from '@/components/Main/MainSection';
 import ScrollToTopButton from '@/components/ui/ScrollToTopButton';
 import Footer from '@/components/Footer';
 import { Toaster } from '@/components/ui/sonner';
+import ModalProvider from '@/components/provider/ModalProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -41,6 +42,7 @@ const RootLayout = ({
               <MainSection>{children}</MainSection>
               <ScrollToTopButton />
               <Toaster richColors />
+              <ModalProvider />
             </main>
             <Footer />
           </AuthProvider>
