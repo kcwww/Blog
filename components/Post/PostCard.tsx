@@ -67,7 +67,7 @@ const PostCard = (data: ReceivedPostDataType) => {
           </CardContent>
         )}
         {data.tags ? (
-          <CardFooter className="flex gap-2">
+          <CardFooter className="flex gap-2 flex-wrap">
             {data.tags.map((tag) => (
               <Badge
                 onClick={(event) => {
