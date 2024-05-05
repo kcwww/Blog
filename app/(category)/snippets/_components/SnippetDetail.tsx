@@ -67,7 +67,7 @@ const SnippetDetail = ({ detail }: { detail: string }) => {
         >
           <Alert
             className={cn(
-              'flex flex-col gap-4 sm:flex-row justify-between items-center',
+              'flex flex-col gap-4 md:flex-row justify-between items-center',
               !animate && 'animate-card-up opacity-0 relative'
             )}
             style={{ animationDelay: `${(index + 1) * 200}ms` }}
@@ -75,20 +75,23 @@ const SnippetDetail = ({ detail }: { detail: string }) => {
             <AlertTitle>{post.title}</AlertTitle>
             <div className="flex gap-2 sm:flex-row flex-col">
               <AlertDescription className="flex gap-1 justify-center">
-                {post.tags.map((tag) => (
-                  <Badge
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      router.push(ROUTES.TAG(tag));
-                    }}
-                    key={tag}
-                  >
-                    {tag}
-                  </Badge>
-                ))}
+                <div className="grid grid-cols-2 gap-1">
+                  {post.tags.map((tag) => (
+                    <Badge
+                      className="w-full flex justify-center items-center whitespace-nowrap px-4"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        router.push(ROUTES.TAG(tag));
+                      }}
+                      key={tag}
+                    >
+                      {tag}
+                    </Badge>
+                  ))}
+                </div>
               </AlertDescription>
-              <p className="text-sm text-gray-400 drak:text-gray-700">
+              <p className="text-sm text-gray-400 drak:text-gray-700 flex flex-col justify-center items-center">
                 {post.createdAt}
               </p>
             </div>
