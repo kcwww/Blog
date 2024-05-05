@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react';
 
+import ImageModal from '@/components/Modal/ImageModal';
+
 const ModalProvider = () => {
   const [isMounted, setIsMounted] = useState(false);
 
@@ -13,7 +15,11 @@ const ModalProvider = () => {
     return null;
   }
 
-  return <></>;
+  return (
+    <>
+      <ImageModal />
+    </>
+  );
 };
 
 export default ModalProvider;

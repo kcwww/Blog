@@ -8,8 +8,11 @@ import Link from 'next/link';
 import ProgressBar from '@/components/Main/ProgressBar';
 import CodeBlock from '@/components/ui/CodeBlock';
 import { Button } from '@/components/ui/button';
+import useModal from '@/lib/hooks/useModal';
 
 const PostContent = ({ markedString }: { markedString: string }) => {
+  const { onOpen } = useModal();
+
   return (
     <>
       <ProgressBar />
@@ -35,9 +38,10 @@ const PostContent = ({ markedString }: { markedString: string }) => {
               className="mt-4 rounded-md overflow-hidden ml-auto mr-auto my-4"
               src={image.src || ''}
               alt={image.alt || ''}
-              width={560}
-              height={315}
+              width={1920}
+              height={1080}
               quality={100}
+              onClick={() => onOpen('Image', { data: image.src })}
             />
           ),
           a: (link) => (
