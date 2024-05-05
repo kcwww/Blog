@@ -43,7 +43,9 @@ const PostContent = ({ markedString }: { markedString: string }) => {
           ),
           a: (link) => (
             <Link href={link.href || '#'} target="_blank">
-              <Button>{link.children}</Button>
+              <Button className="hover:scale-105 transition-transform">
+                {link.children}
+              </Button>
             </Link>
           ),
         }}
