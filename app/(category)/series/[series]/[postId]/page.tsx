@@ -1,12 +1,11 @@
-import { Metadata, ResolvingMetadata } from 'next';
-import { notFound } from 'next/navigation';
+import { ResolvingMetadata } from 'next';
 
-import { ORIGIN } from '@/constants/url';
 import serverComponentFetch from '@/lib/fetch/serverComponentFetch';
 import { BACKEND_ROUTES } from '@/constants/routes';
 import { PostDataType } from '@/lib/types/PostType';
 import Introduce from '@/components/Main/Introduce';
 import PostContent from '@/components/Post/PostContent';
+import makeMetaData from '@/lib/SEO/makeMetaData';
 
 export const generateMetadata = async (
   {
@@ -16,23 +15,10 @@ export const generateMetadata = async (
   },
   parent: ResolvingMetadata
 ) => {
-  const id = params.postId;
   const data = await getPostData(params.postId);
-  const previoutParent = await parent;
-  const previousTitle = previoutParent.title?.absolute;
-  const previoutDescription = previoutParent.description;
 
-  if (data && data.post?.name !== params.series) {
-    return notFound();
-  }
-
-  return {
-    title: `${data ? data.title : previousTitle}`,
-    description: `${data ? data.content.slice(0, 40) + '...' : previoutDescription}`,
-    alternate: {
-      canonical: `${ORIGIN}/${id}`,
-    },
-  } as Metadata;
+  if (!data) return null;
+  return makeMetaData(data, parent);
 };
 
 const getPostData = async (id: string) => {
