@@ -132,9 +132,7 @@ const CommandBox = () => {
             }}
           />
           <CommandList>
-            <CommandEmpty>
-              {posts.length === 0 ? 'Searching...' : 'No results found.'}
-            </CommandEmpty>
+            <CommandEmpty>No results found.</CommandEmpty>
             {fuse?.search(input).length !== 0 && (
               <CommandGroup heading="Posts">
                 {fuse?.search(input).map((result, index) => {
