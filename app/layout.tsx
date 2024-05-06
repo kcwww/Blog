@@ -29,8 +29,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: 'https://chanwooyam-blog.s3.ap-northeast-2.amazonaws.com/main/main.png',
-        width: 800,
-        height: 600,
+        width: 400,
+        height: 300,
         alt: '망그러진 블로그',
       },
     ],
