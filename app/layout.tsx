@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     siteName: '망그러진 블로그',
     images: [
       {
-        url: '/kickBear.png',
+        url: 'https://chanwooyam-blog.s3.ap-northeast-2.amazonaws.com/main/main.png',
         width: 800,
         height: 600,
         alt: '망그러진 블로그',
