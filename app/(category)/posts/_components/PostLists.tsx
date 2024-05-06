@@ -14,6 +14,7 @@ const PostLists = ({
   type: string;
   posts: PostListType[];
 }) => {
+  posts.sort((a, b) => (a.createdAt > b.createdAt ? 1 : -1));
   return (
     <div className="flex flex-col gap-3">
       <Link
