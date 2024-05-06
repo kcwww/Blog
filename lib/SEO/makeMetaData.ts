@@ -38,7 +38,6 @@ const makeMetaData = async (data: PostDataType, parent: ResolvingMetadata) => {
     },
     openGraph: {
       images: [
-        ...previousImages,
         {
           url: data ? data.thumbnail : '',
           width: 800,

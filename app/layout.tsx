@@ -11,6 +11,7 @@ import ScrollToTopButton from '@/components/ui/ScrollToTopButton';
 import Footer from '@/components/Footer';
 import { Toaster } from '@/components/ui/sonner';
 import ModalProvider from '@/components/provider/ModalProvider';
+import { ORIGIN } from '@/constants/url';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -21,6 +22,22 @@ export const metadata: Metadata = {
     icon: '/kickBear.png',
   },
   robots: 'follow, index',
+  openGraph: {
+    type: 'website',
+    locale: 'ko_KR',
+    siteName: '망그러진 블로그',
+    images: [
+      {
+        url: '/kickBear.png',
+        width: 800,
+        height: 600,
+        alt: '망그러진 블로그',
+      },
+    ],
+    title: '망그러진 블로그',
+    description: 'Frontend Developer 찬우얌 블로그입니다.',
+    url: ORIGIN,
+  },
 };
 
 const RootLayout = ({
