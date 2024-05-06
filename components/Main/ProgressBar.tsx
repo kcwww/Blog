@@ -17,7 +17,10 @@ const ProgressBar = () => {
 
     window.addEventListener('scroll', updateScrollProgress);
 
-    return () => window.removeEventListener('scroll', updateScrollProgress);
+    return () => {
+      window.removeEventListener('scroll', updateScrollProgress);
+      setProgress(0);
+    };
   }, []);
 
   return (
