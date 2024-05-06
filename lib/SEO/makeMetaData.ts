@@ -10,7 +10,8 @@ const cleanText = (markedString: string) => {
     .replace(/\[.*?\]\(.*?\)/g, '')
     .replace(/^> .*/gm, '')
     .replace(/^\|.*\|$/gm, '')
-    .replace(/^-{3,}.*$/gm, '');
+    .replace(/^-{3,}.*$/gm, '')
+    .replace(/^#{1,6}\s.*/gm, '');
 };
 
 const makeMetaData = async (data: PostDataType, parent: ResolvingMetadata) => {
