@@ -12,7 +12,7 @@ import {
   Linkedin,
   FolderOpenDot,
 } from 'lucide-react';
-import Fuse, { FuseResult } from 'fuse.js';
+import Fuse from 'fuse.js';
 import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
@@ -34,6 +34,9 @@ import { ReceivedPostDataType } from '@/lib/types/PostType';
 const CommandBox = () => {
   const [open, setOpen] = useState(false);
   const [posts, setPosts] = useState<Omit<ReceivedPostDataType, 'index'>[]>([]);
+  const [fuse, setFuse] = useState<Fuse<
+    Omit<ReceivedPostDataType, 'index'>
+  > | null>(null);
   const [input, setInput] = useState('');
 
   const router = useRouter();
@@ -53,6 +56,19 @@ const CommandBox = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (posts.length !== 0) {
+      setFuse(
+        new Fuse(posts, {
+          keys: ['title'],
+          includeScore: true,
+          includeMatches: true,
+          threshold: 0.3,
+        })
+      );
+    }
+  }, [posts]);
+
   const fetchPosts = async () => {
     try {
       const res = await clientComponentFetch(BACKEND_ROUTES.POSTS);
@@ -63,11 +79,6 @@ const CommandBox = () => {
       );
     }
   };
-
-  const fuse = new Fuse(posts, {
-    keys: ['title'],
-    includeScore: true,
-  });
 
   return (
     <>
@@ -124,9 +135,9 @@ const CommandBox = () => {
             <CommandEmpty>
               {posts.length === 0 ? 'Searching...' : 'No results found.'}
             </CommandEmpty>
-            {fuse.search(input).length !== 0 && (
+            {fuse?.search(input).length !== 0 && (
               <CommandGroup heading="Posts">
-                {fuse.search(input).map((result, index) => {
+                {fuse?.search(input).map((result, index) => {
                   const post = result.item;
 
                   return (
