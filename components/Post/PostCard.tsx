@@ -1,6 +1,5 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Calendar } from 'lucide-react';
 import Link from 'next/link';
@@ -21,19 +20,9 @@ import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { ROUTES } from '@/constants/routes';
 
 const PostCard = (data: ReceivedPostDataType) => {
-  const [animate, setAnimate] = useState(false);
   const router = useRouter();
   const post = data.post;
 
-  useEffect(() => {
-    const id = setTimeout(() => {
-      setAnimate(true);
-    }, 2000);
-
-    return () => {
-      clearTimeout(id);
-    };
-  }, []);
   return (
     <Link
       className="hover:scale-105 transition-transform"
@@ -42,7 +31,7 @@ const PostCard = (data: ReceivedPostDataType) => {
       <Card
         className={cn(
           'flex flex-col gap-2  justify-between h-full',
-          !animate && 'animate-card-enter opacity-0'
+          'animate-card-enter opacity-0'
         )}
         style={{ animationDelay: `${data.index * 100}ms` }}
       >

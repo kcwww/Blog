@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { notFound, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 import { cn } from '@/lib/utils';
 import { BACKEND_ROUTES, ROUTES } from '@/constants/routes';
@@ -18,21 +18,8 @@ type ReceivedSeriesType = ReceivedPostType & {
 };
 
 const SeriesDetail = ({ detail }: { detail: string }) => {
-  const [animate, setAnimate] = useState(false);
   const router = useRouter();
   const [data, setData] = useState<ReceivedSeriesType | null>(null);
-
-  useEffect(() => {
-    if (!data) return;
-
-    const id = setTimeout(() => {
-      setAnimate(true);
-    }, 1000);
-
-    return () => {
-      clearTimeout(id);
-    };
-  }, [data]);
 
   useEffect(() => {
     const seriesDetailData = async (series: string) => {
@@ -71,7 +58,7 @@ const SeriesDetail = ({ detail }: { detail: string }) => {
           <Alert
             className={cn(
               'flex flex-col gap-4 2xl:flex-row justify-between items-center',
-              !animate && 'animate-card-up opacity-0 relative'
+              'animate-card-up opacity-0 relative'
             )}
             style={{ animationDelay: `${(index + 1) * 200}ms` }}
           >

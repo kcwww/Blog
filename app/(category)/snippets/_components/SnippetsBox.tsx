@@ -67,7 +67,7 @@ const SnippetsBox = () => {
 
   if (!snippets) return <></>;
 
-  const total = snippets.length;
+  const total = data?.reduce((acc, cur) => acc + cur.posts.length, 0);
 
   return (
     <div className="w-full flex flex-col gap-4 animate-fade-in-delay opacity-0">

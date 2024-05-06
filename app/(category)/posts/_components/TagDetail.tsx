@@ -13,21 +13,8 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Badge } from '@/components/ui/badge';
 
 const TagDetail = ({ detail }: { detail: string }) => {
-  const [animate, setAnimate] = useState(false);
   const router = useRouter();
   const [data, setData] = useState<ReceivedTagType | null>(null);
-
-  useEffect(() => {
-    if (!data) return;
-
-    const id = setTimeout(() => {
-      setAnimate(true);
-    }, 1000);
-
-    return () => {
-      clearTimeout(id);
-    };
-  }, [data]);
 
   useEffect(() => {
     const snippetDetailData = async (tagId: string) => {
@@ -36,7 +23,7 @@ const TagDetail = ({ detail }: { detail: string }) => {
         setData(res);
       } catch (error) {
         console.error(error);
-        // router.replace(ROUTES.NOT_FOUND);
+        router.replace(ROUTES.NOT_FOUND);
       }
     };
     snippetDetailData(detail);
@@ -65,7 +52,7 @@ const TagDetail = ({ detail }: { detail: string }) => {
           <Alert
             className={cn(
               'flex flex-col gap-4 sm:flex-row justify-between items-center',
-              !animate && 'animate-card-up opacity-0 relative'
+              'animate-card-up opacity-0 relative'
             )}
             style={{ animationDelay: `${(index + 1) * 200}ms` }}
           >

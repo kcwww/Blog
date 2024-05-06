@@ -12,20 +12,8 @@ import type { ReceivedPostType } from '@/lib/types/PostType';
 
 const SeriesCards = () => {
   const [data, setData] = useState<ReceivedPostType | null>(null);
-  const [animate, setAnimate] = useState(false);
+
   const router = useRouter();
-
-  useEffect(() => {
-    if (!data) return;
-
-    const id = setTimeout(() => {
-      setAnimate(true);
-    }, 5000);
-
-    return () => {
-      clearTimeout(id);
-    };
-  }, [data]);
 
   useEffect(() => {
     const fetchSeries = async () => {
@@ -55,7 +43,7 @@ const SeriesCards = () => {
         >
           <Alert
             className={cn(
-              !animate && 'animate-card-up opacity-0 relative',
+              'animate-card-up opacity-0 relative',
               'flex flex-col gap-4'
             )}
             style={{ animationDelay: `${(index + 1) * 200}ms` }}
