@@ -35,7 +35,7 @@ const PostContent = ({ markedString }: { markedString: string }) => {
           },
           img: (image) => (
             <Image
-              className="mt-4 rounded-md overflow-hidden ml-auto mr-auto my-4"
+              className="mt-4 rounded-md overflow-hidden ml-auto mr-auto my-4 cursor-pointer"
               src={image.src || ''}
               alt={image.alt || ''}
               width={1920}

@@ -28,7 +28,7 @@ const PostCard = (data: ReceivedPostDataType) => {
   useEffect(() => {
     const id = setTimeout(() => {
       setAnimate(true);
-    }, 1200);
+    }, 2000);
 
     return () => {
       clearTimeout(id);
@@ -36,11 +36,12 @@ const PostCard = (data: ReceivedPostDataType) => {
   }, []);
   return (
     <Link
+      className="hover:scale-105 transition-transform"
       href={post ? ROUTES.TYPE_TO_POST(post.type, post.name, data.id) : data.id}
     >
       <Card
         className={cn(
-          'flex flex-col gap-2  justify-between hover:scale-105 transition-transform h-full',
+          'flex flex-col gap-2  justify-between h-full',
           !animate && 'animate-card-enter opacity-0'
         )}
         style={{ animationDelay: `${data.index * 100}ms` }}

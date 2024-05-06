@@ -20,14 +20,14 @@ const ImageModal = () => {
       <DialogTrigger asChild>
         <Button variant="outline">Edit Profile</Button>
       </DialogTrigger>
-      <DialogContent className="max-w-full">
+      <DialogContent className="max-w-2/3 max-h-[75svh] overflow-scroll">
         <Image
           src={props.data}
           alt="Image"
           width={1920}
           height={1080}
           quality={100}
-          className="rounded-md overflow-hidden"
+          className="rounded-md"
         />
 
         <DialogFooter>
