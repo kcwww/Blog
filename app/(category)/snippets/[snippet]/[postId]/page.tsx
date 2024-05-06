@@ -25,7 +25,7 @@ export const generateMetadata = async (
 
   return {
     title: `${data ? data.title : previousTitle}`,
-    description: `${data ? data.content.slice(0, 40) + '...' : previoutDescription}`,
+    description: `${data ? data.content.slice(0, 100) + '...' : previoutDescription}`,
     alternate: {
       canonical: `${ORIGIN}/${id}`,
     },
@@ -40,7 +40,7 @@ export const generateMetadata = async (
         },
       ],
       title: `${data ? data.title : previousTitle}`,
-      description: `${data ? data.content.slice(0, 40) + '...' : previoutDescription}`,
+      description: `${data ? data.content.slice(0, 100) + '...' : previoutDescription}`,
       url:
         `${ORIGIN}` +
         ROUTES.TYPE_TO_POST(

@@ -20,6 +20,7 @@ export const metadata: Metadata = {
   icons: {
     icon: '/kickBear.png',
   },
+  robots: 'follow, index',
 };
 
 const RootLayout = ({
