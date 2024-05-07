@@ -7,10 +7,15 @@ import { useTheme } from 'next-themes';
 import { Button } from '@/components/ui/button';
 
 const ToggleThemeButton = () => {
-  const { setTheme, theme } = useTheme();
+  const { setTheme, theme, systemTheme } = useTheme();
   const [themeMounted, setThemeMounted] = useState(false);
 
-  useEffect(() => setThemeMounted(true), []);
+  useEffect(() => {
+    setThemeMounted(true);
+    if (theme === 'system') {
+      setTheme(systemTheme || 'light');
+    }
+  }, []);
 
   if (!themeMounted) return null;
 
