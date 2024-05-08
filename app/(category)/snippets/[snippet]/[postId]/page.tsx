@@ -2,7 +2,7 @@ import { ResolvingMetadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import serverComponentFetch from '@/lib/fetch/serverComponentFetch';
-import { BACKEND_ROUTES, ROUTES } from '@/constants/routes';
+import { BACKEND_ROUTES } from '@/constants/routes';
 import { PostDataType } from '@/lib/types/PostType';
 import Introduce from '@/components/Main/Introduce';
 import PostContent from '@/components/Post/PostContent';

@@ -17,8 +17,7 @@ const cleanText = (markedString: string) => {
 const makeMetaData = async (data: PostDataType, parent: ResolvingMetadata) => {
   const previoutParent = await parent;
   const previousTitle = previoutParent.title?.absolute;
-  const previoutDescription = previoutParent.description;
-  const previousImages = previoutParent.openGraph?.images || [];
+  const previousDescription = previoutParent.description;
 
   const url =
     `${ORIGIN}` +
@@ -32,10 +31,11 @@ const makeMetaData = async (data: PostDataType, parent: ResolvingMetadata) => {
 
   return {
     title: `${data ? data.title : previousTitle}`,
-    description: `${data ? cleanContent.slice(0, 100) + '...' : previoutDescription}`,
+    description: `${data ? cleanContent.slice(0, 100) + '...' : previousDescription}`,
     alternate: {
       canonical: url,
     },
+    date: data ? data.createdAt.split(' ')[0] : new Date(),
     openGraph: {
       images: [
         {
@@ -46,7 +46,7 @@ const makeMetaData = async (data: PostDataType, parent: ResolvingMetadata) => {
         },
       ],
       title: `${data ? data.title : previousTitle}`,
-      description: `${data ? cleanContent.slice(0, 100) + '...' : previoutDescription}`,
+      description: `${data ? cleanContent.slice(0, 100) + '...' : previousDescription}`,
       url: url,
     },
   } as Metadata;
