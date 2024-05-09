@@ -15,7 +15,7 @@ const SnippetsList = ({ snippets }: { snippets: ParsingDataType[] }) => {
             href={ROUTES.TYPE_TO_POST('snippets', snippet.id, snippet.post.id)}
           >
             <Alert className={cn('flex flex-col gap-4')}>
-              <div className="flex justify-between items-center">
+              <div className="flex gap-2 justify-between items-center">
                 <AlertTitle className="flex w-fit bg-gray-300 dark:bg-gray-700 p-2 rounded-xl">
                   {snippet.title}
                 </AlertTitle>

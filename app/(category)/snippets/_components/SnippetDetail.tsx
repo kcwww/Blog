@@ -39,6 +39,7 @@ const SnippetDetail = ({ detail }: { detail: string }) => {
   if (!data) return <></>;
 
   const dataDetail = data?.type;
+  dataDetail.posts.sort((a, b) => (a.createdAt > b.createdAt ? 1 : -1));
 
   return (
     <>

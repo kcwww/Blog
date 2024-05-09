@@ -6,6 +6,7 @@ import { PostDataType } from '@/lib/types/PostType';
 import Introduce from '@/components/Main/Introduce';
 import PostContent from '@/components/Post/PostContent';
 import makeMetaData from '@/lib/SEO/makeMetaData';
+import PostInfo from '@/components/Main/PostInfo';
 
 export const generateMetadata = async (
   {
@@ -38,6 +39,7 @@ const PostPage = async ({ params }: { params: { postId: string } }) => {
   return (
     <>
       <Introduce title={data ? data.title : ''} description={null} />
+      <PostInfo post={data} />
       <div className="animate-fade-in-delay opacity-0 w-full h-full">
         <PostContent markedString={data ? data.content : ''} />
       </div>
