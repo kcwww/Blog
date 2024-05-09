@@ -96,6 +96,7 @@ const PostForm = ({ post }: { post: PostDataType | null }) => {
     delete postData.type;
     delete postData.typeName;
     try {
+      console.log(postData);
       if (post === null) {
         const res = await clientComponentFetch(BACKEND_ROUTES.POST, {
           method: 'POST',

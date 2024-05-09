@@ -59,5 +59,12 @@ export const PUT = async (
     return NextResponse.json({
       message: 'Post updated',
     });
-  } catch (e) {}
+  } catch (e) {
+    return NextResponse.json(
+      {
+        message: 'Error updating document: ' + e,
+      },
+      { status: 500 }
+    );
+  }
 };
