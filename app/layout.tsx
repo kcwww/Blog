@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     siteName: '망그러진 블로그',
     images: [
       {
-        url: `https://${process.env.AWS_CLOUDFRONT_DOMAIN}/main/main.png`,
+        url: `https://${process.env.AWS_CLOUDFRONT_DOMAIN}/main/ogImg.png`,
         width: 400,
         height: 300,
         alt: '망그러진 블로그',
