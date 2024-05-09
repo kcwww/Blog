@@ -1,7 +1,6 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { toast } from 'sonner';
@@ -47,29 +46,14 @@ const PostForm = ({ post }: { post: PostDataType | null }) => {
   const form = useForm<z.infer<typeof postFormSchema>>({
     resolver: zodResolver(postFormSchema),
     defaultValues: {
-      title: '',
-      content: '',
-      tags: '',
-      thumbnail: '',
-      type: 'none',
-      typeName: '',
+      title: post ? post.title : '',
+      content: post ? post.content : '',
+      tags: post ? post.tags.join(',') : '',
+      thumbnail: post ? post.thumbnail : '',
+      type: post && post.post ? post.post.type : 'none',
+      typeName: post && post.post ? post.post.name : '',
     },
   });
-
-  useEffect(() => {
-    if (post !== null) {
-      form.reset();
-      form.setValue('title', post.title);
-      form.setValue('content', post.content);
-      form.setValue('tags', post.tags.join(','));
-      form.setValue('thumbnail', post.thumbnail);
-      form.setValue('type', post.post === null ? 'none' : post.post.type);
-      form.setValue('typeName', post.post === null ? '' : post.post.name);
-      console.log(post);
-      console.log(form.getValues('type'));
-      console.log(form.getValues('typeName'));
-    }
-  }, [form, post]);
 
   const router = useRouter();
 
