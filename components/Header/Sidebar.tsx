@@ -1,7 +1,4 @@
-'use client';
-
 import Image from 'next/image';
-import { useState } from 'react';
 import { Menu } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -20,17 +17,11 @@ type SheetSide = typeof SHEET_SIDES;
 
 const Sidebar = () => {
   const side = 'left' as SheetSide;
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleSheet = () => setIsOpen((prev) => !prev);
 
   return (
     <Sheet key={side}>
       <SheetTrigger asChild>
-        <Button
-          onClick={() => toggleSheet()}
-          className="bg-transparent text-gray-800 hover:bg-gray-400 dark:text-gray-300 dark:hover:bg-gray-700"
-        >
+        <Button className="bg-transparent text-gray-800 hover:bg-gray-400 dark:text-gray-300 dark:hover:bg-gray-700">
           <Menu />
         </Button>
       </SheetTrigger>
