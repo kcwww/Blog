@@ -65,6 +65,9 @@ const PostForm = ({ post }: { post: PostDataType | null }) => {
       form.setValue('thumbnail', post.thumbnail);
       form.setValue('type', post.post === null ? 'none' : post.post.type);
       form.setValue('typeName', post.post === null ? '' : post.post.name);
+      console.log(post);
+      console.log(form.getValues('type'));
+      console.log(form.getValues('typeName'));
     }
   }, [form, post]);
 
