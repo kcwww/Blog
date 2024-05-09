@@ -44,7 +44,7 @@ const Sidebar = () => {
 
         <div className="flex flex-col w-full justify-center items-center">
           <Image
-            src="/main.png"
+            src={`https://${process.env.AWS_CLOUDFRONT_DOMAIN}/main/main.png`}
             alt="Profile"
             width={200}
             height={200}

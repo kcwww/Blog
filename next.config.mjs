@@ -12,7 +12,7 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'chanwooyam-blog.s3.ap-northeast-2.amazonaws.com',
+        hostname: 'd259untsmih4mi.cloudfront.net',
       },
     ],
   },
