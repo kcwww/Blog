@@ -1,7 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { toast } from 'sonner';
@@ -63,8 +63,8 @@ const PostForm = ({ post }: { post: PostDataType | null }) => {
       form.setValue('content', post.content);
       form.setValue('tags', post.tags.join(','));
       form.setValue('thumbnail', post.thumbnail);
-      form.setValue('type', post.post?.type ?? 'none');
-      form.setValue('typeName', post.post?.name ?? '');
+      form.setValue('type', post.post === null ? 'none' : post.post.type);
+      form.setValue('typeName', post.post === null ? '' : post.post.name);
     }
   }, [form, post]);
 
