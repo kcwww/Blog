@@ -8,6 +8,7 @@ import Introduce from '@/components/Main/Introduce';
 import PostContent from '@/components/Post/PostContent';
 import makeMetaData from '@/lib/SEO/makeMetaData';
 import PostInfo from '@/components/Main/PostInfo';
+import OtherPosts from '@/components/Main/OtherPosts';
 
 export const generateMetadata = async (
   {
@@ -53,6 +54,7 @@ const PostPage = async ({
       <div className="animate-fade-in-delay opacity-0 w-full h-full">
         <PostContent markedString={data ? data.content : ''} />
       </div>
+      <OtherPosts post={data} />
     </>
   );
 };
