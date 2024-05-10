@@ -110,6 +110,11 @@ const config = {
         'fade-out': 'fade-out 0.5s ease-out forwards',
         'fade-in-delay': 'fade-in-delay 1s ease-out forwards',
       },
+      boxShadow: {
+        main: '-20px -20px 25px rgba(255, 255, 255, 0.5), 20px 20px 25px rgba(0, 0, 0, 0.5)',
+        darkMain:
+          '-20px -20px 20px rgba(30, 30, 30, 0.6), 20px 20px 20px rgba(50, 50, 50, 0.5)',
+      },
     },
   },
   plugins: [require('tailwindcss-animate')],
