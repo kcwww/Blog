@@ -10,7 +10,9 @@ const Links = ({ view }: { view: string | undefined }) => {
     <nav
       className={cn(
         'w-full flex items-center p-2 rounded-lg',
-        view ? 'flex-col gap-8 mt-8' : 'bg-gray-400 dark:bg-gray-700 gap-2'
+        view
+          ? 'flex-col gap-8 mt-8'
+          : 'bg-gray-300 dark:bg-gray-900 gap-2 shadow-main dark:shadow-darkMain'
       )}
     >
       <Link
