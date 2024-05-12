@@ -48,6 +48,7 @@ const RootLayout = ({
 }>) => {
   return (
     <html lang="ko">
+      <link rel="icon" href="/favicon.ico" sizes="any" />
       <body
         className={cn(
           inter.className,
