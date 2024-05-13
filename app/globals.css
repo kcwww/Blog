@@ -129,16 +129,17 @@ body {
   @apply w-full my-4;
 }
 
-.marked-container th {
-  @apply border-black border-solid border p-2;
-}
-
+.marked-container th,
 .marked-container td {
-  @apply border-black border-solid border p-2;
+  border-width: 1px;
+  padding-inline-end: 0.75rem;
+  padding-bottom: 6px;
+  padding-inline-start: 0.75rem;
+  padding-top: 6px;
 }
 
 .marked-container blockquote {
-  @apply border-l-4 border-primary pl-4 my-4 bg-gray-500 py-2;
+  @apply border-l-4 border-primary px-4 my-4 bg-gray-400 py-2;
 }
 
 .marked-container ul {
