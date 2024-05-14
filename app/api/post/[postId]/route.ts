@@ -8,7 +8,7 @@ export const GET = async (
   req: NextRequest,
   { params }: { params: { postId: string } }
 ) => {
-  req.json();
+  console.log(req);
   const id = params.postId;
   const postRef = doc(BLOGDB, 'posts', id);
 
