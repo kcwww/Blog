@@ -4,6 +4,7 @@ import { collection, query, orderBy, limit, getDocs } from 'firebase/firestore';
 import { BLOGDB } from '@/lib/Firebase';
 
 const GET = async (req: NextRequest) => {
+  req.json();
   try {
     const postsRef = collection(BLOGDB, 'posts');
     const q = query(postsRef, orderBy('createdAt', 'desc'), limit(12));

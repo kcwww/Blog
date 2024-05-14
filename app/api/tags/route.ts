@@ -1,9 +1,10 @@
 import { NextResponse, NextRequest } from 'next/server';
-import { collection, query, orderBy, limit, getDocs } from 'firebase/firestore';
+import { collection, query, orderBy, getDocs } from 'firebase/firestore';
 
 import { BLOGDB } from '@/lib/Firebase';
 
 const GET = async (req: NextRequest) => {
+  req.json();
   try {
     const postsRef = collection(BLOGDB, 'tags');
     const q = query(postsRef, orderBy('posts', 'desc'));

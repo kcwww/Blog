@@ -8,7 +8,6 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import useModal from '@/lib/hooks/useModal';
-import { AspectRatio } from '@/components/ui/aspect-ratio';
 
 const ImageModal = () => {
   const { onClose, isOpen, type, props } = useModal();

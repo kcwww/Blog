@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { notFound, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
@@ -70,12 +70,12 @@ const SnippetsBox = () => {
   const total = data?.reduce((acc, cur) => acc + cur.posts.length, 0);
 
   return (
-    <div className="w-full flex flex-col gap-4 animate-fade-in-delay opacity-0">
+    <div className="flex w-full animate-fade-in-delay flex-col gap-4 opacity-0">
       <div className="flex flex-wrap gap-2">
         <Link href={ROUTES.SNIPPETS}>
           <Badge
             variant={selected === null ? 'default' : 'secondary'}
-            className="flex gap-2 text-md items-end"
+            className="text-md flex items-end gap-2"
           >
             All
             <p className="text-[0.7rem]">({total})</p>

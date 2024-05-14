@@ -17,10 +17,10 @@ const PostContent = ({ markedString }: { markedString: string }) => {
     <>
       <ProgressBar />
       <ReactMarkdown
-        className="marked-container flex flex-col w-full mb-20 gap-4"
+        className="marked-container mb-20 flex w-full flex-col gap-4"
         remarkPlugins={[remarkGfm]}
         components={{
-          code({ node, inline, className, children, ...props }: any) {
+          code({ inline, className, children, ...props }: any) {
             const match = /language-(\w+)/.exec(className || '');
 
             return !inline && match ? (
@@ -28,14 +28,14 @@ const PostContent = ({ markedString }: { markedString: string }) => {
                 {String(children)}
               </CodeBlock>
             ) : (
-              <code className="bg-gray-300 text-red-400 p-1 rounded-md">
+              <code className="rounded-md bg-gray-300 p-1 text-red-400">
                 {children}
               </code>
             );
           },
           img: (image) => (
             <Image
-              className="mt-4 rounded-md overflow-hidden ml-auto mr-auto my-4 cursor-pointer"
+              className="my-4 ml-auto mr-auto mt-4 cursor-pointer overflow-hidden rounded-md"
               src={image.src || ''}
               alt={image.alt || ''}
               width={1920}
@@ -46,7 +46,7 @@ const PostContent = ({ markedString }: { markedString: string }) => {
           ),
           a: (link) => (
             <Link href={link.href || '#'} target="_blank">
-              <Button className="hover:scale-105 transition-transform">
+              <Button className="transition-transform hover:scale-105">
                 {link.children}
               </Button>
             </Link>

@@ -1,5 +1,5 @@
 import { NextResponse, NextRequest } from 'next/server';
-import { collection, addDoc, doc, getDoc, setDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { getServerSession } from 'next-auth/next';
 
 import { BLOGDB, loginUser } from '@/lib/Firebase';
@@ -8,6 +8,7 @@ export const GET = async (
   req: NextRequest,
   { params }: { params: { postId: string } }
 ) => {
+  req.json();
   const id = params.postId;
   const postRef = doc(BLOGDB, 'posts', id);
 

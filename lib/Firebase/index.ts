@@ -27,7 +27,8 @@ export const loginUser = async (email: string) => {
 
     return userCredential.user;
   } catch (error) {
-    throw error;
+    console.error('Error signing in:', error);
+    return null;
   }
 };
 

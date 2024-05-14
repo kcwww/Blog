@@ -4,6 +4,7 @@ import { collection, query, getDocs } from 'firebase/firestore';
 import { BLOGDB } from '@/lib/Firebase';
 
 const GET = async (req: NextRequest) => {
+  req.json();
   try {
     const postsRef = collection(BLOGDB, 'series');
     const q = query(postsRef);
