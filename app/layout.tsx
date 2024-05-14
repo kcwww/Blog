@@ -22,6 +22,7 @@ export const metadata: Metadata = {
   icons: {
     icon: '/kickBear.png',
   },
+  metadataBase: new URL('/kickBear.png', ORIGIN),
   robots: 'follow, index',
   openGraph: {
     type: 'website',
