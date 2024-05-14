@@ -84,18 +84,15 @@ const PostForm = ({ post }: { post: PostDataType | null }) => {
     delete postData.typeName;
     try {
       if (post === null) {
-        const res = await clientComponentFetch(BACKEND_ROUTES.POST, {
+        await clientComponentFetch(BACKEND_ROUTES.POST, {
           method: 'POST',
           body: JSON.stringify(postData),
         });
       } else {
-        const res = await clientComponentFetch(
-          BACKEND_ROUTES.POST_ID(post.id),
-          {
-            method: 'PUT',
-            body: JSON.stringify(postData),
-          }
-        );
+        await clientComponentFetch(BACKEND_ROUTES.POST_ID(post.id), {
+          method: 'PUT',
+          body: JSON.stringify(postData),
+        });
       }
       form.reset();
       toast.success('포스팅 성공 !');
@@ -123,7 +120,7 @@ const PostForm = ({ post }: { post: PostDataType | null }) => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-8">
         <FormField
           control={form.control}
           name="title"
@@ -250,11 +247,13 @@ const PostForm = ({ post }: { post: PostDataType | null }) => {
           )}
         />
 
-        <div className="flex gap-2 w-1/2">
+        <div className="flex w-1/2 gap-2">
           <Button onClick={() => previewMarkdown()} type="button">
             Preview
           </Button>
-          <Button type="submit">Submit</Button>
+          <Button disabled={isLoading} type="submit">
+            Submit
+          </Button>
         </div>
       </form>
     </Form>
