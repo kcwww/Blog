@@ -32,19 +32,19 @@ const CodeBlock = ({ language, children, ...props }: CodeBlockProps) => {
   return (
     <div className="relative w-full">
       <div className="absolute top-2 w-full px-4">
-        <div className="flex justify-between items-center">
+        <div className="flex items-center justify-between">
           <div className="flex gap-2">
-            <div className="bg-red-700 p-2 rounded-full" />
-            <div className=" bg-yellow-700 p-2 rounded-full" />
-            <div className=" bg-green-700 p-2 rounded-full" />
+            <div className="rounded-full bg-red-700 p-2" />
+            <div className=" rounded-full bg-yellow-700 p-2" />
+            <div className=" rounded-full bg-green-700 p-2" />
           </div>
 
-          <div className="hidden md:block text-gray-100 top-3">{language}</div>
+          <div className="top-3 hidden text-gray-100 md:block">{language}</div>
 
           <Button
             onClick={() => copyToClipboard()}
             className={cn(
-              'ml-auto md:ml-0 text-gray-100 top-3 w-7 h-7 p-0 bg-transparent',
+              'top-3 ml-auto h-7 w-7 bg-transparent p-0 text-gray-100 md:ml-0',
               animation && 'animate-spin-once'
             )}
             onAnimationEnd={handleAnimationEnd}
@@ -73,8 +73,6 @@ const CodeBlock = ({ language, children, ...props }: CodeBlockProps) => {
           scrollbarWidth: 'thin',
           scrollbarColor: 'rgba(255, 255, 255, 0.2) rgba(255, 255, 255, 0.1)',
         }}
-        component="pre"
-        useInlineStyles={true}
       >
         {children.replace(/\n$/, '')}
       </SyntaxHighlighter>
