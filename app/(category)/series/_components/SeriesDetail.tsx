@@ -1,44 +1,33 @@
-'use client';
-
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { redirect } from 'next/navigation';
 
 import { cn } from '@/lib/utils';
 import { BACKEND_ROUTES, ROUTES } from '@/constants/routes';
-import clientComponentFetch from '@/lib/fetch/clientComponentFetch';
 import { ReceivedPostTypeDetail, ReceivedPostType } from '@/lib/types/PostType';
 import Introduce from '@/components/Main/Introduce';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Badge } from '@/components/ui/badge';
+import serverComponentFetch from '@/lib/fetch/serverComponentFetch';
+import BadgeTag from '@/app/(category)/posts/_components/BadgeTag';
 
 type ReceivedSeriesType = ReceivedPostType & {
   message: string;
   type: ReceivedPostTypeDetail;
 };
 
-const SeriesDetail = ({ detail }: { detail: string }) => {
-  const router = useRouter();
-  const [data, setData] = useState<ReceivedSeriesType | null>(null);
+const seriesDetailData = async (series: string) => {
+  try {
+    const res = await serverComponentFetch(BACKEND_ROUTES.SERIES_ID(series));
+    return res;
+  } catch (error) {
+    console.error(error);
+    redirect(ROUTES.NOT_FOUND);
+  }
+};
 
-  useEffect(() => {
-    const seriesDetailData = async (series: string) => {
-      try {
-        const res = await clientComponentFetch(
-          BACKEND_ROUTES.SERIES_ID(series)
-        );
-        setData(res);
-      } catch (error) {
-        console.error(error);
-        router.replace(ROUTES.NOT_FOUND);
-      }
-    };
-    seriesDetailData(detail);
-  }, [detail, router]);
+const SeriesDetail = async ({ detail }: { detail: string }) => {
+  const data = (await seriesDetailData(detail)) as ReceivedSeriesType;
 
-  if (!data) return <></>;
-
-  const dataDetail = data?.type;
+  const dataDetail = data.type;
   dataDetail.posts.sort((a, b) => (a.createdAt > b.createdAt ? 1 : -1));
 
   return (
@@ -47,42 +36,32 @@ const SeriesDetail = ({ detail }: { detail: string }) => {
         title={dataDetail?.title || ''}
         description={[dataDetail?.description || '']}
       />
-      <div className="animate-text-down-delay opacity-0 text-sm text-gray-300 dark:text-gray-500">
+      <div className="animate-text-down-delay text-sm text-gray-300 opacity-0 dark:text-gray-500">
         총 {dataDetail?.posts.length} 개의 포스팅이 존재합니다.
       </div>
-      {dataDetail?.posts.map((post, index) => (
+      {dataDetail.posts.map((post, index) => (
         <Link
           key={post.id}
           href={ROUTES.TYPE_TO_POST('series', dataDetail.id || '', post.id)}
-          className="w-full hover:scale-105 transition-transform"
+          className="w-full transition-transform hover:scale-105"
         >
           <Alert
             className={cn(
-              'flex flex-col gap-4 2xl:flex-row justify-between items-center',
-              'animate-card-up opacity-0 relative'
+              'flex flex-col items-center justify-between gap-4 2xl:flex-row',
+              'relative animate-card-up opacity-0'
             )}
             style={{ animationDelay: `${(index + 1) * 200}ms` }}
           >
             <AlertTitle>{post.title}</AlertTitle>
-            <div className="flex gap-2 md:flex-row flex-col">
-              <AlertDescription className="flex gap-1 justify-center">
+            <div className="flex flex-col gap-2 md:flex-row">
+              <AlertDescription className="flex justify-center gap-1">
                 <div className="grid grid-cols-2 gap-1">
                   {post.tags.map((tag) => (
-                    <Badge
-                      className="w-full flex justify-center items-center whitespace-nowrap px-4"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        router.push(ROUTES.TAG(tag));
-                      }}
-                      key={tag}
-                    >
-                      {tag}
-                    </Badge>
+                    <BadgeTag key={tag} tag={tag} />
                   ))}
                 </div>
               </AlertDescription>
-              <p className="text-sm text-gray-400 drak:text-gray-700">
+              <p className="drak:text-gray-700 text-sm text-gray-400">
                 {post.createdAt}
               </p>
             </div>

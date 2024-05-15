@@ -1,12 +1,7 @@
 'use client';
 
-import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-
-import clientComponentFetch from '@/lib/fetch/clientComponentFetch';
-import { BACKEND_ROUTES } from '@/constants/routes';
 import { Badge } from '@/components/ui/badge';
 import { ROUTES } from '@/constants/routes';
 import { ReceivedSnippetType, PostListType } from '@/lib/types/PostType';
@@ -35,53 +30,36 @@ const parsingSnippet = (
   return result;
 };
 
-const SnippetsBox = () => {
-  const searchParams = useSearchParams();
-  const selected = searchParams.get('key');
-  const [snippets, setSnippets] = useState<ParsingDataType[] | null>(null);
-  const [data, setData] = useState<ReceivedSnippetType[] | null>(null);
+const SnippetsBox = ({
+  data,
+  selected,
+}: {
+  data: ReceivedSnippetType[];
+  selected: string | null;
+}) => {
+  const total = data.reduce((acc, cur) => acc + cur.posts.length, 0);
   const router = useRouter();
+  const [snippets, setSnippets] = useState<ParsingDataType[]>([]);
 
   useEffect(() => {
-    const fetchSnippets = async (value: string | null) => {
-      const url = value
-        ? `${BACKEND_ROUTES.SNIPPETS}?key=${value}`
-        : BACKEND_ROUTES.SNIPPETS;
-      try {
-        const res = await clientComponentFetch(url);
-        res.type.sort(
-          (a: ReceivedSnippetType, b: ReceivedSnippetType) =>
-            b.posts.length - a.posts.length
-        );
-        const parsingData = parsingSnippet(value, res.type);
-
-        setData(res.type);
-        setSnippets(parsingData);
-      } catch (error) {
-        console.error(error);
-        router.replace(ROUTES.NOT_FOUND);
-      }
-    };
-    fetchSnippets(selected);
-  }, [selected, router]);
-
-  if (!snippets) return <></>;
-
-  const total = data?.reduce((acc, cur) => acc + cur.posts.length, 0);
+    setSnippets(parsingSnippet(selected, data));
+  }, [selected, data]);
 
   return (
     <div className="flex w-full animate-fade-in-delay flex-col gap-4 opacity-0">
       <div className="flex flex-wrap gap-2">
-        <Link href={ROUTES.SNIPPETS}>
-          <Badge
-            variant={selected === null ? 'default' : 'secondary'}
-            className="text-md flex items-end gap-2"
-          >
-            All
-            <p className="text-[0.7rem]">({total})</p>
-          </Badge>
-        </Link>
-        {data?.map((snippet, index) => (
+        <Badge
+          variant={selected === null ? 'default' : 'secondary'}
+          className="text-md flex cursor-pointer items-end gap-2"
+          onClick={() => {
+            router.push(ROUTES.SNIPPETS);
+            router.refresh();
+          }}
+        >
+          All
+          <p className="text-[0.7rem]">({total})</p>
+        </Badge>
+        {data.map((snippet: ReceivedSnippetType, index) => (
           <SnippetBadge
             key={index}
             name={snippet.id}

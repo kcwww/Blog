@@ -8,15 +8,15 @@ import { ParsingDataType } from '@/app/(category)/snippets/_components/SnippetsB
 
 const SnippetsList = ({ snippets }: { snippets: ParsingDataType[] }) => {
   return (
-    <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-16">
+    <div className="grid w-full grid-cols-1 gap-16 sm:grid-cols-2">
       {snippets.map((snippet, index) => (
-        <div className="hover:scale-105 transition-transform" key={index}>
+        <div className="transition-transform hover:scale-105" key={index}>
           <Link
             href={ROUTES.TYPE_TO_POST('snippets', snippet.id, snippet.post.id)}
           >
             <Alert className={cn('flex flex-col gap-4')}>
-              <div className="flex gap-2 justify-between items-center">
-                <AlertTitle className="flex w-fit bg-gray-300 dark:bg-gray-700 p-2 rounded-xl">
+              <div className="flex items-center justify-between gap-2">
+                <AlertTitle className="flex w-fit rounded-xl bg-gray-300 p-2 dark:bg-gray-700">
                   {snippet.title}
                 </AlertTitle>
                 <p className="text-sm text-gray-400 dark:text-gray-600">
@@ -24,7 +24,7 @@ const SnippetsList = ({ snippets }: { snippets: ParsingDataType[] }) => {
                 </p>
               </div>
 
-              <AlertDescription className="flex flex-col gap-2 justify-center items-start">
+              <AlertDescription className="flex flex-col items-start justify-center gap-2">
                 {snippet.post.title}
               </AlertDescription>
             </Alert>

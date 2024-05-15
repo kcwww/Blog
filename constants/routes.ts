@@ -15,6 +15,7 @@ const ROUTES = {
 
 const BACKEND_ROUTES = {
   LOGIN: '/api/auth/signin',
+  LOGOUT: '/api/auth/signout',
   POST: '/api/post',
   POSTS: '/api/posts',
   RECENT: '/api/recent',
