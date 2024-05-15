@@ -2,6 +2,8 @@ import Introduce from '@/components/Main/Introduce';
 
 import RecentPosts from '@/app/(landing)/_components/RecentPosts';
 
+export const dynamic = 'force-dynamic';
+
 const Home = async () => {
   const title = 'Front-End Developer';
   const description = [
