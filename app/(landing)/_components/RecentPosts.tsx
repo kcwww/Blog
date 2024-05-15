@@ -1,51 +1,33 @@
-'use client';
-
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
 import { Milestone } from 'lucide-react';
-import { useRouter } from 'next/navigation';
 
-import clientComponentFetch from '@/lib/fetch/clientComponentFetch';
-import SkeletonCard from '@/components/Skeleton/SkeletonCard';
 import { BACKEND_ROUTES, ROUTES } from '@/constants/routes';
 import PostCard from '@/components/Post/PostCard';
 import { ReceivedPostDataType } from '@/lib/types/PostType';
+import serverComponentFetch from '@/lib/fetch/serverComponentFetch';
+import { redirect } from 'next/navigation';
 
-const RecentPosts = () => {
-  const [data, setData] = useState([]);
-  const router = useRouter();
-
-  useEffect(() => {
-    const fetchPostsData = async () => {
-      try {
-        const res = await clientComponentFetch(BACKEND_ROUTES.RECENT);
-        setData(res.posts);
-      } catch (error) {
-        console.error(error);
-        router.replace(ROUTES.NOT_FOUND);
-      }
-    };
-    fetchPostsData();
-  }, [router]);
-
-  if (data.length === 0) {
-    return (
-      <>
-        <div className="h-[2rem]" />
-        <div className="grid md:grid-cols-2 grid-cols-1 gap-4 2xl:gap-12 w-full">
-          <SkeletonCard />
-        </div>
-      </>
-    );
+const fetchPostsData = async () => {
+  try {
+    const res = await serverComponentFetch(BACKEND_ROUTES.RECENT);
+    return res;
+  } catch (error) {
+    console.error(error);
+    redirect(ROUTES.NOT_FOUND);
   }
+};
+
+const RecentPosts = async () => {
+  const result = await fetchPostsData();
+  const data = result.posts;
 
   return (
     <div className="w-full">
-      <h1 className="text-2xl flex justify-center md:justify-start mb-8 opacity-0 animate-fade-in ">
+      <h1 className="mb-8 flex animate-fade-in justify-center text-2xl opacity-0 md:justify-start ">
         Featured Posts
       </h1>
-      <div className="w-full flex justify-center items-center">
-        <div className="grid md:grid-cols-2 grid-cols-1 gap-4 2xl:gap-12">
+      <div className="flex w-full items-center justify-center">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 2xl:gap-12">
           {data.map((post: ReceivedPostDataType, index: number) => {
             post.index = index;
             return <PostCard key={post.id} {...post} />;
@@ -53,7 +35,7 @@ const RecentPosts = () => {
         </div>
       </div>
       <Link
-        className="mt-4 flex gap-2 hover:bg-gray-300 dark:hover:bg-gray-800 items-center w-fit rounded-md p-2 transition-colors ease-out opacity-0 animate-fade-in"
+        className="mt-4 flex w-fit animate-fade-in items-center gap-2 rounded-md p-2 opacity-0 transition-colors ease-out hover:bg-gray-300 dark:hover:bg-gray-800"
         href={ROUTES.POSTS}
       >
         <Milestone size={'1rem'} />
