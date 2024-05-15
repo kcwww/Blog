@@ -96,8 +96,8 @@ const PostForm = ({ post }: { post: PostDataType | null }) => {
       }
       form.reset();
       toast.success('포스팅 성공 !');
-      router.push(ROUTES.LANDING);
       router.refresh();
+      router.push(ROUTES.LANDING);
     } catch (e) {
       toast.error('포스팅 실패 !');
     }
