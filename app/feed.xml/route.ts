@@ -127,6 +127,30 @@ export const GET = async () => {
     pubDate: new Date().toUTCString(),
   });
 
+  feed.item({
+    title: 'All Series',
+    description: '시리즈로 포스팅한 모든 게시물을 모아놓은 페이지입니다.',
+    url: `${ORIGIN}/series`,
+    guid: 'series',
+    date: new Date(),
+  });
+
+  feed.item({
+    title: 'All Snippets',
+    description: '스니펫 게시물을 모아놓은 페이지입니다.',
+    url: `${ORIGIN}/snippets`,
+    guid: 'snippets',
+    date: new Date(),
+  });
+
+  feed.item({
+    title: 'All Posts',
+    description: '포스팅한 모든 게시물을 모아놓은 페이지입니다.',
+    url: `${ORIGIN}/posts`,
+    guid: 'posts',
+    date: new Date(),
+  });
+
   await getAllPosts(feed);
   await getAllSeries(feed);
   await getAllSnippets(feed);
