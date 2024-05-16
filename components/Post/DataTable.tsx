@@ -172,12 +172,10 @@ const DataTable = ({ posts }: { posts: DataTableType[] }) => {
     <div className="w-full">
       <div className="flex items-center py-4">
         <Input
-          placeholder="Filter CreatedAt..."
-          value={
-            (table.getColumn('createdAt')?.getFilterValue() as string) ?? ''
-          }
+          placeholder="Filter Title..."
+          value={(table.getColumn('title')?.getFilterValue() as string) ?? ''}
           onChange={(event) =>
-            table.getColumn('createdAt')?.setFilterValue(event.target.value)
+            table.getColumn('title')?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />
