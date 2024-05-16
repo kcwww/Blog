@@ -8,7 +8,6 @@ const serverComponentFetch = async (url: string, init?: RequestInit) => {
     headers: {
       'Content-Type': 'application/json',
     },
-    next: { revalidate: 0 },
   };
 
   const finalInit = init ? { ...defaultInit, ...init } : defaultInit;
