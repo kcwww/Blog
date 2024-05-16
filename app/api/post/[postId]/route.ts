@@ -1,6 +1,7 @@
 import { NextResponse, NextRequest } from 'next/server';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { getServerSession } from 'next-auth/next';
+import { revalidatePath } from 'next/cache';
 
 import { BLOGDB, loginUser } from '@/lib/Firebase';
 
@@ -56,6 +57,7 @@ export const PUT = async (
     await loginUser(session.user?.email || '');
     const postRef = doc(BLOGDB, 'posts', id);
     await setDoc(postRef, data);
+    revalidatePath('/', 'layout');
 
     return NextResponse.json({
       message: 'Post updated',

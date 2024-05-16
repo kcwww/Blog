@@ -1,6 +1,7 @@
 import { NextResponse, NextRequest } from 'next/server';
 import { collection, addDoc, doc, getDoc, setDoc } from 'firebase/firestore';
 import { getServerSession } from 'next-auth/next';
+import { revalidatePath } from 'next/cache';
 
 import { BLOGDB, loginUser } from '@/lib/Firebase';
 
@@ -85,6 +86,7 @@ const POST = async (req: NextRequest) => {
       }
     }
 
+    revalidatePath('/', 'layout');
     return NextResponse.json({
       message: 'Post added with ID: ' + docRef.id,
       data: docRef.id,
