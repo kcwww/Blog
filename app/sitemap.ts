@@ -66,6 +66,7 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
 
   const tags: { [key: string]: boolean } = {};
   posts.forEach((post: PostDataType) => {
+    if (post.post === null) return;
     post.tags.forEach((tag: string) => {
       tags[tag] = true;
     });
