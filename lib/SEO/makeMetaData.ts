@@ -4,7 +4,7 @@ import type { PostDataType } from '@/lib/types/PostType';
 import { ROUTES } from '@/constants/routes';
 import { ORIGIN } from '@/constants/url';
 
-const cleanText = (markedString: string) => {
+export const cleanText = (markedString: string) => {
   return markedString
     .replace(/!\[.*?\]\(.*?\)/g, '')
     .replace(/\[.*?\]\(.*?\)/g, '')

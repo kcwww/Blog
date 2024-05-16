@@ -11,6 +11,7 @@ const ROUTES = {
   NOT_FOUND: '/404',
   UPDATE: (id: string) => `/admin/update/${id}`,
   NEW_POST: '/admin/new/',
+  RSS: '/feed.xml',
 } as const;
 
 const BACKEND_ROUTES = {

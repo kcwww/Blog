@@ -40,3 +40,10 @@ export type ReceivedSnippetType = {
   title: string;
   posts: PostListType[];
 };
+
+export type ReceivedSeriesType = {
+  id: string;
+  title: string;
+  description: string;
+  posts: PostListType[];
+};
