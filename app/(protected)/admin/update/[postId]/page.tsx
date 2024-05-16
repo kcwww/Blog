@@ -3,6 +3,7 @@ import { BACKEND_ROUTES } from '@/constants/routes';
 import type { PostDataType } from '@/lib/types/PostType';
 import serverComponentFetch from '@/lib/fetch/serverComponentFetch';
 import CheckAuth from '@/app/(protected)/admin/_components/CheckAuth';
+import DeletePost from '@/app/(protected)/admin/_components/DeletePost';
 
 const fetchPost = async (params: { postId: string }) => {
   const res = await serverComponentFetch(BACKEND_ROUTES.POST_ID(params.postId));
@@ -15,6 +16,7 @@ const UpdatePostPage = async ({ params }: { params: { postId: string } }) => {
   return (
     <CheckAuth>
       <PostForm post={post} />
+      <DeletePost id={params.postId} />
     </CheckAuth>
   );
 };

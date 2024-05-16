@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-export type ModalType = 'Image';
+export type ModalType = 'Image' | 'Delete';
 
 export interface ModalProps {
   apiUrl?: string;
