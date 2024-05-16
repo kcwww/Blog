@@ -6,12 +6,13 @@ import './globals.css';
 import { cn } from '@/lib/utils';
 import ThemeProvider from '@/components/provider/ThemeProvider';
 import AuthProvider from '@/components/provider/AuthProvider';
+import ModalProvider from '@/components/provider/ModalProvider';
+import { Analytics } from '@vercel/analytics/react';
 import Header from '@/components/Header';
 import MainSection from '@/components/Main/MainSection';
 import ScrollToTopButton from '@/components/ui/ScrollToTopButton';
 import Footer from '@/components/Footer';
 import { Toaster } from '@/components/ui/sonner';
-import ModalProvider from '@/components/provider/ModalProvider';
 import { ORIGIN } from '@/constants/url';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -74,6 +75,7 @@ const RootLayout = ({
         </ThemeProvider>
       </body>
       <GoogleAnalytics gaId={process.env.GA_ID || ''} />
+      <Analytics />
     </html>
   );
 };

@@ -1,0 +1,6 @@
+User-Agent: *
+Allow: /
+Disallow: /admin/
+
+Host : https://chanwooyam.dev
+Sitemap: https://chanwooyam.dev/sitemap.xml
