@@ -79,10 +79,12 @@ const deleteType = async (type: string, name: string, id: string) => {
   const data = typeDoc.data();
   const posts = data?.posts;
   const newPosts = posts.filter((post: PostListType) => post.id !== id);
+  const title = data?.title;
+  const description = data?.description;
   if (newPosts.length === 0) {
     await deleteDoc(typeRef);
   } else {
-    await setDoc(typeRef, { posts: newPosts });
+    await setDoc(typeRef, { posts: newPosts, title, description });
   }
 };
 
