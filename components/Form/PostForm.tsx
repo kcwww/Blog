@@ -48,7 +48,7 @@ const PostForm = ({ post }: { post: PostDataType | null }) => {
     defaultValues: {
       title: post ? post.title : '',
       content: post ? post.content : '',
-      tags: post ? post.tags.join(',') : '',
+      tags: post ? post.tags?.join(',') : '',
       thumbnail: post ? post.thumbnail : '',
       type: post && post.post ? post.post.type : 'none',
       typeName: post && post.post ? post.post.name : '',
