@@ -2,12 +2,7 @@ import { useRouter } from 'next/navigation';
 
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
-import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogTrigger,
-} from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogFooter } from '@/components/ui/dialog';
 import clientComponentFetch from '@/lib/fetch/clientComponentFetch';
 import useModal from '@/lib/hooks/useModal';
 import { BACKEND_ROUTES } from '@/constants/routes';
@@ -36,9 +31,6 @@ const DeleteModal = () => {
 
   return (
     <Dialog open={isOpen}>
-      <DialogTrigger asChild>
-        <Button variant="outline">Edit Profile</Button>
-      </DialogTrigger>
       <DialogContent>
         Are you sure you want to delete this Post?
         <DialogFooter>
