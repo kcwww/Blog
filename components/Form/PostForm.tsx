@@ -1,6 +1,5 @@
 'use client';
 
-import { revalidatePath } from 'next/cache';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -97,7 +96,6 @@ const PostForm = ({ post }: { post: PostDataType | null }) => {
       }
       form.reset();
       toast.success('포스팅 성공 !');
-      revalidatePath('/', 'layout');
       router.refresh();
       router.push(ROUTES.LANDING);
     } catch (e) {
