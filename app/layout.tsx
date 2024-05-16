@@ -50,10 +50,14 @@ const RootLayout = ({
   return (
     <html lang="ko">
       <link rel="icon" href="/favicon.ico" sizes="any" />
+      <meta
+        name="naver-site-verification"
+        content="496e4cec4d52d38aa27a02f663c5acd8ae8a241c"
+      />
       <body
         className={cn(
           inter.className,
-          'dark:bg-gray-900 bg-gray-300 transition-colors duration-300 ease-out mx-8 flex justify-center items-center flex-col'
+          'mx-8 flex flex-col items-center justify-center bg-gray-300 transition-colors duration-300 ease-out dark:bg-gray-900'
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
