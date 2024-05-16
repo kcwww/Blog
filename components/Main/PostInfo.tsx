@@ -6,9 +6,8 @@ const PostInfo = ({ post }: { post: PostDataType | null }) => {
   if (!post) return <></>;
 
   return (
-    <div className="flex gap-4 text-gray-500">
-      <p>{post.post?.name}</p>
-      <p className="flex gap-2 items-center">
+    <div className="flex animate-fade-in-delay gap-4 text-gray-500 opacity-0">
+      <p className="flex items-center gap-2">
         <Calendar size={'1rem'} /> {post.createdAt}
       </p>
     </div>
