@@ -1,5 +1,5 @@
 import type { MetadataRoute } from 'next';
-import { ORIGIN } from '@/constants/url';
+import { URL } from '@/constants/url';
 import { BACKEND_ROUTES } from '@/constants/routes';
 
 import serverComponentFetch from '@/lib/fetch/serverComponentFetch';
@@ -22,7 +22,7 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
     const date = new Date(post.createdAt);
     date.setHours(date.getHours() + 9);
     return {
-      url: `${ORIGIN}/${post.post?.type}/${post.post?.name}/${post.id}`,
+      url: `${URL}/${post.post?.type}/${post.post?.name}/${post.id}`,
       lastModified: date,
       changeFrequency: 'weekly',
       priority: 0.8,
@@ -46,7 +46,7 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
 
   const seriesRoutes = Object.keys(types.series).map((name: string) => {
     return {
-      url: `${ORIGIN}/series/${name}`,
+      url: `${URL}/series/${name}`,
       lastModified: date,
       changeFrequency: 'weekly',
       priority: 0.6,
@@ -55,7 +55,7 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
 
   const snippetRoutes = Object.keys(types.snippets).map((name: string) => {
     return {
-      url: `${ORIGIN}/snippets/${name}`,
+      url: `${URL}/snippets/${name}`,
       lastModified: date,
       changeFrequency: 'weekly',
       priority: 0.6,
@@ -74,7 +74,7 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
 
   const tagRoutes = Object.keys(tags).map((tag: string) => {
     return {
-      url: `${ORIGIN}/posts/${tag}`,
+      url: `${URL}/posts/${tag}`,
       lastModified: date,
       changeFrequency: 'weekly',
       priority: 0.4,
@@ -83,25 +83,25 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
 
   const routes = [
     {
-      url: `${ORIGIN}`,
+      url: `${URL}`,
       lastModified: date,
       changeFrequency: 'daily',
       priority: 1,
     },
     {
-      url: `${ORIGIN}/series`,
+      url: `${URL}/series`,
       lastModified: date,
       changeFrequency: 'daily',
       priority: 1,
     },
     {
-      url: `${ORIGIN}/snippets`,
+      url: `${URL}/snippets`,
       lastModified: date,
       changeFrequency: 'daily',
       priority: 1,
     },
     {
-      url: `${ORIGIN}/posts`,
+      url: `${URL}/posts`,
       lastModified: date,
       changeFrequency: 'daily',
       priority: 1,

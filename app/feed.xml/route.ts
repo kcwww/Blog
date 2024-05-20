@@ -1,7 +1,7 @@
 import RSS from 'rss';
 
 import { collection, query, orderBy, getDocs } from 'firebase/firestore';
-import { ORIGIN } from '@/constants/url';
+import { URL } from '@/constants/url';
 import {
   PostDataType,
   ReceivedSeriesType,
@@ -27,7 +27,7 @@ const getAllPosts = async (feed: RSS) => {
         title: post.title,
         description:
           content.length > 100 ? content.slice(0, 100) + '...' : content,
-        url: `${ORIGIN}/${post.post?.type}/${post.post?.name}/${post.id}`,
+        url: `${URL}/${post.post?.type}/${post.post?.name}/${post.id}`,
         guid: post.id,
         date: date,
         categories: post.tags,
@@ -52,7 +52,7 @@ const getAllSeries = async (feed: RSS) => {
       feed.item({
         title: serie.title,
         description: serie.description,
-        url: `${ORIGIN}/series/${serie.id}`,
+        url: `${URL}/series/${serie.id}`,
         guid: serie.id + index,
         date: new Date(),
       });
@@ -76,7 +76,7 @@ const getAllSnippets = async (feed: RSS) => {
       feed.item({
         title: snippet.title,
         description: `${snippet.title} 에 대한 스니펫입니다.`,
-        url: `${ORIGIN}/snippets/${snippet.id}`,
+        url: `${URL}/snippets/${snippet.id}`,
         guid: snippet.id + index,
         date: new Date(),
       });
@@ -106,7 +106,7 @@ const getAllTags = async (feed: RSS) => {
       feed.item({
         title: tag.id,
         description: `${tag.id} 태그에 대한 포스트입니다.`,
-        url: `${ORIGIN}/posts/${url}`,
+        url: `${URL}/posts/${url}`,
         guid: tag.id + index,
         date: new Date(),
       });
@@ -120,8 +120,8 @@ export const GET = async () => {
   const feed = new RSS({
     title: '망그러진 블로그',
     description: 'Frontend Developer 찬우얌의 블로그',
-    site_url: ORIGIN,
-    feed_url: `${ORIGIN}/feed.xml`,
+    site_url: URL,
+    feed_url: `${URL}/feed.xml`,
     copyright: '@ 2024 ChanwooYam',
     language: 'ko',
     pubDate: new Date().toUTCString(),
@@ -130,7 +130,7 @@ export const GET = async () => {
   feed.item({
     title: 'All Series',
     description: '시리즈로 포스팅한 모든 게시물을 모아놓은 페이지입니다.',
-    url: `${ORIGIN}/series`,
+    url: `${URL}/series`,
     guid: 'series',
     date: new Date(),
   });
@@ -138,7 +138,7 @@ export const GET = async () => {
   feed.item({
     title: 'All Snippets',
     description: '스니펫 게시물을 모아놓은 페이지입니다.',
-    url: `${ORIGIN}/snippets`,
+    url: `${URL}/snippets`,
     guid: 'snippets',
     date: new Date(),
   });
@@ -146,7 +146,7 @@ export const GET = async () => {
   feed.item({
     title: 'All Posts',
     description: '포스팅한 모든 게시물을 모아놓은 페이지입니다.',
-    url: `${ORIGIN}/posts`,
+    url: `${URL}/posts`,
     guid: 'posts',
     date: new Date(),
   });
