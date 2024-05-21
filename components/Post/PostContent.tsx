@@ -28,7 +28,7 @@ const PostContent = ({ markedString }: { markedString: string }) => {
                 {String(children)}
               </CodeBlock>
             ) : (
-              <code className="rounded-md bg-gray-300 p-1 text-red-400">
+              <code className="break-words rounded-md bg-gray-300 p-1 text-red-400">
                 {children}
               </code>
             );
