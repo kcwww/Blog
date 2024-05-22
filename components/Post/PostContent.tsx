@@ -4,6 +4,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useEffect } from 'react';
 
 import ProgressBar from '@/components/Main/ProgressBar';
 import CodeBlock from '@/components/ui/CodeBlock';
@@ -12,6 +13,14 @@ import useModal from '@/lib/hooks/useModal';
 
 const PostContent = ({ markedString }: { markedString: string }) => {
   const { onOpen } = useModal();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+
+    return () => {
+      window.scrollTo(0, 0);
+    };
+  }, []);
 
   return (
     <>
