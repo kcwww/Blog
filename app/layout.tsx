@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Jua } from 'next/font/google';
 import { GoogleAnalytics } from '@next/third-parties/google';
 
 import './globals.css';
@@ -15,7 +15,11 @@ import Footer from '@/components/Footer';
 import { Toaster } from '@/components/ui/sonner';
 import { ORIGIN } from '@/constants/url';
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Jua({
+  weight: ['400'],
+  style: 'normal',
+  subsets: ['latin'],
+});
 
 export const metadata: Metadata = {
   title: '망그러진 블로그',
