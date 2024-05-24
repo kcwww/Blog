@@ -52,7 +52,7 @@ const SeriesDetail = async ({ detail }: { detail: string }) => {
             )}
             style={{ animationDelay: `${(index + 1) * 200}ms` }}
           >
-            <AlertTitle>{post.title}</AlertTitle>
+            <AlertTitle className="leading-6">{post.title}</AlertTitle>
             <div className="flex flex-col gap-2 md:flex-row">
               <AlertDescription className="flex justify-center gap-1">
                 <div className="grid grid-cols-2 gap-1">

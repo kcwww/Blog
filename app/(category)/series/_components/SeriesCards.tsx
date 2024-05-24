@@ -40,7 +40,7 @@ const SeriesCards = async () => {
             )}
             style={{ animationDelay: `${(index + 1) * 200}ms` }}
           >
-            <AlertTitle className="flex items-center justify-center">
+            <AlertTitle className="flex items-center justify-center leading-6">
               {series.title}
             </AlertTitle>
             <hr />
