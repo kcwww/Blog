@@ -5,6 +5,21 @@ import { redirect } from 'next/navigation';
 import serverComponentFetch from '@/lib/fetch/serverComponentFetch';
 import type { ReceivedSnippetType } from '@/lib/types/PostType';
 import { ROUTES, BACKEND_ROUTES } from '@/constants/routes';
+import { metadata as RootMetaData } from '@/app/layout';
+
+export const metadata = {
+  ...RootMetaData,
+  title: 'All Snippets',
+  description: [
+    '개발하면서 유용하게 사용할 수 있는 코드 스니펫을 정리하고 있습니다.',
+  ],
+  openGraph: {
+    ...RootMetaData.openGraph,
+    title: 'All Snippets',
+    description:
+      '개발하면서 유용하게 사용할 수 있는 코드 스니펫을 정리하고 있습니다.',
+  },
+};
 
 const fetchSnippets = async () => {
   try {
