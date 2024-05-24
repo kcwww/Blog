@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
+
+import { getServerSession } from 'next-auth/next';
 import { S3Client } from '@aws-sdk/client-s3';
 import { Upload } from '@aws-sdk/lib-storage';
 
@@ -11,6 +13,19 @@ const s3 = new S3Client({
 });
 
 export const POST = async (req: NextRequest) => {
+  const session = await getServerSession();
+
+  if (!session) {
+    return NextResponse.json(
+      {
+        error: 'Unauthorized',
+      },
+      {
+        status: 401,
+      }
+    );
+  }
+
   try {
     const formData = await req.formData();
     const files = formData.getAll('file');
