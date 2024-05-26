@@ -67,7 +67,7 @@ App router 로 설계한 나만의 블로그 제작
 | [Next.js NextAuth.js 로 로그인하기](https://www.chanwooyam.dev/series/next-blog/1h1fZa3AwA4DAN4dBPvw) | NextAuth.js |
 | [Next.js 14 Dynamic MetaData](https://www.chanwooyam.dev/series/next-blog/W6tcofZHcwLgRh28uN9G) | Next.js, SEO |
 | [Next.js 블로그 이용자 분석하기 (Google Analytics, Vercel Web Analytics)](https://www.chanwooyam.dev/series/next-blog/t7SOak5gCbWdabIZQkYt) | Next.js, Google Analytics, Vercel |
-| [Next.js 14 블로그 Sitemap 과 RSS 만들기](https://www.chanwooyam.dev/series/next-blog/7OVflF6HI61fS7UE21kS) | Next.js, Sitemap.xml, RSS |
+| [Next.js 14 블로그 Sitemap 과 RSS 만들기](https://www.chanwooyam.dev/series/next-blog/7OVflF6HI61fS7UE21kS) | Next.js, Sitemap.xml, RSS, SEO |
 | [Next.js 14 캐싱 관리하기](https://www.chanwooyam.dev/series/next-blog/Ra0jlCBj7XRiwpMKzHLt) | Next.js |
 
 
