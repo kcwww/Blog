@@ -51,3 +51,24 @@ App router 로 설계한 나만의 블로그 제작
         </tr>
     </tbody>
 </table>
+
+## Next.js Blog 제작기
+
+| Title | Stack |
+|-------|-------|
+| [Next.js 를 선택한 이유](https://www.chanwooyam.dev/series/next-blog/Zja2eo7LgCObGeR6eVZA) | Next.js |
+| [Next.js 개발환경 세팅하기](https://www.chanwooyam.dev/series/next-blog/Iel4diLEWWbhpxwIDdw9) | Next.js, shadcn, pnpm, eslint, prettier |
+| [Next.js 14 App router 로 라우팅하기](https://www.chanwooyam.dev/series/next-blog/niaYW8VYUMr4wtvgR8FT) | Next.js |
+| [Next.js 14 백엔드 API 구축하기 (with Firebase)](https://www.chanwooyam.dev/series/next-blog/zBLSKeUWi6O0H2TJarmT) | Next.js, Firebase |
+| [Next.js Form 작성하기 (shadcn, react-hook-form, zod)](https://www.chanwooyam.dev/series/next-blog/Q4Dz6c9AXbACMFZRihqA) | React-hook-form, zod, shadcn |
+| [Next.js 블로그 이미지 Github 처럼 업로드하기 (Drag & Drop)](https://www.chanwooyam.dev/series/next-blog/fdyKrh1HcHqrXZegb8CZ) | Next.js, Event |
+| [Next.js 블로그 이미지 저장소 설정하기 (S3, Cloudfront)](https://www.chanwooyam.dev/series/next-blog/fhE9lkS8xo8aEbKvo6uR) | Next.js, S3, Cloudfront |
+| [Next.js 블로그 Vercel 에 가비아 도메인 연결하기](https://www.chanwooyam.dev/series/next-blog/lD9yWotUTqpdmAqaCvux) | Next.js, Vercel |
+| [Next.js NextAuth.js 로 로그인하기](https://www.chanwooyam.dev/series/next-blog/1h1fZa3AwA4DAN4dBPvw) | NextAuth.js |
+| [Next.js 14 Dynamic MetaData](https://www.chanwooyam.dev/series/next-blog/W6tcofZHcwLgRh28uN9G) | Next.js, SEO |
+| [Next.js 블로그 이용자 분석하기 (Google Analytics, Vercel Web Analytics)](https://www.chanwooyam.dev/series/next-blog/t7SOak5gCbWdabIZQkYt) | Next.js, Google Analytics, Vercel |
+| [Next.js 14 블로그 Sitemap 과 RSS 만들기](https://www.chanwooyam.dev/series/next-blog/7OVflF6HI61fS7UE21kS) | Next.js, Sitemap.xml, RSS |
+| [Next.js 14 캐싱 관리하기](https://www.chanwooyam.dev/series/next-blog/Ra0jlCBj7XRiwpMKzHLt) | Next.js |
+
+
+
