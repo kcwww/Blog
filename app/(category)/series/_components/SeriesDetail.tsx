@@ -36,7 +36,7 @@ const SeriesDetail = async ({ detail }: { detail: string }) => {
         title={dataDetail?.title || ''}
         description={[dataDetail?.description || '']}
       />
-      <div className="animate-text-down-delay text-sm text-gray-300 opacity-0 dark:text-gray-500">
+      <div className="animate-text-down-delay text-sm text-gray-400 opacity-0 dark:text-gray-500">
         총 {dataDetail?.posts.length} 개의 포스팅이 존재합니다.
       </div>
       {dataDetail.posts.map((post, index) => (
