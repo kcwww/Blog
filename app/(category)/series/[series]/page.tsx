@@ -28,9 +28,11 @@ export const generateMetadata = async (
   return {
     ...previousMetadata,
     title: data.title,
+    description : data.description,
     openGraph: {
       ...previousMetadata.openGraph,
       title: data.title,
+      description : data.description,
       url: `${ORIGIN}${ROUTES.SERIES}/${params.series}`,
     },
   };
