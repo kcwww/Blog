@@ -27,9 +27,11 @@ export const generateMetadata = async (
   return {
     ...previousMetadata,
     title: data.title,
+    description : `${data.title} 에 대한 포스팅입니다.`,
     openGraph: {
       ...previousMetadata.openGraph,
       title: data.title,
+      description : `${data.title} 에 대한 포스팅입니다.`,
       url: `${ORIGIN}${ROUTES.SNIPPETS}/${params.snippet}`,
     },
   };
