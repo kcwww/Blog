@@ -6,10 +6,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect } from 'react';
 
+import { cn } from '@/lib/utils';
 import ProgressBar from '@/components/Main/ProgressBar';
 import CodeBlock from '@/components/ui/CodeBlock';
 import { Button } from '@/components/ui/button';
 import useModal from '@/lib/hooks/useModal';
+import { inter } from '@/lib/fonts';
 
 const PostContent = ({ markedString }: { markedString: string }) => {
   const { onOpen } = useModal();
@@ -37,7 +39,12 @@ const PostContent = ({ markedString }: { markedString: string }) => {
                 {String(children)}
               </CodeBlock>
             ) : (
-              <code className="break-words rounded-md bg-gray-300 p-1 text-red-400">
+              <code
+                className={cn(
+                  'break-words rounded-md bg-gray-300 p-1 text-red-400',
+                  inter.className
+                )}
+              >
                 {children}
               </code>
             );

@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
-import { Jua } from 'next/font/google';
 import { GoogleAnalytics } from '@next/third-parties/google';
 
 import './globals.css';
+import { inter } from '@/lib/fonts';
 import { cn } from '@/lib/utils';
 import ThemeProvider from '@/components/provider/ThemeProvider';
 import AuthProvider from '@/components/provider/AuthProvider';
@@ -14,12 +14,6 @@ import ScrollToTopButton from '@/components/ui/ScrollToTopButton';
 import Footer from '@/components/Footer';
 import { Toaster } from '@/components/ui/sonner';
 import { ORIGIN } from '@/constants/url';
-
-const inter = Jua({
-  weight: ['400'],
-  style: 'normal',
-  subsets: ['latin'],
-});
 
 export const metadata: Metadata = {
   title: '망그러진 블로그',
@@ -60,7 +54,9 @@ const RootLayout = ({
         content="496e4cec4d52d38aa27a02f663c5acd8ae8a241c"
       />
       <body
-        className={cn('mx-8 flex flex-col items-center justify-center bg-gray-300 transition-colors duration-300 ease-out dark:bg-gray-900')}
+        className={cn(
+          'mx-8 flex flex-col items-center justify-center bg-gray-300 transition-colors duration-300 ease-out dark:bg-gray-900'
+        )}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <AuthProvider>
