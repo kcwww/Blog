@@ -8,9 +8,6 @@ export type ReceivedTagsType = {
 export type TagDetailType = Omit<PostDataType, 'content' | 'thumbnail'>;
 
 export type ReceivedTagType = {
-  message: string;
-  type: {
-    id: string;
-    posts: TagDetailType[];
-  };
+  id: string;
+  posts: TagDetailType[];
 };
