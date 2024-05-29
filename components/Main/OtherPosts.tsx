@@ -18,7 +18,7 @@ type OtherPostsType = {
 };
 
 const OtherPosts = ({ post }: { post: PostDataType | null }) => {
-  const [isVisible, setIsVisible] = useState(false);
+  const [hasFetched, setHasFetched] = useState(false);
   const [detail, setDetail] = useState({
     title: '',
     description: '',
@@ -29,14 +29,16 @@ const OtherPosts = ({ post }: { post: PostDataType | null }) => {
 
   useEffect(() => {
     if (!('IntersectionObserver' in window)) {
-      setIsVisible(true);
+      setHasFetched(true);
       return;
     }
 
     const observer = new IntersectionObserver(
       (entries) => {
         const [entry] = entries;
-        setIsVisible(entry.isIntersecting);
+        if (entry.isIntersecting && !hasFetched) {
+          setHasFetched(true);
+        }
       },
       { root: null, rootMargin: '0px', threshold: 0.1 }
     );
@@ -50,10 +52,11 @@ const OtherPosts = ({ post }: { post: PostDataType | null }) => {
         observer.unobserve(ref.current);
       }
     };
-  }, []);
+  }, [hasFetched]);
 
   useEffect(() => {
-    if (otherPosts) return;
+    if (otherPosts || !hasFetched) return;
+
     const fetchOtherPostList = async (type: string, name: string) => {
       const url =
         type === 'series'
@@ -77,37 +80,34 @@ const OtherPosts = ({ post }: { post: PostDataType | null }) => {
       }
     };
 
-    if (isVisible) {
-      fetchOtherPostList(post?.post?.type || '', post?.post?.name || '');
-    }
-  }, [isVisible]);
+    fetchOtherPostList(post?.post?.type || '', post?.post?.name || '');
+  }, [hasFetched]);
 
   return (
     <div
-      className="dark:bg-gray-800 bg-gray-500 w-full p-4 rounded-2xl flex flex-col gap-2"
+      className="flex w-full flex-col gap-2 rounded-2xl bg-gray-500 p-4 dark:bg-gray-800"
       ref={ref}
     >
-      {isVisible ? (
+      {hasFetched && otherPosts ? (
         <>
           <div className="text-2xl font-semibold">{detail.title}</div>
           <div>{detail.description}</div>
-          <div className="flex gap-2 items-center text-gray-600">
+          <div className="flex items-center gap-2 text-gray-600">
             last update : <Calendar size={'1rem'} />
             {detail.createdAt}
           </div>
           <div className="flex items-center gap-2">
             <ScrollText size={'1rem'} />
-            {otherPosts &&
-              otherPosts.findIndex((otherPost) => otherPost.id === post?.id) +
-                1}{' '}
-            / {otherPosts?.length}
+            {otherPosts.findIndex((otherPost) => otherPost.id === post?.id) +
+              1}{' '}
+            / {otherPosts.length}
           </div>
-          {otherPosts?.map((otherPost, index) => {
+          {otherPosts.map((otherPost, index) => {
             if (otherPost.id === post?.id)
               return (
                 <div
                   key={otherPost.id}
-                  className="dark:text-gray-500 text-gray-300"
+                  className="text-gray-300 dark:text-gray-500"
                 >
                   {index + 1 + '. '}
                   {otherPost.title}
