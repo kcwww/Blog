@@ -69,6 +69,12 @@ const CommandBox = () => {
     }
   }, [posts]);
 
+  useEffect(() => {
+    if (open) {
+      setInput('');
+    }
+  }, [open]);
+
   const fetchPosts = async () => {
     try {
       const res = await clientComponentFetch(BACKEND_ROUTES.POSTS);
@@ -133,7 +139,7 @@ const CommandBox = () => {
           />
           <CommandList>
             <CommandEmpty>No results found.</CommandEmpty>
-            {fuse?.search(input).length !== 0 && (
+            {fuse?.search(input).length !== 0 && input.length !== 0 && (
               <CommandGroup heading="Posts">
                 {fuse?.search(input).map((result, index) => {
                   const post = result.item;
