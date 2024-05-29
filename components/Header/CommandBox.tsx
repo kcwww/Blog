@@ -87,7 +87,7 @@ const CommandBox = () => {
           setOpen(true);
           fetchPosts();
         }}
-        className="text-sm text-muted-foreground flex gap-2 bg-gray-200 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 "
+        className="flex gap-2 bg-gray-200 text-sm text-muted-foreground hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 "
       >
         Search...{' '}
         <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
@@ -106,7 +106,7 @@ const CommandBox = () => {
             onValueChange={(str: string) => {
               setInput(str);
             }}
-            placeholder="명령어 입력후 엔터를 눌러주세요."
+            placeholder="Search..."
             onKeyDown={(e) => {
               if (e.metaKey || e.ctrlKey) {
                 e.preventDefault();
