@@ -14,7 +14,7 @@ const GET = async (req: NextRequest) => {
     });
 
     return NextResponse.json({
-      message: 'Recent Posts fetched successfully',
+      message: 'All Posts fetched successfully',
       posts,
     });
   } catch (error) {
