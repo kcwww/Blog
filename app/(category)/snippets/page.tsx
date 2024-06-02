@@ -1,13 +1,12 @@
-import Introduce from '@/components/Main/Introduce';
-
-import SnippetsBox from '@/app/(category)/snippets/_components/SnippetsBox';
 import { redirect } from 'next/navigation';
-import serverComponentFetch from '@/lib/fetch/serverComponentFetch';
-import type { ReceivedSnippetType } from '@/lib/types/PostType';
-import { ROUTES, BACKEND_ROUTES } from '@/constants/routes';
-import { metadata as RootMetaData } from '@/app/layout';
+import { collection, query, getDocs, orderBy } from 'firebase/firestore';
 
-export const dynamic = 'force-dynamic';
+import { BLOGDB } from '@/lib/Firebase';
+import Introduce from '@/components/Main/Introduce';
+import SnippetsBox from '@/app/(category)/snippets/_components/SnippetsBox';
+import type { ReceivedSnippetType } from '@/lib/types/PostType';
+import { ROUTES } from '@/constants/routes';
+import { metadata as RootMetaData } from '@/app/layout';
 
 export const metadata = {
   ...RootMetaData,
@@ -25,12 +24,18 @@ export const metadata = {
 
 const fetchSnippets = async () => {
   try {
-    const res = await serverComponentFetch(BACKEND_ROUTES.SNIPPETS);
-    res.type.sort(
+    const postsRef = collection(BLOGDB, 'snippets');
+    const q = query(postsRef, orderBy('posts', 'desc'));
+    const querySnapshot = await getDocs(q);
+
+    const snippets = querySnapshot.docs.map((doc) => {
+      return { id: doc.id, ...doc.data() };
+    }) as ReceivedSnippetType[];
+    snippets.sort(
       (a: ReceivedSnippetType, b: ReceivedSnippetType) =>
         b.posts.length - a.posts.length
     );
-    return res.type;
+    return snippets;
   } catch (error) {
     console.error(error);
     redirect(ROUTES.NOT_FOUND);
