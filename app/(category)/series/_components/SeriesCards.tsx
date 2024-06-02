@@ -36,7 +36,7 @@ const SeriesCards = async () => {
           <Alert
             className={cn(
               'relative animate-card-up opacity-0',
-              'flex flex-col gap-4'
+              'flex h-full flex-col gap-4'
             )}
             style={{ animationDelay: `${(index + 1) * 200}ms` }}
           >
