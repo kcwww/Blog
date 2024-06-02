@@ -3,7 +3,6 @@ import { doc, getDoc } from 'firebase/firestore';
 
 import { BLOGDB } from '@/lib/Firebase';
 import SnippetDetail from '@/app/(category)/snippets/_components/SnippetDetail';
-import type { PostDataType } from '@/lib/types/PostType';
 import { ROUTES } from '@/constants/routes';
 import { ReceivedSnippetType } from '@/lib/types/PostType';
 import { ResolvingMetadata } from 'next';
@@ -16,7 +15,7 @@ const snippetDetailData = async (snippet: string) => {
     const docSnap = await getDoc(postRef);
 
     if (docSnap.exists()) {
-      return { id: docSnap.id, ...docSnap.data() } as PostDataType;
+      return { id: docSnap.id, ...docSnap.data() } as ReceivedSnippetType;
     } else {
       throw new Error('No Snippets found with ID: ' + snippet);
     }
