@@ -1,15 +1,22 @@
 import { redirect } from 'next/navigation';
 
-import { BACKEND_ROUTES, ROUTES } from '@/constants/routes';
-import { ReceivedTagsType } from '@/lib/types/TagType';
+import { collection, query, orderBy, getDocs } from 'firebase/firestore';
 
+import { BLOGDB } from '@/lib/Firebase';
+import { ROUTES } from '@/constants/routes';
+import { ReceivedTagsType } from '@/lib/types/TagType';
 import TagBadge from '@/app/(category)/posts/_components/TagBadge';
-import serverComponentFetch from '@/lib/fetch/serverComponentFetch';
 
 const fetchTags = async () => {
   try {
-    const res = await serverComponentFetch(BACKEND_ROUTES.TAGS);
-    return res;
+    const postsRef = collection(BLOGDB, 'tags');
+    const q = query(postsRef, orderBy('posts', 'desc'));
+    const querySnapshot = await getDocs(q);
+
+    const tags = querySnapshot.docs.map((doc) => {
+      return { id: doc.id, ...doc.data() };
+    });
+    return { message: 'success', tags };
   } catch (error) {
     console.error(error);
     redirect(ROUTES.NOT_FOUND);
