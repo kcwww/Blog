@@ -1,13 +1,29 @@
+import { redirect } from 'next/navigation';
+import { doc, getDoc } from 'firebase/firestore';
+
+import { BLOGDB } from '@/lib/Firebase';
+import { ROUTES } from '@/constants/routes';
 import PostForm from '@/components/Form/PostForm';
-import { BACKEND_ROUTES } from '@/constants/routes';
 import type { PostDataType } from '@/lib/types/PostType';
-import serverComponentFetch from '@/lib/fetch/serverComponentFetch';
 import CheckAuth from '@/app/(protected)/admin/_components/CheckAuth';
 import DeletePost from '@/app/(protected)/admin/_components/DeletePost';
 
 const fetchPost = async (params: { postId: string }) => {
-  const res = await serverComponentFetch(BACKEND_ROUTES.POST_ID(params.postId));
-  return res.data;
+  const id = params.postId;
+
+  try {
+    const postRef = doc(BLOGDB, 'posts', id);
+    const docSnap = await getDoc(postRef);
+
+    if (docSnap.exists()) {
+      return { id: docSnap.id, ...docSnap.data() } as PostDataType;
+    } else {
+      throw new Error('No Snippets found with ID: ' + id);
+    }
+  } catch (e) {
+    console.error(e);
+    redirect(ROUTES.NOT_FOUND);
+  }
 };
 
 const UpdatePostPage = async ({ params }: { params: { postId: string } }) => {
