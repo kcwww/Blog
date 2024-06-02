@@ -11,8 +11,8 @@ const fetchPosts = async () => {
     const q = query(postsRef, orderBy('createdAt', 'desc'));
     const querySnapshot = await getDocs(q);
     const posts = querySnapshot.docs.map((doc) => {
-      return { id: doc.id, ...doc.data() };
-    }) as PostDataType[];
+      return { id: doc.id, ...doc.data() } as PostDataType;
+    });
     return posts;
   } catch (error) {
     console.error(error);
@@ -29,7 +29,7 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
     return {
       url: `${URL}/${post.post?.type}/${post.post?.name}/${post.id}`,
       lastModified: date,
-      changeFrequency: 'weekly',
+      changeFrequency: 'weekly' as const,
       priority: 0.8,
     };
   });
@@ -49,23 +49,25 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
     types[post.post.type][post.post.name] = true;
   });
 
-  const seriesRoutes = Object.keys(types.series).map((name: string) => {
+  const seriesRoutes = Object.keys(types.series || {}).map((name: string) => {
     return {
       url: `${URL}/series/${name}`,
       lastModified: date,
-      changeFrequency: 'weekly',
+      changeFrequency: 'weekly' as const,
       priority: 0.6,
     };
   });
 
-  const snippetRoutes = Object.keys(types.snippets).map((name: string) => {
-    return {
-      url: `${URL}/snippets/${name}`,
-      lastModified: date,
-      changeFrequency: 'weekly',
-      priority: 0.6,
-    };
-  });
+  const snippetRoutes = Object.keys(types.snippets || {}).map(
+    (name: string) => {
+      return {
+        url: `${URL}/snippets/${name}`,
+        lastModified: date,
+        changeFrequency: 'weekly' as const,
+        priority: 0.6,
+      };
+    }
+  );
 
   const typeRoutes = [...seriesRoutes, ...snippetRoutes];
 
@@ -81,7 +83,7 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
     return {
       url: `${URL}/posts/${tag}`,
       lastModified: date,
-      changeFrequency: 'weekly',
+      changeFrequency: 'weekly' as const,
       priority: 0.4,
     };
   });
@@ -90,25 +92,25 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
     {
       url: `${URL}`,
       lastModified: date,
-      changeFrequency: 'daily',
+      changeFrequency: 'daily' as const,
       priority: 1,
     },
     {
       url: `${URL}/series`,
       lastModified: date,
-      changeFrequency: 'daily',
+      changeFrequency: 'daily' as const,
       priority: 1,
     },
     {
       url: `${URL}/snippets`,
       lastModified: date,
-      changeFrequency: 'daily',
+      changeFrequency: 'daily' as const,
       priority: 1,
     },
     {
       url: `${URL}/posts`,
       lastModified: date,
-      changeFrequency: 'daily',
+      changeFrequency: 'daily' as const,
       priority: 1,
     },
   ];
