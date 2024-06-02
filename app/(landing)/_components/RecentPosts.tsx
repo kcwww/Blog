@@ -1,16 +1,24 @@
 import Link from 'next/link';
 import { Milestone } from 'lucide-react';
 
-import { BACKEND_ROUTES, ROUTES } from '@/constants/routes';
+import { ROUTES } from '@/constants/routes';
 import PostCard from '@/components/Post/PostCard';
 import { ReceivedPostDataType } from '@/lib/types/PostType';
-import serverComponentFetch from '@/lib/fetch/serverComponentFetch';
 import { redirect } from 'next/navigation';
+
+import { collection, query, orderBy, limit, getDocs } from 'firebase/firestore';
+
+import { BLOGDB } from '@/lib/Firebase';
 
 const fetchPostsData = async () => {
   try {
-    const res = await serverComponentFetch(BACKEND_ROUTES.RECENT);
-    return res;
+    const postsRef = collection(BLOGDB, 'posts');
+    const q = query(postsRef, orderBy('createdAt', 'desc'), limit(12));
+    const querySnapshot = await getDocs(q);
+    const posts = querySnapshot.docs.map((doc) => {
+      return { id: doc.id, ...doc.data() };
+    });
+    return posts;
   } catch (error) {
     console.error(error);
     redirect(ROUTES.NOT_FOUND);
@@ -18,8 +26,7 @@ const fetchPostsData = async () => {
 };
 
 const RecentPosts = async () => {
-  const result = await fetchPostsData();
-  const data = result.posts;
+  const data = (await fetchPostsData()) as ReceivedPostDataType[];
 
   return (
     <div className="w-full">
