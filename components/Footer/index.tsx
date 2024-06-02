@@ -35,7 +35,7 @@ const Footer = () => {
       </div>
       <div className="text-md flex items-center gap-2">
         <p>Copyright © kcwww 2024</p>
-        <Link href={ROUTES.RSS} prefetch={true}>
+        <Link href={ROUTES.RSS}>
           <Rss size={'1.2rem'} />
         </Link>
       </div>
