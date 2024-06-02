@@ -21,7 +21,7 @@ const GET = async (req: NextRequest) => {
     console.error(error);
     return NextResponse.json(
       {
-        message: 'Failed to fetch recent posts',
+        message: 'Failed to fetch posts',
         error,
       },
       { status: 500 }
