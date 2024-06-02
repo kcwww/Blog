@@ -1,16 +1,35 @@
 import { redirect } from 'next/navigation';
-import { ReceivedPostType } from '@/lib/types/PostType';
-import serverComponentFetch from '@/lib/fetch/serverComponentFetch';
-import { BACKEND_ROUTES, ROUTES } from '@/constants/routes';
+import { collection, query, orderBy, getDocs } from 'firebase/firestore';
 
+import { BLOGDB } from '@/lib/Firebase';
+
+import { ReceivedPostTypeDetail } from '@/lib/types/PostType';
+import { ROUTES } from '@/constants/routes';
 import PostLists from '@/app/(category)/posts/_components/PostLists';
 
 const fetchPostType = async (type: string) => {
-  const url =
-    type === 'series' ? BACKEND_ROUTES.SERIES : BACKEND_ROUTES.SNIPPETS;
   try {
-    const res = await serverComponentFetch(url);
-    return res;
+    if (type === 'series') {
+      const postsRef = collection(BLOGDB, 'series');
+      const q = query(postsRef);
+      const querySnapshot = await getDocs(q);
+
+      const series = querySnapshot.docs.map((doc) => {
+        return { id: doc.id, ...doc.data() };
+      });
+
+      series.sort((a, b) => (a.id > b.id ? 1 : -1));
+      return series;
+    } else {
+      const postsRef = collection(BLOGDB, 'snippets');
+      const q = query(postsRef, orderBy('posts', 'desc'));
+      const querySnapshot = await getDocs(q);
+
+      const snippets = querySnapshot.docs.map((doc) => {
+        return { id: doc.id, ...doc.data() };
+      });
+      return snippets;
+    }
   } catch (error) {
     console.error(error);
     redirect(ROUTES.NOT_FOUND);
@@ -18,8 +37,7 @@ const fetchPostType = async (type: string) => {
 };
 
 const PostsBox = async ({ type }: { type: string }) => {
-  const data = (await fetchPostType(type)) as ReceivedPostType;
-  const postType = data.type;
+  const postType = (await fetchPostType(type)) as ReceivedPostTypeDetail[];
 
   postType.sort((a, b) =>
     b.posts.slice(-1)[0].createdAt > a.posts.slice(-1)[0].createdAt ? 1 : -1
