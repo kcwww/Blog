@@ -1,16 +1,26 @@
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
+import { collection, query, getDocs } from 'firebase/firestore';
+
+import { BLOGDB } from '@/lib/Firebase';
 
 import { cn } from '@/lib/utils';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import serverComponentFetch from '@/lib/fetch/serverComponentFetch';
-import { BACKEND_ROUTES, ROUTES } from '@/constants/routes';
-import type { ReceivedPostType } from '@/lib/types/PostType';
+import { ROUTES } from '@/constants/routes';
+import type { ReceivedPostTypeDetail } from '@/lib/types/PostType';
 
 const fetchSeries = async () => {
   try {
-    const res = await serverComponentFetch(BACKEND_ROUTES.SERIES);
-    return res;
+    const postsRef = collection(BLOGDB, 'series');
+    const q = query(postsRef);
+    const querySnapshot = await getDocs(q);
+
+    const series = querySnapshot.docs.map((doc) => {
+      return { id: doc.id, ...doc.data() };
+    });
+
+    series.sort((a, b) => (a.id > b.id ? 1 : -1));
+    return series;
   } catch (error) {
     console.error(error);
     redirect(ROUTES.NOT_FOUND);
@@ -18,9 +28,8 @@ const fetchSeries = async () => {
 };
 
 const SeriesCards = async () => {
-  const data = (await fetchSeries()) as ReceivedPostType;
+  const series = (await fetchSeries()) as ReceivedPostTypeDetail[];
 
-  const series = data.type;
   series.sort((a, b) =>
     b.posts.slice(-1)[0].createdAt > a.posts.slice(-1)[0].createdAt ? 1 : -1
   );

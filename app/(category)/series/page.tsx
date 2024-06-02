@@ -3,8 +3,6 @@ import { metadata as RootMetaData } from '@/app/layout';
 import Introduce from '@/components/Main/Introduce';
 import SeriesCards from '@/app/(category)/series/_components/SeriesCards';
 
-export const dynamic = 'force-dynamic';
-
 export const metadata = {
   ...RootMetaData,
   title: 'All Series',
