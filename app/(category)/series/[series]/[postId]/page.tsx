@@ -1,7 +1,7 @@
 import { ResolvingMetadata } from 'next';
+import { doc, getDoc } from 'firebase/firestore';
 
-import serverComponentFetch from '@/lib/fetch/serverComponentFetch';
-import { BACKEND_ROUTES } from '@/constants/routes';
+import { BLOGDB } from '@/lib/Firebase';
 import { PostDataType } from '@/lib/types/PostType';
 import Introduce from '@/components/Main/Introduce';
 import PostContent from '@/components/Post/PostContent';
@@ -25,8 +25,15 @@ export const generateMetadata = async (
 
 const getPostData = async (id: string) => {
   try {
-    const res = await serverComponentFetch(BACKEND_ROUTES.POST_ID(id));
-    return res.data as PostDataType;
+    const postRef = doc(BLOGDB, 'posts', id);
+
+    const docSnap = await getDoc(postRef);
+
+    if (docSnap.exists()) {
+      return { id: docSnap.id, ...docSnap.data() } as PostDataType;
+    } else {
+      throw new Error('No Snippets found with ID: ' + id);
+    }
   } catch (e) {
     console.error(e);
     return null;
@@ -41,7 +48,7 @@ const PostPage = async ({ params }: { params: { postId: string } }) => {
     <>
       <Introduce title={data ? data.title : ''} description={null} />
       <PostInfo post={data} />
-      <div className="animate-fade-in-delay opacity-0 w-full h-full">
+      <div className="h-full w-full animate-fade-in-delay opacity-0">
         <PostContent markedString={data ? data.content : ''} />
       </div>
       <OtherPosts post={data} />
