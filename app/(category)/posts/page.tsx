@@ -4,6 +4,8 @@ import Tags from '@/app/(category)/posts/_components/Tags';
 import PostsBox from '@/app/(category)/posts/_components/PostsBox';
 import { metadata as RootMetaData } from '@/app/layout';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata = {
   ...RootMetaData,
   title: 'All Posts',

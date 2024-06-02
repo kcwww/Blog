@@ -7,6 +7,8 @@ import type { ReceivedSnippetType } from '@/lib/types/PostType';
 import { ROUTES, BACKEND_ROUTES } from '@/constants/routes';
 import { metadata as RootMetaData } from '@/app/layout';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata = {
   ...RootMetaData,
   title: 'All Snippets',
