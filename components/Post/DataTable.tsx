@@ -148,7 +148,6 @@ const DataTable = ({ posts }: { posts: DataTableType[] }) => {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
-  console.log(posts);
 
   const table = useReactTable({
     data: posts,

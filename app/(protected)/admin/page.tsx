@@ -1,12 +1,14 @@
-import Link from 'next/link';
-import { collection, query, orderBy, getDocs } from 'firebase/firestore';
+'use client';
 
-import { BLOGDB } from '@/lib/Firebase';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+
 import { Button } from '@/components/ui/button';
-import { ROUTES } from '@/constants/routes';
+import { BACKEND_ROUTES, ROUTES } from '@/constants/routes';
 import type { PostDataType } from '@/lib/types/PostType';
 import DataTable from '@/components/Post/DataTable';
 import CheckAuth from '@/app/(protected)/admin/_components/CheckAuth';
+import clientComponentFetch from '@/lib/fetch/clientComponentFetch';
 
 export type DataTableType = Omit<PostDataType, 'post'> & {
   title: string;
@@ -16,29 +18,30 @@ export type DataTableType = Omit<PostDataType, 'post'> & {
   id: string;
 };
 
-const fetchAllPosts = async () => {
-  const postsRef = collection(BLOGDB, 'posts');
-  const q = query(postsRef, orderBy('createdAt', 'desc'));
-  const querySnapshot = await getDocs(q);
-  const results = querySnapshot.docs.map((doc) => {
-    return { id: doc.id, ...doc.data() };
-  }) as PostDataType[];
-  const posts = results.map((post: PostDataType) => {
-    const obj = {
-      title: post.title,
-      createdAt: post.createdAt,
-      type: post.post?.type || '',
-      name: post.post?.name || '',
-      id: post.id,
+const AdminPage = () => {
+  const [posts, setPosts] = useState<DataTableType[]>([]);
+
+  useEffect(() => {
+    const fetchAllPosts = async () => {
+      try {
+        const res = await clientComponentFetch(BACKEND_ROUTES.POSTS);
+        const posts = res.posts.map((post: PostDataType) => {
+          return {
+            id: post.id,
+            title: post.title,
+            createdAt: post.createdAt,
+            type: post.post?.type,
+            name: post.post?.name,
+          };
+        });
+        setPosts(posts);
+      } catch (error) {
+        console.error(error);
+      }
     };
-    return obj;
-  }) as DataTableType[];
 
-  return posts;
-};
-
-const AdminPage = async () => {
-  const posts = (await fetchAllPosts()) as DataTableType[];
+    fetchAllPosts();
+  }, []);
 
   return (
     <CheckAuth>
