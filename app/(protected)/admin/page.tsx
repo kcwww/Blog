@@ -20,8 +20,20 @@ export type DataTableType = Omit<PostDataType, 'post'> & {
 
 const AdminPage = () => {
   const [posts, setPosts] = useState<DataTableType[]>([]);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
+    return () => {
+      setIsMounted(false);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isMounted) {
+      return;
+    }
+
     const fetchAllPosts = async () => {
       try {
         const res = await clientComponentFetch(BACKEND_ROUTES.POSTS);
@@ -41,7 +53,11 @@ const AdminPage = () => {
     };
 
     fetchAllPosts();
-  }, []);
+  }, [isMounted]);
+
+  if (!isMounted) {
+    return null;
+  }
 
   return (
     <CheckAuth>
