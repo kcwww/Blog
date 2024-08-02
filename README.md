@@ -1,5 +1,5 @@
 # Nextjs 14 Blog
-App router 로 설계한 나만의 블로그 제작
+App router 로 설계한 나만의 블로그 제작 - <a href="https://www.chanwooyam.dev">링크</a>
 
 ## Tech Stack
 
