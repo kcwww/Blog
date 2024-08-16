@@ -28,7 +28,8 @@ export const generateMetadata = async (
   { params }: { params: { tagName: string } },
   parent: ResolvingMetadata
 ) => {
-  const data = (await tagDetailData(params.tagName)) as ReceivedTagType;
+  const decodedTagName = decodeURIComponent(params.tagName);
+  const data = (await tagDetailData(decodedTagName)) as ReceivedTagType;
   const previousMetadata = await parent;
 
   return {
@@ -45,7 +46,8 @@ export const generateMetadata = async (
 };
 
 const TagDetailPage = async ({ params }: { params: { tagName: string } }) => {
-  const data = (await tagDetailData(params.tagName)) as ReceivedTagType;
+  const decodedTagName = decodeURIComponent(params.tagName);
+  const data = (await tagDetailData(decodedTagName)) as ReceivedTagType;
   return (
     <>
       <TagDetail data={data} />
