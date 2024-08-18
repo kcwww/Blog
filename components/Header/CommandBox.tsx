@@ -1,5 +1,7 @@
 'use client';
 
+import Image from 'next/image';
+
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import {
@@ -133,6 +135,10 @@ const CommandBox = () => {
                     window.open(LINK.INSTAGRAM);
                     setOpen(false);
                     break;
+                  case 'e':
+                    window.open(LINK.NAVER_BLOG);
+                    setOpen(false);
+                    break;
                 }
               }
             }}
@@ -253,6 +259,22 @@ const CommandBox = () => {
                 <Linkedin className="mr-2 h-4 w-4" />
                 <span>Linkedin</span>
                 <CommandShortcut>⌘S</CommandShortcut>
+              </CommandItem>
+              <CommandItem
+                onSelect={() => {
+                  window.open(LINK.NAVER_BLOG);
+                  setOpen(false);
+                }}
+              >
+                <Image
+                  src="/naverBlog.png"
+                  alt="naverBlog"
+                  width={500}
+                  height={500}
+                  className="mr-2 h-5 w-5"
+                />
+                <span>Naver Blog</span>
+                <CommandShortcut>⌘E</CommandShortcut>
               </CommandItem>
             </CommandGroup>
           </CommandList>
