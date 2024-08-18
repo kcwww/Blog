@@ -6,7 +6,7 @@ const LINK = {
   INSTAGRAM: 'https://www.instagram.com/kcwww.w/',
   LINKEDIN: 'https://www.linkedin.com/in/chanwoo-kim-8757a12a5/',
   MAIL: 'mailto:cwkim0321@gmail.com',
-  NAVER_BLOG: 'https://blog.naver.com/cksdn1228',
+  NAVER_BLOG: 'https://blog.naver.com/chanwooyam',
 } as const;
 
 type LINK = (typeof LINK)[keyof typeof LINK];
