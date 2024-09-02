@@ -55,7 +55,7 @@ const RootLayout = ({
       />
       <body
         className={cn(
-          'mx-8 flex flex-col items-center justify-center bg-gray-300 transition-colors duration-300 ease-out dark:bg-gray-900'
+          'flex flex-col items-center justify-center bg-gray-300 transition-colors duration-300 ease-out dark:bg-gray-900 sm:mx-8'
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
