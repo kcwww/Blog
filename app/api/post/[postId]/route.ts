@@ -34,6 +34,33 @@ export const GET = async (
   }
 };
 
+const updateType = async (
+  type: string,
+  name: string,
+  id: string,
+  title: string
+) => {
+  const typeRef = doc(BLOGDB, type, name);
+  const typeDoc = await getDoc(typeRef);
+  const data = typeDoc.data();
+  const posts = data?.posts;
+  const newPosts = posts.map((post: PostListType) =>
+    post.id === id ? { ...post, title } : post
+  );
+  await setDoc(typeRef, { posts: newPosts, ...data });
+};
+
+const updateTag = async (tag: string, id: string, title: string) => {
+  const tagRef = doc(BLOGDB, 'tags', tag);
+  const tagDoc = await getDoc(tagRef);
+  const data = tagDoc.data();
+  const posts = data?.posts;
+  const newPosts = posts.map((post: PostListType) =>
+    post.id === id ? { ...post, title } : post
+  );
+  await setDoc(tagRef, { posts: newPosts, ...data });
+};
+
 export const PUT = async (
   req: NextRequest,
   { params }: { params: { postId: string } }
@@ -58,6 +85,14 @@ export const PUT = async (
     await loginUser(session.user?.email || '');
     const postRef = doc(BLOGDB, 'posts', id);
     await setDoc(postRef, data);
+
+    const title = data.title;
+    const tags = data.tags;
+
+    await Promise.all(
+      tags.map(async (tag: string) => await updateTag(tag, id, title))
+    );
+    await updateType(data.post.type, data.post.name, id, title);
     revalidatePath('/', 'layout');
 
     return NextResponse.json({
