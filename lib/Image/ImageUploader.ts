@@ -88,10 +88,10 @@ export class ImageUploader implements ImageUploaderType {
   }
 
   async uploadImg(files: File[]) {
-    const resizedFiles = await this.resizeImg(files);
+    // const resizedFiles = await this.resizeImg(files);
 
     const formData = new FormData();
-    resizedFiles.forEach((file) => {
+    files.forEach((file) => {
       if (file) {
         formData.append('file', file);
       }
