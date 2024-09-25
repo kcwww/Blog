@@ -5,6 +5,9 @@ import remarkGfm from 'remark-gfm';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect } from 'react';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
+import 'katex/dist/katex.min.css';
 
 import { cn } from '@/lib/utils';
 import ProgressBar from '@/components/Main/ProgressBar';
@@ -29,7 +32,8 @@ const PostContent = ({ markedString }: { markedString: string }) => {
       <ProgressBar />
       <ReactMarkdown
         className="marked-container mb-20 flex w-full flex-col gap-4"
-        remarkPlugins={[remarkGfm]}
+        remarkPlugins={[remarkGfm, remarkMath]}
+        rehypePlugins={[rehypeKatex]}
         components={{
           code({ inline, className, children, ...props }: any) {
             const match = /language-(\w+)/.exec(className || '');
