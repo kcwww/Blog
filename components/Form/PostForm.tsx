@@ -1,12 +1,13 @@
 'use client';
 
+import { renderToStaticMarkup } from 'react-dom/server';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { toast } from 'sonner';
-import { marked } from 'marked';
 import { useRouter } from 'next/navigation';
 
+import Markdown from '@/components/Post/Markdown';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -105,7 +106,7 @@ const PostForm = ({ post }: { post: PostDataType | null }) => {
 
   const previewMarkdown = () => {
     const content = form.getValues('content');
-    const htmlContent = marked(content);
+    const htmlContent = renderToStaticMarkup(<Markdown content={content} />);
     const windowFeatures = 'left=100,top=100,width=960,height=960';
     const newWindow = window.open('', '_blank', windowFeatures);
     if (!newWindow) {
