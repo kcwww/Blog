@@ -75,14 +75,6 @@
   }
 }
 
-::-webkit-scrollbar {
-  display: none;
-}
-
-body {
-  scrollbar-width: none;
-}
-
 .mainShadow {
   box-shadow:
     -20px -20px 25px rgba(255, 255, 255, 0.5),
