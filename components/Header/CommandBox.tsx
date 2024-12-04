@@ -43,10 +43,24 @@ const CommandBox = () => {
 
   const router = useRouter();
 
+  const fetchPosts = async () => {
+    try {
+      const res = await clientComponentFetch(BACKEND_ROUTES.POSTS);
+      setPosts(res.posts);
+    } catch (err) {
+      toast.error(
+        '게시물을 가져오는데 실패하였습니다. 잠시 후 다시 시도해주세요.'
+      );
+    }
+  };
+
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
       if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
+        if (!open) {
+          fetchPosts();
+        }
         setOpen((open) => !open);
       }
     };
@@ -76,17 +90,6 @@ const CommandBox = () => {
       setInput('');
     }
   }, [open]);
-
-  const fetchPosts = async () => {
-    try {
-      const res = await clientComponentFetch(BACKEND_ROUTES.POSTS);
-      setPosts(res.posts);
-    } catch (err) {
-      toast.error(
-        '게시물을 가져오는데 실패하였습니다. 잠시 후 다시 시도해주세요.'
-      );
-    }
-  };
 
   return (
     <>
