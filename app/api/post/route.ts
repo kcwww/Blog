@@ -38,6 +38,8 @@ const POST = async (req: NextRequest) => {
               title: data.title,
             },
           ],
+          title:
+            data.post.name.charAt(0).toUpperCase() + data.post.name.slice(1),
         });
       } else {
         const newData = typeDoc.data().posts;
